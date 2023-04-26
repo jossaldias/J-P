@@ -1,0 +1,37 @@
+{% extends "core/base/base.html" %}
+
+{% load static %}
+{% block template %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrapper">
+                <div class="logo">
+                    <img src="{% static 'images/solo_logo.png' %}" alt="">
+                </div>
+                <div class="text-center mt-4 name">
+                    ProdMas
+                </div>
+                <form id="formLogin" method="POST" class="p-3 mt-3">
+                    {% csrf_token %}
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="email" id="email" placeholder="Correo">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="password" name="pwd" id="pwd" placeholder="Contraseña">
+                    </div>
+                    <button type="submit" class="btn mt-3">Iniciar sesion</button>
+                </form>
+                <div class="text-center fs-6">
+                    ¿No tienes una cuenta? <a href="{% url 'registro' %}">Registrate</a>
+                </div>
+                <div class="text-center fs-6">
+                    Ingreso Colaboradores Join&Play <a href="{% url 'loginAdmin' %}">Aquí</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock template %}

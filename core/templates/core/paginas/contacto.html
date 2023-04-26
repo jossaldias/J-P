@@ -1,0 +1,49 @@
+{% extends "core/base/base.html" %}
+
+{% load static %}
+{% block template %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrapper">
+                <div class="logo">
+                    <img src="{% static 'images/solo_logo.png' %}" alt="">
+                </div>
+                <div class="text-center mt-4 name">
+                    ProdMas
+                </div>
+                <form method="POST" class="p-3 mt-3">
+                    {% csrf_token %}
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="nombre" id="username" placeholder="Nombre">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="apellido" id="pwd" placeholder="Apellido">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="mail" id="pwd" placeholder="Mail">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="number" name="telefono" id="pwd" placeholder="Telefono">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="mensaje" id="mensaje" placeholder="Ingrese mensaje...">
+                    </div>
+                    <div id="mensaje" class="success mt-3">
+                        {{ mensaje }}
+                    </div>
+                    <button class="btn mt-3">Enviar</button>
+                </form>
+                <div class="text-center fs-6">
+                    ¿Ya tienes cuenta? <a href="{% url 'login' %}">Ingresa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

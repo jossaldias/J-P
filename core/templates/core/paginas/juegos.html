@@ -4,17 +4,17 @@
 {% block template %}
 
 <main>
-    <h2>CATALOGO DE JUEGOS</h2>
-    <section>
-        {% for juego in juegos.results %}
-      <article>
-        <h3>{{juego.name}}</h3>
-        <img src={{juego.background_image}} alt="Juego 3">
-        <p>Descripción del juego 3</p>
-        <a href="#">Comprar</a>
-        </article>
-        {% endfor %}
-    </section>
+  <h2>CATALOGO DE JUEGOS</h2>
+  <section>
+    {% for juego in juegos.results %}
+    <article>
+      <h3>{{juego.name}}</h3>
+      <img src={{juego.background_image}} alt="Juego 3">
+      <p>Descripción del juego 3</p>
+      <a href="#">Comprar</a>
+    </article>
+    {% endfor %}
+  </section>
 </main>
 
 {% endblock template %}

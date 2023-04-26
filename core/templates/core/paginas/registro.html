@@ -1,0 +1,61 @@
+{% extends "core/base/base.html" %}
+
+{% load static %}
+{% block template %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrapper">
+                <div class="logo">
+                    <img src="{% static 'images/solo_logo.png' %}" alt="">
+                </div>
+                <div class="text-center mt-4 name">
+                    ProdMas
+                </div>
+                <form id="formRegistro" method="POST" class="p-3 mt-3">
+                    {% csrf_token %}
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="nombres" id="nombres" placeholder="Ingrese su nombre...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="apellidos" id="apellidos" placeholder="Ingrese su apellido...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="correo" id="correo" placeholder="Ingrese correo...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="number" name="correo" id="telefono" placeholder="Ingrese telefono...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="fecha_nac" id="fecha_nac" placeholder="Fecha de nacimiento..."
+                            onfocus="(this.type='date')">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="domicilio" id="domicilio" placeholder="Ingrese direccion...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="comuna" id="comuna" placeholder="Ingrese comuna...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="password" name="pwd" id="pwd" placeholder="Contraseña...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="password" name="pwd1" id="pwd1" placeholder="Repita contraseña...">
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">Subscribirse a la Fundacion</label>
+                    </div>
+                    <div id="error" class="alert alert-danger">
+
+                    </div>
+                    <button type="submit" class="btn mt-3">Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock template %}
