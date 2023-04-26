@@ -6,48 +6,15 @@
 <main>
     <h2>CATALOGO DE JUEGOS</h2>
     <section>
-        <article>
-            <h3>Juego 1</h3>
-            <img src="static/core/img/mario.jpg" alt="juego 1">
-            <p>Descripción del juego 1</p>
-            <a href="#">Comprar</a>
+        {% for juego in juegos.results %}
+      <article>
+        <h3>{{juego.name}}</h3>
+        <img src={{juego.background_image}} alt="Juego 3">
+        <p>Descripción del juego 3</p>
+        <a href="#">Comprar</a>
         </article>
-
-        <article>
-            <h3>Juego 2</h3>
-            <img src="static/core/img/mario.jpg" alt="Juego 2">
-            <p>Descripción del juego 2</p>
-            <a href="#">Comprar</a>
-        </article>
-
-        <article>
-            <h3>Juego 1</h3>
-            <img src="static/core/img/mario.jpg" alt="Juego 3">
-            <p>Descripción del juego 1</p>
-            <a href="#">Comprar</a>
-        </article>
-
-        <article>
-            <h3>Juego 2</h3>
-            <img src="static/core/img/mario.jpg" alt="juego 4">
-            <p>Descripción del juego 2</p>
-            <a href="#">Comprar</a>
-        </article>
-
-        <article>
-            <h3>Juego 1</h3>
-            <img src="static/core/img/mario.jpg" alt="juego 5">
-            <p>Descripción del juego 1</p>
-            <a href="#">Comprar</a>
-        </article>
-
-        <article>
-            <h3>Juego 2</h3>
-            <img src="static/core/img/mario.jpg" alt="juego 6">
-            <p>Descripción del juego 2</p>
-            <a href="#">Comprar</a>
-        </article>
+        {% endfor %}
     </section>
 </main>
 
-{% endblock %}
+{% endblock template %}
