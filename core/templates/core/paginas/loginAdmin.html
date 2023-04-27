@@ -1,6 +1,12 @@
 {% extends "core/base/base.html" %}
 
 {% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/forms.css' %}">
+{% endblock %}
+
 {% block template %}
 
 
@@ -9,10 +15,10 @@
         <div class="col-md-12">
             <div class="wrapper">
                 <div class="logo">
-                    <img src="{% static 'images/solo_logo.png' %}" alt="">
+                    <img src="{% static 'core/img/j&pmini.png' %}" alt="">
                 </div>
                 <div class="text-center mt-4 name">
-                    ProdMas
+                    Join And Play
                 </div>
                 <form id="formRegistro" method="POST" class="p-3 mt-3">
                     {% csrf_token %}

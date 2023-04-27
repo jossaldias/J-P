@@ -38,3 +38,7 @@ def loginAdmin(request):
 
 def registro(request):
     return render(request, 'core/paginas/registro.html')
+
+
+def carritoCompras(request):
+    return render(request, 'core/paginas/carritoCompras.html')
