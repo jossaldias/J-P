@@ -1,0 +1,60 @@
+{% extends "core/base/base.html" %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/forms.css' %}">
+{% endblock %}
+
+{% block template %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrapper">
+                <div class="logo">
+                    <img src="{% static 'images/solo_logo.png' %}" alt="">
+                </div>
+                <div class="text-center mt-4 name">
+                    ProdMas
+                </div>
+                <div class="text-left mt-4 name">
+                    Ingreso de productos
+                </div>
+                <form id="formAgregar" method="POST" class="p-3 mt-3">
+                    {% csrf_token %}
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="descripcion" id="descripcion"
+                            placeholder="Descripcion del producto...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="categoria" id="categoria" placeholder="Categoria del producto...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="precio" id="precio" placeholder="Precio del producto...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="stock" id="stock" placeholder="Stock del producto...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="imagen" id="imagen" placeholder="Imagen del producto...">
+                    </div>
+                    <div id="error" class="alert alert-danger mt-3"></div>
+
+                    <button type="submit" class="btn mt-3">Ingresar</button>
+                    <button type="reset" class="btn mt-3">Limpiar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+<!-- https://programadorwebvalencia.com/javascript-ejemplo-carrito-de-compra -->

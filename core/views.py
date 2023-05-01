@@ -42,3 +42,7 @@ def registro(request):
 
 def carritoCompras(request):
     return render(request, 'core/paginas/carritoCompras.html')
+
+
+def pageTest(request):
+    return render(request, 'core/paginas/pageTest.html')
