@@ -36,7 +36,7 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/crearProducto/',
+                url: 'http://127.0.0.1:8000/paginas/pageTest',
                 data: data,
                 type: 'POST',
                 contentType: false,

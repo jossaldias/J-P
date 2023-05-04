@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'core/css/forms.css' %}">
 {% endblock %}
 
-{% block template %}
+{% block contenido %}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -15,24 +15,28 @@
                     <img src="{% static 'core/img/j&pmini.png' %}" alt="">
                 </div>
                 <div class="text-center mt-4 name">
-                    Admin Join And Play
+                    Join And Play
                 </div>
-                <form id="login" method="POST" class="p-3 mt-3">
+                <form id="formRegistro" method="POST" class="p-3 mt-3">
                     {% csrf_token %}
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="user" id="user" placeholder="Admin Join And Play">
+                        <input type="text" name="username" id="username" placeholder="Ingrese un nombre de usuario...">
                     </div>
                     <div class="form-field d-flex align-items-center">
-                        <input type="password" name="pwd" id="pwd" placeholder="Contraseña">
+                        <input type="text" name="email" id="email" placeholder="Ingrese correo...">
                     </div>
-                    <button type="submit" class="btn mt-3">Iniciar sesion</button>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="password" name="pwd" id="pwd" placeholder="Contraseña...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="password" name="pwd1" id="pwd1" placeholder="Repita contraseña...">
+                    </div>
                     <div class="alert alert-danger mt-3" id="error">
 
                     </div>
+
+                    <button type="submit" class="btn mt-3">Registrarse</button>
                 </form>
-                <div class="text-center fs-6">
-                    ¿No puedes Ingresar? <a href="{% url 'contacto' %}">Contactanos</a>
-                </div>
             </div>
         </div>
     </div>
@@ -40,5 +44,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/forms/loginAdmin.js' %} "></script>
+<script src="{% static 'js/forms/registroAdmin.js' %}"></script>
 {% endblock %}

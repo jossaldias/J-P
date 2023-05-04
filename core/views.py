@@ -40,6 +40,10 @@ def registro(request):
     return render(request, 'core/paginas/registro.html')
 
 
+def registroAdmin(request):
+    return render(request, 'core/paginas/registroAdmin.html')
+
+
 def carritoCompras(request):
     return render(request, 'core/paginas/carritoCompras.html')
 
