@@ -19,16 +19,17 @@ from .serializers import *
 @csrf_exempt
 @api_view(['POST'])
 def crearCliente(request):
-    username = request.POST['nombres']
-    email = request.POST['email']
-    pwd = request.POST['pwd']
+    # username = request.POST.get['nombres']
+    # email = request.POST.get['email']
+    # pwd = request.POST.get['pwd']
 
     Cliente.objects.create(
-        nombres = username,
+        nombres = request.POST['nombres'],
         apellidos = request.POST['apellidos'],
-        correo = email,
-        contraseña = pwd,
-        fecha_nacimiento = request.POST['fec_nac'],
+        correo = request.POST['correo'],
+        pwd = request.POST['pwd'],
+        pwd1 = request.POST['pwd1'],
+        fecha_nac = request.POST['fecha_nac'],
         telefono = request.POST['telefono'],
         domicilio = request.POST['domicilio'],
         comuna = request.POST['comuna']

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import crearCliente
+from .views import *
 
 urlpatterns = [
     # path('obtenerProductos/', obtenerProductos),
@@ -11,7 +11,7 @@ urlpatterns = [
     # path('obtenerProductosDescuento/', obtenerProductosDescuento),
 
     # path('obtenerClientes/', obtenerClientes),
-    path('crearCliente/', crearCliente),
+    path('crearCliente', crearCliente),
     # path('editarCliente/<p_id>', editarCliente),
     # path('eliminarCliente/<p_id>', eliminarCliente),
 

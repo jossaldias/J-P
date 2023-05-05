@@ -2,13 +2,12 @@ $(document).ready(function () {
     $('#error').hide()
 
     $('#formRegistro').submit(function (event) {
-        event.preventDefault()
         let nombres = $('#nombres').val()
         let apellidos = $('#apellidos').val()
         let correo = $('#correo').val()
         let telefono = $('#telefono').val()
         let fecha_nac = $('#fecha_nac').val()
-        let direccion = $('#domicilio').val()
+        let direccion = $('#direccion').val()
         let comuna = $('#comuna').val()
         let pwd = $('#pwd').val()
         let pwd1 = $('#pwd1').val()
@@ -49,19 +48,20 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/paginas/registro',
+                url: 'http://127.0.0.1:8000/api/crearCliente',
                 data: data,
                 type: 'POST',
                 contentType: false,
                 processData: false,
                 success: action,
-                error: action
+                error: action,
             })
         }
         else {
+            event.preventDefault();
             $('#error').show()
             $('#error').html(mensaje_error)
-            event.preventDefault();
         }
+        event.preventDefault()
     })
 })
