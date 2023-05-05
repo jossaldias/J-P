@@ -2,11 +2,13 @@ $(document).ready(function () {
     $('#error').hide()
 
     $('#formRegistro').submit(function (event) {
+        event.preventDefault()
         let nombres = $('#nombres').val()
         let apellidos = $('#apellidos').val()
         let correo = $('#correo').val()
+        let telefono = $('#telefono').val()
         let fecha_nac = $('#fecha_nac').val()
-        let direccion = $('#direccion').val()
+        let direccion = $('#domicilio').val()
         let comuna = $('#comuna').val()
         let pwd = $('#pwd').val()
         let pwd1 = $('#pwd1').val()
@@ -20,6 +22,9 @@ $(document).ready(function () {
         }
         if (correo === '') {
             mensaje_error += 'Debe ingresar su correo.<br>'
+        }
+        if (telefono === '') {
+            mensaje_error += 'Debe ingresar un telefono.<br>'
         }
         if (fecha_nac === '') {
             mensaje_error += 'Debe ingresar su fecha de nacimiento.<br>'
