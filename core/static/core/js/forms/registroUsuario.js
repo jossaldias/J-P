@@ -45,6 +45,9 @@ $(document).ready(function () {
             var data = new FormData(this);
             var action = function (d) {
                 console.log(d);
+                window.location.href = "/";
+                alert("Felicidades " + nombres + "  " + apellidos + " se ha regitrado con éxito");
+
             }
 
             $.ajax({

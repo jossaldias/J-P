@@ -8,7 +8,7 @@ class Cliente(models.Model):
     correo = models.CharField(max_length=100, unique=True)
     pwd = models.CharField(max_length=100)
     pwd1 = models.CharField(max_length=100)
-    telefono = models.IntegerField()
+    telefono = models.BigIntegerField()
     fecha_nac = models.DateField()
     domicilio = models.CharField(max_length=100)
     comuna = models.CharField(max_length=100)
