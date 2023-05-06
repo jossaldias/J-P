@@ -35,7 +35,7 @@ $(document).ready(function () {
             mensaje_error += 'Debe ingresar la comuna donde vive.<br>'
         }
         if (pwd === '') {
-            mensaje_error += 'Debe ingresar una contraseña valida.'
+            mensaje_error += 'Debe ingresar una contraseña valida.<br>'
         }
         else if (pwd !== pwd1) {
             mensaje_error += 'Las contraseñas no coinciden.<br>'

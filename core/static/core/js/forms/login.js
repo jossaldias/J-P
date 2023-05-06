@@ -2,29 +2,28 @@ $(document).ready(function () {
     $('#error').hide()
 
     $('#login').submit(function (event) {
-        event.preventDefault()
 
-        let username = $('#user').val()
-        let password = $('#pwd').val()
+        let correo = $('#correo').val()
+        let pwd = $('#pwd').val()
 
         let mensaje_error = ''
-        if (username === '') {
-            mensaje_error += 'Debe ingresar un nombre de usuario.<br>'
+        if (correo === '') {
+            mensaje_error += 'Debe ingresar un correo valido.<br>'
         }
-        if (password === '') {
-            mensaje_error += 'Debe ingresar una contraseña.'
+        if (pwd === '') {
+            mensaje_error += 'Debe ingresar una contraseña.<br>'
         }
 
         if (mensaje_error === '') {
             var data = new FormData(this)
-
             var action = function (d) {
                 $('#error').show();
                 $('#error').html(d)
+                window.location.href = "/paginas/juegos";
             }
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/paginas/loginAdmin',
+                url: 'http://127.0.0.1:8000/api/login',
                 data: data,
                 type: 'POST',
                 contentType: false,
@@ -37,5 +36,7 @@ $(document).ready(function () {
             $('#error').show()
             $('#error').html(mensaje_error)
         }
+        event.preventDefault()
+
     })
 })

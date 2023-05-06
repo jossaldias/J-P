@@ -16,5 +16,5 @@ urlpatterns = [
     # path('eliminarCliente/<p_id>', eliminarCliente),
 
     # path('registroAdmin/', crearAdmin),
-    # path('loginAdmin/', loginAdmin),
+    path('login', login),
 ]
