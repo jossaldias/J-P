@@ -88,11 +88,18 @@ WSGI_APPLICATION = 'JAP.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'JAP',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'NAME': 'joinandplay',
+        'USER': 'devgroup',
+        'PASSWORD': 'devgroup',
+        'HOST': 'db4free.net',
         'PORT': 3306,
+
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'joinandpplay',
+        # 'USER': 'devgroup',
+        # 'PASSWORD': 'devgroup',
+        # 'HOST': 'db4free.net:3306/joinandpplay',
+
     }
 }
 
@@ -112,8 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+    },]
 
 
 # Internationalization
