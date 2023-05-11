@@ -13,5 +13,9 @@ urlpatterns = [
     path('paginas/loginAdmin', loginAdmin, name="loginAdmin"),
     path('paginas/registro', registro, name="registro"),
     path('paginas/carritoCompras', carritoCompras, name="carritoCompras"),
-    path('paginas/pageTest', pageTest, name="pageTest"),
+    path('paginas/agregarProducto', pageTest, name="agregarProducto"),
+    path('paginas/accion_y_aventura', pageTest, name="accion_y_aventura"),
+    path('paginas/arcade_y_simulacion', pageTest, name="arcade_y_simulacion"),
+    path('paginas/deportes_y_musica', pageTest, name="deportes_y_musica"),
+    path('paginas/shooter_y_estrategia', pageTest, name="shooter_y_estrategia"),
 ]

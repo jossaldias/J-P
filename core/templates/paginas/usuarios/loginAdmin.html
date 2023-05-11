@@ -1,49 +1,44 @@
-{% extends "core/base/base.html" %}
+{% extends "base/base.html" %}
 
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'core/css/forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
 
-{% block template %}
-
+{% block contenido %}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="wrapper">
                 <div class="logo">
-                    <img src="{% static 'core/img/j&pmini.png' %}" alt="">
+                    <img src="{% static 'img/j&pmini.png' %}" alt="">
                 </div>
                 <div class="text-center mt-4 name">
                     Usuarios Join And Play
                 </div>
-                <form id="login" method="GET" class="p-3 mt-3">
+                <form id="login" method="POST" class="p-3 mt-3">
                     {% csrf_token %}
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="correo" id="correo" placeholder="Correo">
+                        <input type="text" name="user" id="user" placeholder="Usuario ProdMas">
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <input type="password" name="pwd" id="pwd" placeholder="Contraseña">
                     </div>
                     <button type="submit" class="btn mt-3">Iniciar sesion</button>
-                </form>
-                <div id="error" class="alert alert-danger">
+                    <div class="alert alert-danger mt-3" id="error">
 
-                </div>
+                    </div>
+                </form>
                 <div class="text-center fs-6">
-                    ¿No tienes una cuenta? <a href="{% url 'registro' %}">Registrate</a>
+                    ¿No puedes Ingresar? <a href="{% url 'contacto' %}">Contactanos</a>
                 </div>
-                {% comment %} <div class="text-center fs-6">
-                    Ingreso Colaboradores Join&Play <a href="{% url 'loginAdmin' %}">Aquí</a>
-                </div> {% endcomment %}
             </div>
         </div>
     </div>
 </div>
-
-{% endblock template %}
+{% endblock %}
 
 {% block scripts %}
-<script src="{% static 'core/js/forms/login.js' %}"></script>
+<script src="{% static 'js/forms/loginAdmin.js' %} "></script>
 {% endblock %}

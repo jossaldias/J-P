@@ -1,9 +1,9 @@
-{% extends "core/base/base.html" %}
+{% extends "base/base.html" %}
 
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'core/css/forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
 
 {% block template %}
@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <div class="wrapper">
                 <div class="logo">
-                    <img src="{% static 'core/img/j&pmini.png' %}" alt="">
+                    <img src="{% static 'img/j&pmini.png' %}" alt="">
                 </div>
                 <div class="text-center mt-4 name">
                     Joyn And Play
@@ -26,23 +26,20 @@
                 <form id="formAgregar" method="POST" class="p-3 mt-3">
                     {% csrf_token %}
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto...">
-                    </div>
-                    <div class="form-field d-flex align-items-center">
-                        <input type="text" name="descripcion" id="descripcion"
-                            placeholder="Descripcion del producto...">
-                    </div>
-                    <div class="form-field d-flex align-items-center">
                         <input type="text" name="categoria" id="categoria" placeholder="Categoria del producto...">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto...">
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <input type="text" name="precio" id="precio" placeholder="Precio del producto...">
                     </div>
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="stock" id="stock" placeholder="Stock del producto...">
+                        <input type="text" name="imagen" id="imagen" placeholder="Imagen del producto...">
                     </div>
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="imagen" id="imagen" placeholder="Imagen del producto...">
+                        <input type="text" name="descripcion" id="descripcion"
+                            placeholder="Descripcion del producto...">
                     </div>
                     <div id="error" class="alert alert-danger mt-3"></div>
 
