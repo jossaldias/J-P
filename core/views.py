@@ -44,5 +44,18 @@ def carritoCompras(request):
     return render(request, 'paginas/productos/carritoCompras.html')
 
 
-def pageTest(request):
-    return render(request, 'paginas/productos/agregar/producto.html')
+def agregarProducto(request):
+    return render(request, 'paginas/productos/agregarProducto.html')
+
+def accionAventura(request):
+    return render(request, 'paginas/categorias/accionAventura.html')
+
+def arcadeSimulacion(request):
+    return render(request, 'paginas/categorias/arcadeSimulacion.html')
+
+def deportesMusica(request):
+    return render(request, 'paginas/categorias/deportesMusica.html')
+
+def shooterEstrategia(request):
+    return render(request, 'paginas/categorias/shooterEstrategia.html')
+

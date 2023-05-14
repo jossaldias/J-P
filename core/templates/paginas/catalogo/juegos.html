@@ -4,7 +4,17 @@
 {% block template %}
 
 <main>
+
   <h2 class="card borders" style="text-align: center;color: darkblue;">CATALOGO DE JUEGOS</h2>
+
+  <article>
+    <h1>CATEGORIAS</h1>
+    <a href="{% url 'accionAventura' %}" style="color: white;">Accion y Aventura</a>
+    <a href="{% url 'arcadeSimulacion' %}" style="color: white;">Arcade y Simulacion</a>
+    <a href="{% url 'deportesMusica' %}" style="color: white;">Deportes y Musica</a>
+    <a href="{% url 'shooterEstrategia' %}" style="color: white;">Shooter y Estrategia</a>
+  </article>
+
   <section>
     {% for juego in juegos.results %}
     <article>
@@ -13,7 +23,7 @@
 
       <a href="#">Descripción del juego</a>
 
-      <button style="color: white;" type="submit" class="btn mt-3">Añadir al Carrito</button>
+      <a style="color: white;" type="submit">Añadir al Carrito</a>
 
     </article>
     {% endfor %}
