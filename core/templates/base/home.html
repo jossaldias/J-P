@@ -4,7 +4,65 @@
 {% block template %}
 
 <main>
+
   <h2 class="card borders" style="text-align: center;color: darkblue;">NOVEDADES</h2>
+
+
+  <div class="container-fluid mt-3 mb-5">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <a href="#">
+                <img src="{% static 'img/mario.jpg' %}" class="d-block w-100 imgcarousel" alt="">
+              </a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="texto">Super Mario 1</h5>
+                <p class="texto">Descripción</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <a href="#">
+                <img src="{% static 'img/mario.jpg' %}" class="d-block w-100 imgcarousel" alt="">
+              </a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="texto">Super Mario 2</h5>
+                <p class="texto">Descripción</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <a href="#">
+                <img src="{% static 'img/mario.jpg' %}" class="d-block w-100 imgcarousel" alt="">
+              </a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="texto">Super Mario 3</h5>
+                <p class="texto">Descripción</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <a href="#">
+                <img src="{% static 'img/mario.jpg' %}" class="d-block w-100 imgcarousel" alt="">
+              </a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5 class="texto">Super Mario 4</h5>
+                <p class="texto">Descripción</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Siguiente</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <section>
     <article>
       <h3>Juego 1</h3>
