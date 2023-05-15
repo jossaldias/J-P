@@ -55,11 +55,10 @@ def register(request):
 
     return render(request, 'registration/register.html', data)
 
-# @login_required
 def carritoCompras(request):
     return render(request, 'paginas/productos/carritoCompras.html')
 
-
+@login_required
 def agregarProducto(request):
     return render(request, 'paginas/productos/agregarProducto.html')
 
