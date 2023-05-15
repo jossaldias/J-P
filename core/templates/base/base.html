@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -40,15 +40,25 @@
         <li class=" nav-item">
           <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
-        </li>
 
+        {% if request.user.is_authenticated %}
+           <li class="nav-item"><a class="nav-link" href={% url 'exit' %}>Salir</a></li>
+        {%else%}
+           <li class="nav-item"><a class="nav-link" href={% url 'login' %}>Login</a></li>
+        {%endif%}
+     
       </ul>
       <a href="{% url 'carritoCompras' %}">
         <img class="ml-2" src="{% static 'img/carrito_png.png' %}" width="30px" height="25px" alt="Carrito de Compras">
       </a>
+        
     </div>
+
+    {% if request.user.is_authenticated %} 
+    <span class="glyphicon glyphicon-user" ></span> 
+    <strong style="color:white" >  {{user.username | upper }}, bienvenido &nbsp;&nbsp;&nbsp; </strong>
+    <span class="glyphicon glyphicon-chevron-down"></span>
+    {%endif%}
 
     <form id="busqueda" class="form-inline my-2 my-lg-0">
       {% csrf_token %}
@@ -64,6 +74,11 @@
 
   {% block template%}
 
+
+
+
+
+  
 
   {%endblock%}
 

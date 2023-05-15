@@ -1,5 +1,7 @@
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -11,6 +13,9 @@ def home(request):
 
 # PAGINAS
 
+def exit(request):
+    logout(request)
+    return redirect('home')
 
 def juegos(request):
     response = requests.get(
@@ -27,19 +32,10 @@ def accesorios(request):
 def contacto(request):
     return render(request, 'paginas/informacion/contacto.html')
 
-
-def login(request):
-    return render(request, 'paginas/usuarios/login.html')
-
-
-def loginAdmin(request):
-    return render(request, 'paginas/usuarios/loginAdmin.html')
-
-
 def registro(request):
-    return render(request, 'paginas/usuarios/registro.html')
+    return render(request, 'registration/registro.html')
 
-
+# @login_required
 def carritoCompras(request):
     return render(request, 'paginas/productos/carritoCompras.html')
 
