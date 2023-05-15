@@ -5,15 +5,33 @@
 
 <main>
 
-  <h2 class="card borders" style="text-align: center;color: darkblue;">CATALOGO DE JUEGOS</h2>
+  <h1 class="card borders" style="text-align: center;color: darkblue;">CATALOGO DE JUEGOS</h1>
 
   <article>
     <h1>CATEGORIAS</h1>
-    <a href="{% url 'accionAventura' %}" style="color: white;">Accion y Aventura</a>
-    <a href="{% url 'arcadeSimulacion' %}" style="color: white;">Arcade y Simulacion</a>
-    <a href="{% url 'deportesMusica' %}" style="color: white;">Deportes y Musica</a>
-    <a href="{% url 'shooterEstrategia' %}" style="color: white;">Shooter y Estrategia</a>
   </article>
+
+  <div class="container-fluid mt-12">
+    <div class="row">
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href="{% url 'accionAventura' %}" style="color: white;">Accion y
+          Aventura</a>
+      </article>
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href=" {% url 'arcadeSimulacion' %}" style="color: white;">Arcade y
+          Simulacion</a>
+      </article>
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href="{% url 'deportesMusica' %}" style="color: white;">Deportes y
+          Musica</a>
+      </article>
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href="{% url 'shooterEstrategia' %}" style="color: white;">Shooter y
+          Estrategia</a>
+      </article>
+    </div>
+  </div>
+
 
   <section>
     {% for juego in juegos.results %}
