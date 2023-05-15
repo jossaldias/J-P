@@ -1,12 +1,13 @@
 {% extends "base/base.html" %}
 
-{% load static %}
 
+{% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
 
 {% block template %}
+{% load crispy_forms_tags %}
 
 <div class="container">
     <div class="row">
@@ -20,19 +21,20 @@
                 </div>
                 <form id="login" method="POST" class="p-3 mt-3">
                     {% csrf_token %}
-                    <div class="form-field d-flex align-items-center">
+                    {{form | crispy}} 
+
+                    {% comment %} <div class="form-field d-flex align-items-center">
                         <input type="text" name="username" id="" placeholder="Nombre de Usuario">
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <input type="password" name="password" id="" placeholder="Contraseña">
-                    </div>
+                    </div>  {% endcomment %}
+
                     <button type="submit" class="btn mt-3">Iniciar sesion</button>
                 </form>
-                {% comment %} <div id="error" class="alert alert-danger">
-
-                </div> {% endcomment %}
+              
                 <div class="text-center fs-6">
-                    ¿No tienes una cuenta? <a href="{% url 'registro' %}">Registrate</a>
+                    ¿No tienes una cuenta? <a href="{% url 'register' %}">Registrate</a>
                 </div>
             </div>
         </div>

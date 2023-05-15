@@ -35,8 +35,9 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  text-decoration: underline;
-}
+  border-radius: 50px;
+  background-color: #512a7f;
+ }
 
 main {
   max-width: 800px;
@@ -108,10 +109,3 @@ footer p {
   font-size: 14px;
 }
 
-li {
-  padding: 1px;
-  border: 0.5px solid #512a7f;
-  margin-left: 10px;
-  border-radius: 50px;
-  background-color: #512a7f;
-}
