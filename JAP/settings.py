@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'core',
-    'user',
+    
   
 ]
 
@@ -82,17 +82,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'JAP.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-# 'default': {
-# 'ENGINE': 'django.db.backends.sqlite3',
-# 'NAME': BASE_DIR / 'db.sqlite3',
-# }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -101,12 +90,6 @@ DATABASES = {
         'PASSWORD': 'devgroup',
         'HOST': 'db4free.net',
         'PORT': 3306,
-
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'joinandpplay',
-        # 'USER': 'devgroup',
-        # 'PASSWORD': 'devgroup',
-        # 'HOST': 'db4free.net:3306/joinandpplay',
 
     }
 }
@@ -158,4 +141,4 @@ LOGOUT_REDIRECT_URL = 'home'
 MEDIA_URL= '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'core.User'
