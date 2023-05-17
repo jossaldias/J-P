@@ -1,3 +1,4 @@
+import os
 import requests
 
 from django.shortcuts import render, redirect
@@ -26,8 +27,8 @@ def juegos(request):
     response = requests.get(
         'https://api.rawg.io/api/games?key=b40d42ec4f374f75aa29ef424c698357')
     games = response.json()
-    print(games)
-    return render(request, 'paginas/catalogo/juegos.html', {"juegos": games})
+    print(response)
+    return render(request, 'paginas/catalogo/juegos.html', {'games': games['results']})
 
 
 def accesorios(request):
