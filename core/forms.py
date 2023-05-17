@@ -101,4 +101,4 @@ class CustomUserCreationForm(UserCreationForm):
     
         class Meta:
             model = User
-            fields = ['username','first_name','last_name','region','comuna','direccion','telefono','password1','password2']
+            fields = ['username','first_name','last_name','email','region','comuna','direccion','telefono','password1','password2']
