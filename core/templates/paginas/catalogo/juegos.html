@@ -5,25 +5,24 @@
 
 <main>
 
-  <h1 class="card borders" style="text-align: center;color: darkblue;">CATALOGO DE JUEGOS</h1>
 
   <article>
-    <h1>CATEGORIAS</h1>
+    <h1>CATEGORÍAS</h1>
   </article>
 
   <div class="container-fluid mt-12">
     <div class="row">
       <article style="width: 150px;">
-        <a class="col-md-12 mb-4" href="{% url 'accionAventura' %}" style="color: white;">Accion y
+        <a class="col-md-12 mb-4" href="{% url 'accionAventura' %}" style="color: white;">Acción y
           Aventura</a>
       </article>
       <article style="width: 150px;">
         <a class="col-md-12 mb-4" href=" {% url 'arcadeSimulacion' %}" style="color: white;">Arcade y
-          Simulacion</a>
+          Simulación</a>
       </article>
       <article style="width: 150px;">
         <a class="col-md-12 mb-4" href="{% url 'deportesMusica' %}" style="color: white;">Deportes y
-          Musica</a>
+          Música</a>
       </article>
       <article style="width: 150px;">
         <a class="col-md-12 mb-4" href="{% url 'shooterEstrategia' %}" style="color: white;">Shooter y
@@ -32,15 +31,16 @@
     </div>
   </div>
 
+  <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">CATÁLOGO DE JUEGOS</h1>
 
   <section>
     {% for juego in games %}
     <article>
-      <h3>{{juego.name}}</h3>
-      <img src={{juego.background_image}} alt="...">
+      <h3>{{juego.title}}</h3>
+      <img src={{juego.thumbnail}} alt="...">
 
-      <a href="#">Descripción del juego</a>
-
+      <strong>Descripción del juego</strong><br>
+      <p>{{juego.short_description}}</p>
       <a style="color: white;" type="submit">Añadir al Carrito</a>
 
     </article>

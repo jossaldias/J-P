@@ -1,24 +1,53 @@
 {% extends "base/base.html" %}
 
 {% load static %}
+{% block template %}
 
-{% block contenido %}
-<div class="container-fluid mt-4">
+<main>
+
+
+  <article>
+    <h1>CATEGORÍAS</h1>
+  </article>
+
+  <div class="container-fluid mt-12">
     <div class="row">
-        <div class="col-md-12 mb-4">
-            <div style="text-align: center;" class="card borders">
-                <h3>
-                    <u><b>Arcade y Simulacion</b></u>
-                </h3>
-            </div>
-        </div>
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href="{% url 'accionAventura' %}" style="color: white;">Acción y
+          Aventura</a>
+      </article>
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href=" {% url 'arcadeSimulacion' %}" style="color: white;">Arcade y
+          Simulación</a>
+      </article>
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href="{% url 'deportesMusica' %}" style="color: white;">Deportes y
+          Música</a>
+      </article>
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href="{% url 'shooterEstrategia' %}" style="color: white;">Shooter y
+          Estrategia</a>
+      </article>
     </div>
-    <div id="contenido" class="row">
+  </div>
 
-    </div>
-</div>
-{% endblock %}
+  <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">ARCADE Y SIMULACIÓN</h1>
 
-{% block scripts %}
-<script src=""></script>
+  <section>
+    {% for juego in pixel %}
+    <article>
+      <h3>{{juego.title}}</h3>
+      <strong>Género</strong>
+      <p>{{juego.genre}}</p>
+      <img src={{juego.thumbnail}} alt="...">
+
+      <strong>Descripción del juego</strong><br/><br/>
+      <p>{{juego.short_description}}</p>
+      <a style="color: white;" type="submit">Añadir al Carrito</a>
+
+    </article>
+    {% endfor %}
+  </section>
+</main>
+
 {% endblock %}

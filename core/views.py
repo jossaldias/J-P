@@ -15,7 +15,11 @@ from .forms import CustomUserCreationForm
 
 
 def home(request):
-    return render(request, 'base/home.html')
+    response = requests.get(
+        'https://www.freetogame.com/api/games?sort-by=date')
+    home = response.json()
+    print(response)
+    return render(request, 'base/home.html', {'home': home})
 
 # PAGINAS
 
@@ -25,10 +29,10 @@ def exit(request):
 
 def juegos(request):
     response = requests.get(
-        'https://api.rawg.io/api/games?key=b40d42ec4f374f75aa29ef424c698357')
+        'https://www.freetogame.com/api/games')
     games = response.json()
     print(response)
-    return render(request, 'paginas/catalogo/juegos.html', {'games': games['results']})
+    return render(request, 'paginas/catalogo/juegos.html', {'games': games})
 
 
 def accesorios(request):
@@ -67,14 +71,33 @@ def agregarProducto(request):
     return render(request, 'paginas/productos/agregarProducto.html')
 
 def accionAventura(request):
-    return render(request, 'paginas/categorias/accionAventura.html')
+    response = requests.get(
+        'https://www.freetogame.com/api/games?category=action')
+    action = response.json()
+    print(response)
+    return render(request, 'paginas/categorias/accionAventura.html', 
+    {'action': action})
 
 def arcadeSimulacion(request):
-    return render(request, 'paginas/categorias/arcadeSimulacion.html')
+    response = requests.get(
+        'https://www.freetogame.com/api/games?category=pixel')
+    pixel = response.json()
+    print(response)
+    return render(request, 'paginas/categorias/arcadeSimulacion.html',
+    {'pixel': pixel})
 
 def deportesMusica(request):
-    return render(request, 'paginas/categorias/deportesMusica.html')
+    response = requests.get(
+        'https://www.freetogame.com/api/games?category=sports')
+    sports = response.json()
+    print(response)
+    return render(request, 'paginas/categorias/deportesMusica.html',
+    {'sports': sports})
 
 def shooterEstrategia(request):
-    return render(request, 'paginas/categorias/shooterEstrategia.html')
+    response = requests.get(
+        'https://www.freetogame.com/api/games?category=shooter')
+    shoot = response.json()
+    print(response)
+    return render(request, 'paginas/categorias/shooterEstrategia.html', {'shoot': shoot})
 
