@@ -33,6 +33,9 @@ def juegos(request):
 def accesorios(request):
     return render(request, 'paginas/catalogo/accesorios.html')
 
+@login_required
+def perfil(request):
+    return render(request, 'paginas/perfil.html')
 
 def contacto(request):
     return render(request, 'paginas/informacion/contacto.html')

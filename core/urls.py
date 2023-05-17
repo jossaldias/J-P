@@ -6,7 +6,8 @@ urlpatterns = [
     path("", home, name="home"),
     path("logout/", exit, name="exit"),    
     # PAGINAS
-    path('paginas/juegos', juegos, name="juegos"),
+    path('paginas/juegos', juegos, name="juegos"), 
+    path('paginas/perfil', perfil, name="perfil"),
     path('paginas/accesorios', accesorios, name="accesorios"),
     path('paginas/contacto', contacto, name="contacto"),
     path('registration/register', register, name="register"),
