@@ -92,7 +92,7 @@ class User(AbstractUser):
         ('Yungay', 'Yungay'), ('Zapallar', 'Zapallar')
     ]
 
-    picture = models.ImageField(default = 'profile_default.jpg', upload_to='users/')
+    picture = models.ImageField(default = 'profile_default.png', upload_to='users/')
     direccion = models.CharField(max_length=60, null=True, blank =True)
     region = models.CharField(max_length=200, choices=REGION, default=REGION[0][0])
     comuna = models.CharField(max_length=200, choices=COMUNA, default=COMUNA[0][0])
