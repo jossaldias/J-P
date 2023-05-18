@@ -72,7 +72,7 @@ def agregarProducto(request):
 
 def accionAventura(request):
     response = requests.get(
-        'https://www.freetogame.com/api/games?category=action')
+        'https://www.freetogame.com/api/games?category=action&category=fighting&sort-by=release-date')
     action = response.json()
     print(response)
     return render(request, 'paginas/categorias/accionAventura.html', 
@@ -80,7 +80,7 @@ def accionAventura(request):
 
 def arcadeSimulacion(request):
     response = requests.get(
-        'https://www.freetogame.com/api/games?category=pixel')
+        'https://www.freetogame.com/api/games?category=ARPG&category=pixel&sort-by=release-date')
     pixel = response.json()
     print(response)
     return render(request, 'paginas/categorias/arcadeSimulacion.html',
@@ -88,7 +88,7 @@ def arcadeSimulacion(request):
 
 def deportesMusica(request):
     response = requests.get(
-        'https://www.freetogame.com/api/games?category=sports')
+        'https://www.freetogame.com/api/games?category=racing&category=sports&sort-by=release-date')
     sports = response.json()
     print(response)
     return render(request, 'paginas/categorias/deportesMusica.html',
@@ -96,7 +96,7 @@ def deportesMusica(request):
 
 def shooterEstrategia(request):
     response = requests.get(
-        'https://www.freetogame.com/api/games?category=shooter')
+        'https://www.freetogame.com/api/games?category=shooter&category=strategy')
     shoot = response.json()
     print(response)
     return render(request, 'paginas/categorias/shooterEstrategia.html', {'shoot': shoot})

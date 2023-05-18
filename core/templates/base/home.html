@@ -14,39 +14,39 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <a href="#">
-                <img src="{% static 'img/mario.jpg' %}" class="d-block w-100 imgcarousel" alt="">
+              <a href="{% url 'juegos' %}">
+                <img src="https:\/\/www.freetogame.com\/g\/452\/thumbnail.jpg" class="d-block w-100 imgcarousel" alt="">
               </a>
               <div class="carousel-caption d-none d-md-block">
-                <h5 class="texto">Super Mario 1</h5>
-                <p class="texto">Descripción</p>
+                <h5 class="texto">Call Of Duty: Warzone</h5>
+                <p class="texto">$30.000</p>
               </div>
             </div>
             <div class="carousel-item">
-              <a href="#">
-                <img src="{% static 'img/mario.jpg' %}" class="d-block w-100 imgcarousel" alt="">
+              <a href="{% url 'juegos' %}">
+                <img src="https:\/\/www.freetogame.com\/g\/540\/thumbnail.jpg" class="d-block w-100 imgcarousel" alt="">
               </a>
               <div class="carousel-caption d-none d-md-block">
-                <h5 class="texto">Super Mario 2</h5>
-                <p class="texto">Descripción</p>
+                <h5 class="texto">Overwatch 2</h5>
+                <p class="texto">Free to Play - Compras dentro del Juego</p>
               </div>
             </div>
             <div class="carousel-item">
-              <a href="#">
-                <img src="{% static 'img/mario.jpg' %}" class="d-block w-100 imgcarousel" alt="">
+              <a href="{% url 'juegos' %}">
+                <img src="https:\/\/www.freetogame.com\/g\/450\/thumbnail.jpg" class="d-block w-100 imgcarousel" alt="">
               </a>
               <div class="carousel-caption d-none d-md-block">
-                <h5 class="texto">Super Mario 3</h5>
-                <p class="texto">Descripción</p>
+                <h5 class="texto">Battlerite Rollale</h5>
+                <p class="texto">$10.000</p>
               </div>
             </div>
             <div class="carousel-item">
-              <a href="#">
-                <img src="{% static 'img/mario.jpg' %}" class="d-block w-100 imgcarousel" alt="">
+              <a href="{% url 'juegos' %}">
+                <img src="https:\/\/www.freetogame.com\/g\/453\/thumbnail.jpg" class="d-block w-100 imgcarousel" alt="">
               </a>
               <div class="carousel-caption d-none d-md-block">
-                <h5 class="texto">Super Mario 4</h5>
-                <p class="texto">Descripción</p>
+                <h5 class="texto">Gotham City: IMPOSTORS</h5>
+                <p class="texto">FREE TO PLAY</p>
               </div>
             </div>
           </div>
@@ -65,24 +65,30 @@
 
   <section>
     <article>
-      <h3>Juego 1</h3>
-      <img src="static/img/mario.jpg" alt="Juego 1">
-      <p>Descripción del juego 1</p>
-      <a href="#">Comprar</a>
+      <h3>Kit Gamer para PC</h3>
+      <img src="static/img/PC_kit_gamer1.jpg" alt="Accesroiro 1">
+      <p>Kit Gamer Basico RGB</p>
+      <p>Incluye: Teclado Retroluminado - Mouse Gamer - Audifonos con Microfono</p>
+      <a href="{% url 'accesorios' %}">Ver todos los Accesorios</a>
     </article>
 
     <article>
-      <h3>Juego 2</h3>
-      <img src="static/img/mario.jpg" alt="Juego 2">
-      <p>Descripción del juego 2</p>
-      <a href="#">Comprar</a>
+      <h3>Kit Gamer para PC 2</h3>
+      <img src="static/img/PC_kit_gamer2.jpg" alt="Accesorio 2">
+      <p>Kit Gamer 2 RGB</p>
+      <p>Incluye: Teclado Retroluminado - Mouse Gamer - Audifonos con Microfono - MousePad</p>
+      <a href="{% url 'accesorios' %}">Ver todos los Accesorios</a>
     </article>
 
     <article>
-      <h3>Juego 3</h3>
-      <img src="static/img/mario.jpg" alt="Juego 3">
-      <p>Descripción del juego 3</p>
-      <a href="#">Comprar</a>
+      <h3>Kit accesorios Nintendo Switch</h3>
+      <img src="static/img/NS_kit_accesorios.jpg" alt="Accesorio 3">
+      <p>Kit completo para Nintendo Switch</p>
+      <p>Incluye Funda: Cargador para 4 Joincon - Carcasa de Silicona -
+        Vidrio - 4 Protectores de Silicona</p>
+      <p>2 Volantes - 2 Adaptadores de mano</p>
+      <p>NOTA: El Precio no incluye la Consola Nintendo Switch ni los Joincons</p>
+      <a href="{% url 'accesorios' %}">Ver todos los Accesorios</a>
     </article>
   </section>
 </main>
