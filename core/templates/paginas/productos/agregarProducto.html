@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/productos.css' %}">
 {% endblock %}
 
 {% block template %}
@@ -21,35 +21,48 @@
                     Joyn And Play
                 </div>
                 <div class="text-left mt-4 name">
-                    Ingreso de productos
+                    Agregar productos
                 </div>
                 <form id="formAgregar" method="POST" class="p-3 mt-3">
                     {% csrf_token %}
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="categoria" id="categoria" placeholder="Categoria del producto...">
+                        <input type="text" name="categoria" id="categoria" placeholder="SKU">
                     </div>
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto...">
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto">
                     </div>
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="precio" id="precio" placeholder="Precio del producto...">
+                        <input type="text" name="precio" id="precio" placeholder="Precio del producto">
                     </div>
                     <div class="form-field d-flex align-items-center">
-                        <input type="text" name="imagen" id="imagen" placeholder="Imagen del producto...">
+                        <input type="text" name="imagen" id="imagen" placeholder="Imagen del producto">
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <input type="text" name="descripcion" id="descripcion"
                             placeholder="Descripcion del producto...">
                     </div>
-                    <div id="error" class="alert alert-danger mt-3"></div>
+                    <div class="form-field d-flex align-items-center">
+                        <input type="text" name="cantidad" id="cantidad"
+                            placeholder="Cantidad">
+                    </div>
+                    {% comment %} <div id="error" class="alert alert-danger mt-3"></div> {% endcomment %}
+                    
+                    <button onclick=" " class="btn btn-success" data-dismiss="modal" type="button">
+                    <i class="bi bi-plus-square-fill"></i>&nbsp;&nbsp;Agregar
+                    </button><br><br>
 
-                    <button type="submit" class="btn mt-3">Ingresar</button>
-                    <button type="reset" class="btn mt-3">Limpiar</button>
-                </form>
+
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div> 
+    
+
+
+
+
+
+
 
 {% endblock %}
 

@@ -86,16 +86,18 @@
     {% if request.user.is_authenticated %} 
     <ul>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="glyphicon glyphicon-user" ></span> 
-        <strong style="color:white" ><i class="bi bi-person-circle"></i>&nbsp;{{user.username | upper }}, bienvenido &nbsp;&nbsp;&nbsp; </strong>
+      <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-user"  ></span> 
+        <strong style="color:white ;text-decoration: underline;" ><i class="bi bi-person-circle"></i>&nbsp;{{user.username | upper }}, bienvenido <i class="bi bi-caret-down-fill"></i>    
+        </strong>
+        
         <span class="glyphicon glyphicon-chevron-down"></span>
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a>
 
         {% if user.is_superuser %}
-        <a class="dropdown-item" href="{% url 'agregarProducto' %}">Agregar Producto</a>
+        <a class="dropdown-item" href="{% url 'inventario' %}">Inventario de Productos</a>
         {%endif%} 
 
         <div class="dropdown-divider"></div>

@@ -15,35 +15,13 @@ from .forms import CustomUserCreationForm
 
 
 def home(request):
-    response = requests.get(
-        'https://www.freetogame.com/api/games?sort-by=date')
-    home = response.json()
-    print(response)
+    # response = requests.get(
+    #     'https://www.freetogame.com/api/games?sort-by=date')
+    # home = response.json()
+    # print(response)
     return render(request, 'base/home.html', {'home': home})
 
 # PAGINAS
-
-def exit(request):
-    logout(request)
-    return redirect('home')
-
-def juegos(request):
-    response = requests.get(
-        'https://www.freetogame.com/api/games')
-    games = response.json()
-    print(response)
-    return render(request, 'paginas/catalogo/juegos.html', {'games': games})
-
-
-def accesorios(request):
-    return render(request, 'paginas/catalogo/accesorios.html')
-
-@login_required
-def perfil(request):
-    return render(request, 'paginas/perfil.html')
-
-def contacto(request):
-    return render(request, 'paginas/informacion/contacto.html')
 
 def register(request):
     data = {
@@ -63,12 +41,49 @@ def register(request):
 
     return render(request, 'registration/register.html', data)
 
+@login_required
+def perfil(request):
+    return render(request, 'paginas/perfil.html')
+
+@login_required
+def editarPerfil(request):
+    return render(request, 'paginas/editarPerfil.html')
+
+def exit(request):
+    logout(request)
+    return redirect('home')
+
+
+
+
+
 def carritoCompras(request):
     return render(request, 'paginas/productos/carritoCompras.html')
 
 @login_required
 def agregarProducto(request):
     return render(request, 'paginas/productos/agregarProducto.html')
+
+@login_required
+def inventarioProducto(request):
+    return render(request, 'paginas/productos/inventario.html')
+
+def contacto(request):
+    return render(request, 'paginas/informacion/contacto.html')
+
+
+
+
+
+def juegos(request):
+    response = requests.get(
+        'https://www.freetogame.com/api/games')
+    games = response.json()
+    print(response)
+    return render(request, 'paginas/catalogo/juegos.html', {'games': games})
+
+def accesorios(request):
+    return render(request, 'paginas/catalogo/accesorios.html')
 
 def accionAventura(request):
     response = requests.get(
