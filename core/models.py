@@ -1,3 +1,6 @@
+from django.template.defaultfilters import slugify
+import os
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -92,7 +95,7 @@ class User(AbstractUser):
         ('Yungay', 'Yungay'), ('Zapallar', 'Zapallar')
     ]
 
-    picture = models.ImageField(default = 'profile_default.png', upload_to='users/')
+    picture = models.ImageField(default = 'users/profile_default.png', upload_to='media/users/')
     direccion = models.CharField(max_length=60, null=True, blank =True)
     region = models.CharField(max_length=200, choices=REGION, default=REGION[0][0])
     comuna = models.CharField(max_length=200, choices=COMUNA, default=COMUNA[0][0])
@@ -129,12 +132,12 @@ class Producto(models.Model):
                     ('Simulación', 'Simulación')
         ]
  
-    id_poducto = models.CharField(max_length = 255, unique = True, null = True , blank = True)
+    id_producto = models.CharField(max_length = 255, unique = True, null = True , blank = True)
     nombre = models.CharField(max_length = 255, unique = True, null = True)
     descripcion = models.CharField(max_length = 255, unique = True, null = True)
     categoria = models.CharField(max_length=200, choices=CATEGORIA, default=CATEGORIA[0][0])
     plataforma = models.CharField(max_length=200, choices=PLATAFORMA, default=PLATAFORMA[0][0])
-    imagen = models.ImageField(upload_to = 'productos/', null = True, blank = True)
+    picture = models.ImageField(upload_to = 'media/productos/', null = True, blank = True)
     costo = models.IntegerField(null = False)
     cantidad = models.IntegerField(null = False)
     created = models.DateTimeField(auto_now_add=True)
@@ -146,5 +149,5 @@ class Producto(models.Model):
             order_with_respect_to = 'descripcion'
 
     def __str__(self):
-        return self.descripcion
+        return self.id_producto
     

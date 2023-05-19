@@ -37,10 +37,11 @@
     {% for juego in productos %}
     <article>
       <h3>{{juego.nombre}}</h3>
-      {% if juego.imagen.url%}
-      <img src="{{juego.imagen.url}}" alt="...">
+      {% if juego.picture%}
+      <img src="{{juego.picture.url}}" alt="...">
       
       {%endif%}
+      <br>
       <strong>Descripción del juego</strong><br>
       <p>{{juego.descripcion}}</p>
       <a style="color: white;" type="submit">Añadir al Carrito</a>

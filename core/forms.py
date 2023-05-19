@@ -139,14 +139,14 @@ class agregarProductoForm(forms.ModelForm):
 
         class Meta:
                 model = Producto
-                fields = ['id_poducto', 'nombre', 'categoria', 'plataforma','descripcion', 'imagen', 'costo', 'cantidad'] 
+                fields = ['id_producto', 'nombre', 'categoria', 'plataforma','descripcion', 'picture', 'costo', 'cantidad'] 
                 labels = {
-                            'id_poducto':'SKU',
+                            'id_producto':'SKU',
                             'nombre':'Nombre Producto',
                             'categoria': 'Categoría', 
                             'plataforma': 'Plataforma',
                             'descripcion':'Descripción del Producto',
-                            'imagen':'Imágen del Producto',
+                            'picture':'Imágen del Producto',
                             'costo':'Costo',
-                            'cantidad':'Cantidad'
+                            'cantidad':'Cantidad',
                 }

@@ -41,15 +41,14 @@
     <tbody class="text-dark">
         {% for i in productos %}
         <tr class="table-dark">
-            <td class="table-dark">{{i.id_poducto}}</td>
+            <td class="table-dark">{{i.id_producto}}</td>
             <td class="table-dark">{{i.nombre}}</td>
             <td class="table-dark">{{i.categoria}}</td>
             <td class="table-dark">{{i.plataforma}}</td>
             <td class="table-dark">${{i.costo}}</td>
             <td class="table-dark">{{i.cantidad}}</td>
             <td> 
-                <button onclick=" "
-                class="btn btn-danger" data-dismiss="modal" type="button">
+                <button onclick="eliminarProducto('{{i.id_poducto}}')" class="btn btn-danger" data-toggle="modal" type="button">
                 <i class="bi bi-x-square-fill"></i>
                 </button>
             </td>

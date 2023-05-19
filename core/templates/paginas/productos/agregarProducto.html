@@ -26,7 +26,7 @@
                     Agregar productos
                 </div>
                 <div>
-                <form id=" " method="POST" class="p-3 mt-3">
+                <form id=" " method="POST" class="p-3 mt-3" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
                     <p>{{field.label}}<br>
@@ -35,8 +35,9 @@
                 </div>
                 <div class="buttons">
                     <div class="action_btn">    
-                    <a class="btn btn-primary btn-lg" href="{% url 'inventario' %}"><i class="bi bi-arrow-left-square-fill"></i>&nbsp;&nbsp;Volver</a>             
-                    <button type="submit" class="btn btn-success">
+                    <a class="btn btn-primary btn-lg" href="{% url 'inventario' %}"><i class="bi bi-arrow-left-square-fill"></i>&nbsp;&nbsp;Volver</a>  
+                               
+                    <button type="submit" value="Submit" class="btn btn-success">
                     <i class="bi bi-plus-square-fill"></i>&nbsp;&nbsp;Agregar
                     </button>                   
                     </div>

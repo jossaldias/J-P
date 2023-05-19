@@ -64,19 +64,17 @@ def carritoCompras(request):
 
 @login_required
 def agregarProducto(request):
-    context = {
-        'form': agregarProductoForm()
-    }
-    if request.POST:
-        form = agregarProductoForm(request.POST, request.FILES)
+    
+    if request.method == 'POST':
+        form = agregarProductoForm(data = request.POST, files = request.FILES)
         if form.is_valid():
-            try:
-                form.save()
-                return redirect ('inventario')
-            except:
-                message(request, "Error al guardar Producto")
-                return redirect ('inventario')
-
+            form.save()
+        return redirect ('inventario')
+    else:
+        form = agregarProductoForm()
+        context = {
+            'form': form
+        }
     return render(request, 'paginas/productos/agregarProducto.html', context)
 
 @login_required
@@ -87,6 +85,16 @@ def inventarioProducto(request):
     }
   
     return render(request, 'paginas/productos/inventario.html', context)
+
+@login_required
+def eliminarProducto(request):
+    if request.POST:
+        productos = Producto.objects.get(request.POST.get('id_poducto'))
+    
+  
+    return render(request, 'paginas/productos/inventario.html', context)
+
+
 
 def contacto(request):
     return render(request, 'paginas/informacion/contacto.html')
