@@ -2,11 +2,13 @@ import os
 import requests
 
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 
-from .forms import CustomUserCreationForm
+from .models import Producto
+from .forms import CustomUserCreationForm, agregarProductoForm
 
 
 # Create your views here.
@@ -62,11 +64,29 @@ def carritoCompras(request):
 
 @login_required
 def agregarProducto(request):
-    return render(request, 'paginas/productos/agregarProducto.html')
+    context = {
+        'form': agregarProductoForm()
+    }
+    if request.POST:
+        form = agregarProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect ('inventario')
+            except:
+                message(request, "Error al guardar Producto")
+                return redirect ('inventario')
+
+    return render(request, 'paginas/productos/agregarProducto.html', context)
 
 @login_required
 def inventarioProducto(request):
-    return render(request, 'paginas/productos/inventario.html')
+    productos = Producto.objects.all()
+    context = {
+        'productos': productos
+    }
+  
+    return render(request, 'paginas/productos/inventario.html', context)
 
 def contacto(request):
     return render(request, 'paginas/informacion/contacto.html')
@@ -76,11 +96,12 @@ def contacto(request):
 
 
 def juegos(request):
-    response = requests.get(
-        'https://www.freetogame.com/api/games')
-    games = response.json()
-    print(response)
-    return render(request, 'paginas/catalogo/juegos.html', {'games': games})
+    productos = Producto.objects.all()
+    context = {
+        'productos': productos
+    }
+  
+    return render(request, 'paginas/catalogo/juegos.html', context)
 
 def accesorios(request):
     return render(request, 'paginas/catalogo/accesorios.html')

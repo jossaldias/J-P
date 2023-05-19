@@ -1,4 +1,6 @@
 {% extends "base/base.html" %}
+{% load widget_tweaks %}
+
 
 {% load static %}
 
@@ -18,39 +20,27 @@
                     <img src="{% static 'img/j&pmini.png' %}" alt="">
                 </div>
                 <div class="text-center mt-4 name">
-                    Joyn And Play
+                    Join And Play
                 </div>
                 <div class="text-left mt-4 name">
                     Agregar productos
                 </div>
-                <form id="formAgregar" method="POST" class="p-3 mt-3">
+                <div>
+                <form id=" " method="POST" class="p-3 mt-3">
                     {% csrf_token %}
-                    <div class="form-field d-flex align-items-center">
-                        <input type="text" name="categoria" id="categoria" placeholder="SKU">
-                    </div>
-                    <div class="form-field d-flex align-items-center">
-                        <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto">
-                    </div>
-                    <div class="form-field d-flex align-items-center">
-                        <input type="text" name="precio" id="precio" placeholder="Precio del producto">
-                    </div>
-                    <div class="form-field d-flex align-items-center">
-                        <input type="text" name="imagen" id="imagen" placeholder="Imagen del producto">
-                    </div>
-                    <div class="form-field d-flex align-items-center">
-                        <input type="text" name="descripcion" id="descripcion"
-                            placeholder="Descripcion del producto...">
-                    </div>
-                    <div class="form-field d-flex align-items-center">
-                        <input type="text" name="cantidad" id="cantidad"
-                            placeholder="Cantidad">
-                    </div>
-                    {% comment %} <div id="error" class="alert alert-danger mt-3"></div> {% endcomment %}
-                    
-                    <button onclick=" " class="btn btn-success" data-dismiss="modal" type="button">
+                    {% for field in form %}
+                    <p>{{field.label}}<br>
+                       {{field|add_class:"form-control text-dark"}}</p>
+                    {%endfor%}
+                </div>
+                <div class="buttons">
+                    <div class="action_btn">    
+                    <a class="btn btn-primary btn-lg" href="{% url 'inventario' %}"><i class="bi bi-arrow-left-square-fill"></i>&nbsp;&nbsp;Volver</a>             
+                    <button type="submit" class="btn btn-success">
                     <i class="bi bi-plus-square-fill"></i>&nbsp;&nbsp;Agregar
-                    </button><br><br>
-
+                    </button>                   
+                    </div>
+                </div>
 
                 </div>
             </div>

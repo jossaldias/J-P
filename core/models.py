@@ -102,19 +102,49 @@ class User(AbstractUser):
 
 
 class Producto(models.Model):
-   id_poducto = models.CharField(max_length = 255, unique = True, null = True , blank = True)
-   descripcion = models.CharField(max_length = 255, unique = True, null = True)
-   imagen = models.ImageField(upload_to = 'productos', null = True, blank = True)
-   costo = models.DecimalField(max_digits=13, decimal_places = 2, null = False)
-   cantidad = models.DecimalField(max_digits=13, decimal_places = 2, null = False)
-   created = models.DateTimeField(auto_now_add=True)
-   updated = models.DateTimeField(auto_now_add=True)
 
-   class Meta:
-        verbose_name = 'producto'
-        verbose_name_plural = 'productos'
-        order_with_respect_to = 'descripcion'
+    PLATAFORMA = [
+                    ('PlayStation 5', 'PlayStation 5'),
+                    ('Xbox Series X', 'Xbox Series X'),
+                    ('Nintendo Switch', 'Nintendo Switch'),
+                    ('PC Gaming', 'PC Gaming'),
+                    ('PlayStation 4', 'PlayStation 4'),
+                    ('Xbox One', 'Xbox One'),
+                    ('Nintendo 3DS', 'Nintendo 3DS'),
+                    ('Sega Genesis Mini', 'Sega Genesis Mini'),
+                    ('Super Nintendo Entertainment System (SNES) Classic Edition', 'Super Nintendo Entertainment System (SNES) Classic Edition'),
+                    ('Nintendo Entertainment System (NES) Classic Edition', 'Nintendo Entertainment System (NES) Classic Edition')
+        ]
 
-   def __str__(self):
-       return self.descripcion
-   
+    CATEGORIA = [
+                    ('Acción', 'Acción'),
+                    ('Aventura', 'Aventura'),
+                    ('Estrategia', 'Estrategia'),
+                    ('RPG', 'RPG'),
+                    ('Deportes', 'Deportes'),
+                    ('Carreras', 'Carreras'),
+                    ('Puzzle', 'Puzzle'),
+                    ('Plataformas', 'Plataformas'),
+                    ('Shooter', 'Shooter'),
+                    ('Simulación', 'Simulación')
+        ]
+ 
+    id_poducto = models.CharField(max_length = 255, unique = True, null = True , blank = True)
+    nombre = models.CharField(max_length = 255, unique = True, null = True)
+    descripcion = models.CharField(max_length = 255, unique = True, null = True)
+    categoria = models.CharField(max_length=200, choices=CATEGORIA, default=CATEGORIA[0][0])
+    plataforma = models.CharField(max_length=200, choices=PLATAFORMA, default=PLATAFORMA[0][0])
+    imagen = models.ImageField(upload_to = 'productos/', null = True, blank = True)
+    costo = models.IntegerField(null = False)
+    cantidad = models.IntegerField(null = False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+            verbose_name = 'producto'
+            verbose_name_plural = 'productos'
+            order_with_respect_to = 'descripcion'
+
+    def __str__(self):
+        return self.descripcion
+    

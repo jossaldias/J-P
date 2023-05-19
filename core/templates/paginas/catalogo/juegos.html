@@ -34,13 +34,15 @@
   <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">CATÁLOGO DE JUEGOS</h1>
 
   <section>
-    {% for juego in games %}
+    {% for juego in productos %}
     <article>
-      <h3>{{juego.title}}</h3>
-      <img src={{juego.thumbnail}} alt="...">
-
+      <h3>{{juego.nombre}}</h3>
+      {% if juego.imagen.url%}
+      <img src="{{juego.imagen.url}}" alt="...">
+      
+      {%endif%}
       <strong>Descripción del juego</strong><br>
-      <p>{{juego.short_description}}</p>
+      <p>{{juego.descripcion}}</p>
       <a style="color: white;" type="submit">Añadir al Carrito</a>
 
     </article>
