@@ -70,7 +70,7 @@
                                     <div class="modal-body" style="overflow:scroll; max-height: 450px;">
                                         <p class = "labelmodal">Estas seguro?</p>
                                         <form method = "POST" action="{% url 'eliminarProducto'%}">{% csrf_token %}
-                                            <input type="hidden" id="id_producto_eliminar" name = "id_producto_eliminar">
+                                            <input type="hidden" id='id_producto_eliminar' name = "id_producto_eliminar">
                                     </div>
                                     <div class="modal-footer bg-dark">
                                         <button type="submit" class="btn btn-success">

@@ -90,10 +90,9 @@ def inventarioProducto(request):
 def eliminarProducto(request):
     if request.POST:
         productos = Producto.objects.get(pk=request.POST.get('id_producto_eliminar'))
-        print(productos)
         productos.delete()    
   
-    return render(request, 'paginas/productos/inventario.html')
+    return redirect('inventario')
 
 
 @login_required
