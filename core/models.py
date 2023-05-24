@@ -132,9 +132,9 @@ class Producto(models.Model):
                     ('Simulación', 'Simulación')
         ]
  
-    id_producto = models.CharField(max_length = 255, unique = True, null = True)
+    id_producto = models.CharField(max_length = 255, unique = True, null = True, blank= True)
     nombre = models.CharField(max_length = 255, unique = True, null = True)
-    descripcion = models.CharField(max_length = 255, unique = True, null = True)
+    descripcion = models.CharField(max_length = 255, unique = True, null = False)
     categoria = models.CharField(max_length=200, choices=CATEGORIA, default=CATEGORIA[0][0])
     plataforma = models.CharField(max_length=200, choices=PLATAFORMA, default=PLATAFORMA[0][0])
     picture = models.ImageField(upload_to = 'media/productos/', null = True, blank = True)
@@ -149,5 +149,5 @@ class Producto(models.Model):
             order_with_respect_to = 'descripcion'
 
     def __str__(self):
-        return self.nombre
+        return self.id_producto
     

@@ -167,7 +167,7 @@ class editarProductoForm(forms.ModelForm):
                             'cantidad':'Cantidad',
                 }
                 widgets = {
-                            'id_producto':forms.TextInput(attrs={'type':'text', 'id':'sku_editar'}),
+                            'id_producto':forms.TextInput(attrs={'type':'text', 'id':'idproducto_editar'}),
                             'nombre':forms.TextInput(attrs={'id':'nombre_editar'}),
                             'descripcion':forms.TextInput(attrs={'id':'descripcion_editar'}),
                             'costo':forms.TextInput(attrs={'id':'costo_editar'}),
