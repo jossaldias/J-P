@@ -92,7 +92,7 @@ def agregarProducto(request):
 def editarProducto(request):
     if request.POST:
         productos = Producto.objects.get(pk=request.POST.get('id_producto_editar'))
-        form_editar = editarProductoForm(request.POST, request.FILES, instance = productos)
+        form_editar = editarProductoForm(data = request.POST, files = request.FILES, instance = productos)
         if form_editar.is_valid():
             form_editar.save()
         return redirect ('inventario')
