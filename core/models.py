@@ -109,6 +109,7 @@ class Producto(models.Model):
     PLATAFORMA = [
                     ('PlayStation 5', 'PlayStation 5'),
                     ('Xbox Series X', 'Xbox Series X'),
+                    ('Xbox 360', 'Xbox 360'),
                     ('Nintendo Switch', 'Nintendo Switch'),
                     ('PC Gaming', 'PC Gaming'),
                     ('PlayStation 4', 'PlayStation 4'),

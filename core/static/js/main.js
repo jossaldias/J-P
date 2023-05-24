@@ -1,6 +1,6 @@
-function editarProducto(id, id_producto, nombre, descripcion, costo, cantidad,) {
+function editarProducto(id, id_producto, nombre, descripcion, costo, cantidad) {
     document.getElementById("id_producto_editar").value = id;
-    document.getElementById("idproducto_editar").value = id_producto;
+    document.getElementById("producto_editar").value = id_producto;
     document.getElementById("nombre_editar").value = nombre;
     document.getElementById("descripcion_editar").value = descripcion;
     document.getElementById("costo_editar").value = costo;

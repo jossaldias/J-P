@@ -1,7 +1,7 @@
 import os
 import requests
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -15,15 +15,14 @@ from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoFo
 
 # HOME
 
-
 def home(request):
-    # response = requests.get(
-    #     'https://www.freetogame.com/api/games?sort-by=date')
-    # home = response.json()
-    # print(response)
+   
     return render(request, 'base/home.html', {'home': home})
 
-# PAGINAS
+
+
+
+# PERFILES
 
 def register(request):
     data = {
@@ -59,16 +58,23 @@ def exit(request):
 
 
 
+# CARRO DE COMPRAS
+
 def carritoCompras(request):
     return render(request, 'paginas/productos/carritoCompras.html')
 
 
 
+
+# MANTENEDOR PRODUCTOS
+
 @login_required
 def inventarioProducto(request):
     productos = Producto.objects.all()
+    form_editar = editarProductoForm()
     context = {
-        'productos': productos
+        'productos': productos,
+        'form_editar':form_editar
     }
   
     return render(request, 'paginas/productos/inventario.html', context)
@@ -90,18 +96,18 @@ def agregarProducto(request):
 
 @login_required
 def editarProducto(request):
-    if request.POST:
-        productos = Producto.objects.get(pk=request.POST.get('id_producto_editar'))
-        form_editar = editarProductoForm(data = request.POST, files = request.FILES, instance = productos)
+    if request.method == 'POST':
+        producto = get_object_or_404(Producto, pk=request.POST.get('id_producto_editar'))
+        form_editar = editarProductoForm(data=request.POST, files=request.FILES, instance=producto)
         if form_editar.is_valid():
             form_editar.save()
-        return redirect ('inventario')
-    # else:
-    #     form = editarProductoForm()
-    #     context = {
-    #         'form': form
-    #     }
-    # return render(request, 'paginas/productos/inventario.html', context)
+        return redirect('inventario')
+    else:
+        form_editar = editarProductoForm()
+        context = {
+            'form_editar': form_editar
+        }
+    return render(request, 'paginas/productos/inventario.html', context)
 
 @login_required
 def eliminarProducto(request):
@@ -114,13 +120,14 @@ def eliminarProducto(request):
 
 
 
+# CONTACTO FORM
 
 def contacto(request):
     return render(request, 'paginas/informacion/contacto.html')
 
 
 
-
+# PRODUCTOS
 
 def juegos(request):
     productos = Producto.objects.all()

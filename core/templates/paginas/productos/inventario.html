@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
+{% load widget_tweaks %}
 
 {% load static %}
-{% load widget_tweaks %}
 
 
 {% block css %}
@@ -71,6 +71,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                </div>
                     <div id="EliminarProductoModal" class="modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -90,6 +91,7 @@
                                         Cerrar
                                         <i class="fas fa-window-close"></i>
                                     </button>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -106,17 +108,18 @@
                                         <input type="hidden" id="id_producto_editar" name="id_producto_editar">
                                         {% for field in form_editar %}
                                         <p>{{field.label}}<br>
-                                            {{field|add_class:"form-control text-dark"}}</p>
+                                            {{field|add_class:"form-control"}}</p>
                                         {%endfor%}
                                 </div>
-                                <div class="modal-footer bg-dark">
-                                    <button type="submit" class="btn btn-success">
-                                        Guardar
-                                    </button>
+                                <div class="modal-footer bg-dark text-white">
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">
                                         Cerrar
                                         <i class="fas fa-window-close"></i>
                                     </button>
+                                    <button type="submit" class="btn btn-success">
+                                        Guardar
+                                    </button>
+                                </form>   
                                 </div>
                             </div>
                         </div>

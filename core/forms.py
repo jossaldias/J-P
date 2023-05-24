@@ -1,5 +1,6 @@
 from .models import Producto
 from django import forms  
+from django.forms import TextInput
 from tkinter import Widget
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
@@ -111,6 +112,7 @@ class agregarProductoForm(forms.ModelForm):
         PLATAFORMA = [
                     ('PlayStation 5', 'PlayStation 5'),
                     ('Xbox Series X', 'Xbox Series X'),
+                    ('Xbox 360', 'Xbox 360'),
                     ('Nintendo Switch', 'Nintendo Switch'),
                     ('PC Gaming', 'PC Gaming'),
                     ('PlayStation 4', 'PlayStation 4'),
@@ -153,7 +155,37 @@ class agregarProductoForm(forms.ModelForm):
                 }
 
 class editarProductoForm(forms.ModelForm):
-     class Meta:
+    PLATAFORMA = [
+                    ('PlayStation 5', 'PlayStation 5'),
+                    ('Xbox Series X', 'Xbox Series X'),
+                    ('Xbox 360', 'Xbox 360'),
+                    ('Nintendo Switch', 'Nintendo Switch'),
+                    ('PC Gaming', 'PC Gaming'),
+                    ('PlayStation 4', 'PlayStation 4'),
+                    ('Xbox One', 'Xbox One'),
+                    ('Nintendo 3DS', 'Nintendo 3DS'),
+                    ('Sega Genesis Mini', 'Sega Genesis Mini'),
+                    ('Super Nintendo Entertainment System (SNES) Classic Edition', 'Super Nintendo Entertainment System (SNES) Classic Edition'),
+                    ('Nintendo Entertainment System (NES) Classic Edition', 'Nintendo Entertainment System (NES) Classic Edition')
+        ]
+
+    CATEGORIA = [
+                    ('Acción', 'Acción'),
+                    ('Aventura', 'Aventura'),
+                    ('Estrategia', 'Estrategia'),
+                    ('RPG', 'RPG'),
+                    ('Deportes', 'Deportes'),
+                    ('Carreras', 'Carreras'),
+                    ('Puzzle', 'Puzzle'),
+                    ('Plataformas', 'Plataformas'),
+                    ('Shooter', 'Shooter'),
+                    ('Simulación', 'Simulación')
+        ]
+
+    plataforma = forms.ChoiceField(choices=PLATAFORMA)
+    categoria = forms.ChoiceField(choices=CATEGORIA)
+
+    class Meta:
                 model = Producto
                 fields = ['id_producto', 'nombre', 'categoria', 'plataforma','descripcion', 'picture', 'costo', 'cantidad'] 
                 labels = {
@@ -167,10 +199,10 @@ class editarProductoForm(forms.ModelForm):
                             'cantidad':'Cantidad',
                 }
                 widgets = {
-                            'id_producto':forms.TextInput(attrs={'type':'text', 'id':'idproducto_editar'}),
-                            'nombre':forms.TextInput(attrs={'id':'nombre_editar'}),
-                            'descripcion':forms.TextInput(attrs={'id':'descripcion_editar'}),
-                            'costo':forms.TextInput(attrs={'id':'costo_editar'}),
-                            'cantidad':forms.TextInput(attrs={'id':'cantidad_editar'}),
+                            'id_producto':forms.TextInput(attrs={'type': 'text', 'id': 'producto_editar'}),
+                            'nombre':forms.TextInput(attrs={'id': 'nombre_editar'}),
+                            'descripcion':forms.TextInput(attrs={'id': 'descripcion_editar'}),
+                            'costo':forms.TextInput(attrs={'id': 'costo_editar'}),
+                            'cantidad':forms.TextInput(attrs={'id' :'cantidad_editar'}),
                             
                 }
