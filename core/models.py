@@ -132,7 +132,7 @@ class Producto(models.Model):
                     ('Simulación', 'Simulación')
         ]
  
-    id_producto = models.CharField(max_length = 255, unique = True, null = True , blank = True)
+    id_producto = models.IntegerField(default = 1, blank=True, null = False)
     nombre = models.CharField(max_length = 255, unique = True, null = True)
     descripcion = models.CharField(max_length = 255, unique = True, null = True)
     categoria = models.CharField(max_length=200, choices=CATEGORIA, default=CATEGORIA[0][0])

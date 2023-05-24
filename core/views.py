@@ -8,7 +8,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 
 from .models import Producto
-from .forms import CustomUserCreationForm, agregarProductoForm
+from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm
 
 
 # Create your views here.
@@ -89,11 +89,22 @@ def inventarioProducto(request):
 @login_required
 def eliminarProducto(request):
     if request.POST:
-        productos = Producto.objects.get(request.POST.get('id_poducto'))
-    
+        productos = Producto.objects.get(pk=request.POST.get('id_producto_eliminar'))
+        print(productos)
+        productos.delete()    
   
-    return render(request, 'paginas/productos/inventario.html', context)
+    return render(request, 'paginas/productos/inventario.html')
 
+
+@login_required
+def editarProducto(request, id):
+    if request.POST:
+        productos = Producto.objects.get(pk=request.POST.get('sku_editar'))
+        form = editarProductoForm(data = request.POST, instance = productos)
+        if form.is_valid():
+            form.save()      
+  
+    return redirect('inventario')
 
 
 def contacto(request):
