@@ -62,6 +62,17 @@ def exit(request):
 def carritoCompras(request):
     return render(request, 'paginas/productos/carritoCompras.html')
 
+
+
+@login_required
+def inventarioProducto(request):
+    productos = Producto.objects.all()
+    context = {
+        'productos': productos
+    }
+  
+    return render(request, 'paginas/productos/inventario.html', context)
+
 @login_required
 def agregarProducto(request):
     
@@ -78,13 +89,19 @@ def agregarProducto(request):
     return render(request, 'paginas/productos/agregarProducto.html', context)
 
 @login_required
-def inventarioProducto(request):
-    productos = Producto.objects.all()
-    context = {
-        'productos': productos
-    }
-  
-    return render(request, 'paginas/productos/inventario.html', context)
+def editarProducto(request):
+    if request.POST:
+        productos = Producto.objects.get(pk=request.POST.get('id_producto_editar'))
+        form_editar = editarProductoForm(request.POST, request.FILES, instance = productos)
+        if form_editar.is_valid():
+            form_editar.save()
+        return redirect ('inventario')
+    # else:
+    #     form = editarProductoForm()
+    #     context = {
+    #         'form': form
+    #     }
+    # return render(request, 'paginas/productos/inventario.html', context)
 
 @login_required
 def eliminarProducto(request):
@@ -95,15 +112,7 @@ def eliminarProducto(request):
     return redirect('inventario')
 
 
-@login_required
-def editarProducto(request, id):
-    if request.POST:
-        productos = Producto.objects.get(pk=request.POST.get('sku_editar'))
-        form = editarProductoForm(data = request.POST, instance = productos)
-        if form.is_valid():
-            form.save()      
-  
-    return redirect('inventario')
+
 
 
 def contacto(request):

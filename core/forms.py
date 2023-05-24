@@ -1,5 +1,6 @@
 from .models import Producto
 from django import forms  
+from tkinter import Widget
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
