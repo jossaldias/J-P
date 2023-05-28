@@ -16,7 +16,8 @@ from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoFo
 # HOME
 
 def home(request):
-   
+    print(request.session.session_key)
+
     return render(request, 'base/home.html', {'home': home})
 
 
