@@ -48,3 +48,10 @@ td {
 th {
     color: white !important;
 }
+
+.carro{
+
+    /* background:white; */
+    /* text-align:center;  */
+    margin-bottom: 20px !important;
+}

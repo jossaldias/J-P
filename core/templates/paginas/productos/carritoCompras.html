@@ -120,7 +120,7 @@
           <thead>
             <tr>
               <th scope="col"> </th>
-              <th scope="col">Produto</th>
+              <th scope="col">Producto</th>
               <th scope="col" class="text-center">Cantidad</th>
               <th scope="col" class="text-right">Precio Unitario</th>
               <th scope="col" class="text-right">Subtotal</th>
@@ -141,7 +141,7 @@
                       {% render_field item.update_cantidad_form.cantidad class+="form-control" %}
                     </div><br>
                     <div class="col">
-                      <button class="btn btn-outline-info" type="submit" >Actualizar Carro <i class="bi bi-cart-check-fill"></i></button>
+                      <button class="btn btn-outline-info" type="submit" >Actualizar Item <i class="bi bi-cart-check-fill"></i></button>
                     </div>
                   </div>
                   {{ item.update_cantidad_form.override }}
@@ -192,7 +192,13 @@
     <div class="row">
       <div class="container">
         <div class="d-flex justify-content-center">
-          <img src="{% static 'img/empty_cart.png'%}" style="background:white" alt="">
+          <h1> Opps! Su Carrito esta vacío...</h1> <br> 
+          
+        </div>
+        <div class="d-flex justify-content-center">
+          
+          <img src="{% static 'img/emptycart.png'%}" class="carro" alt=""><br>
+          
         </div>
       </div>
     </div>

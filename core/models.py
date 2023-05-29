@@ -107,6 +107,7 @@ class User(AbstractUser):
 class Producto(models.Model):
 
     PLATAFORMA = [
+                    ('', '----'),
                     ('PlayStation 5', 'PlayStation 5'),
                     ('Xbox Series X', 'Xbox Series X'),
                     ('Xbox 360', 'Xbox 360'),
@@ -121,11 +122,13 @@ class Producto(models.Model):
         ]
 
     CATEGORIA = [
+                    ('', '----'),
                     ('Acción', 'Acción'),
                     ('Aventura', 'Aventura'),
                     ('Estrategia', 'Estrategia'),
                     ('RPG', 'RPG'),
                     ('Deportes', 'Deportes'),
+                    ('Música', 'Música'),
                     ('Carreras', 'Carreras'),
                     ('Puzzle', 'Puzzle'),
                     ('Plataformas', 'Plataformas'),
@@ -134,6 +137,7 @@ class Producto(models.Model):
         ]
 
     TIPO_PRODUCTO = [
+                        ('', '----'),
                         ('Juego','Juego'),
                         ('Accesorio','Accesorio'),
                         ('Juego Descargable','Juego Descargable'),

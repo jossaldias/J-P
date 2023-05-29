@@ -1,14 +1,14 @@
 import os
 import requests
-
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .cart import Cart
-from .models import Producto
-from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm
+from .models import Producto, User
+from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm
 
 
 # Create your views here.
@@ -49,7 +49,19 @@ def perfil(request):
 
 @login_required
 def editarPerfil(request):
-    return render(request, 'paginas/editarPerfil.html')
+    if request.method == 'POST':
+        user = get_object_or_404(User, pk=request.POST.get('id_perfil_editar'))
+        form = editarPerfilForm(data=request.POST, files=request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+        return redirect('perfil')
+    else:
+        form = editarPerfilForm()
+        context = {
+            'form': form
+        }
+    return render(request, 'paginas/perfil.html', context)
+
 
 def exit(request):
     logout(request)
@@ -176,44 +188,66 @@ def contacto(request):
 
 def juegos(request):
     
-    productos = Producto.objects.all()
+    productos = Producto.objects.filter(tipo_producto='Juego')
     context = {
         'productos': productos
     }
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/catalogo/juegos.html', context)
 
-def accesorios(request):
-    return render(request, 'paginas/catalogo/accesorios.html')
 
 def accionAventura(request):
-    response = requests.get(
-        'https://www.freetogame.com/api/games?category=action&category=fighting&sort-by=release-date')
-    action = response.json()
-    print(response)
-    return render(request, 'paginas/categorias/accionAventura.html', 
-    {'action': action})
+    productos = Producto.objects.filter(
+                                        Q(categoria='Acción')|
+                                        Q(categoria='Aventura'))                                    
+    context = {
+        'productos': productos
+    }
+    extra_context = {"form": CartAddProductoForm()}
+    return render(request, 'paginas/categorias/accionAventura.html', context)
 
 def arcadeSimulacion(request):
-    response = requests.get(
-        'https://www.freetogame.com/api/games?category=ARPG&category=pixel&sort-by=release-date')
-    pixel = response.json()
-    print(response)
-    return render(request, 'paginas/categorias/arcadeSimulacion.html',
-    {'pixel': pixel})
+    productos = Producto.objects.filter(
+                                        Q(categoria='Arcade')|
+                                        Q(categoria='Simulación'))                                    
+    context = {
+        'productos': productos
+    }
+    extra_context = {"form": CartAddProductoForm()}
+    return render(request, 'paginas/categorias/arcadeSimulacion.html', context)
 
 def deportesMusica(request):
-    response = requests.get(
-        'https://www.freetogame.com/api/games?category=racing&category=sports&sort-by=release-date')
-    sports = response.json()
-    print(response)
-    return render(request, 'paginas/categorias/deportesMusica.html',
-    {'sports': sports})
+    productos = Producto.objects.filter(
+                                        Q(categoria='Deportes')|
+                                        Q(categoria='Carreras')|
+                                        Q(categoria='Música'))                                    
+    context = {
+        'productos': productos
+    }
+    extra_context = {"form": CartAddProductoForm()}
+    return render(request, 'paginas/categorias/deportesMusica.html', context)
 
 def shooterEstrategia(request):
-    response = requests.get(
-        'https://www.freetogame.com/api/games?category=shooter&category=strategy')
-    shoot = response.json()
-    print(response)
-    return render(request, 'paginas/categorias/shooterEstrategia.html', {'shoot': shoot})
+    productos = Producto.objects.filter(
+                                        Q(categoria='Shooter')|
+                                        Q(categoria='Estrategia')|
+                                        Q(categoria='RPG')|
+                                        Q(categoria='Puzzle')|  
+                                        Q(categoria='Plataformas')   )                                 
+    context = {
+        'productos': productos
+    }
+    extra_context = {"form": CartAddProductoForm()}
+    return render(request, 'paginas/categorias/shooterEstrategia.html', context)
+
+
+def accesorios(request):
+    productos = Producto.objects.filter(tipo_producto='Accesorio')
+    context = {
+        'productos': productos
+    }
+    extra_context = {"form": CartAddProductoForm()}
+    return render(request, 'paginas/catalogo/accesorios.html', context)
+
+
 

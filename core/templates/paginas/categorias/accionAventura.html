@@ -34,16 +34,26 @@
   <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">ACCIÓN Y AVENTURA</h1>
 
   <section>
-    {% for juego in action %}
+    {% for juego in productos %}
     <article>
-      <h3>{{juego.title}}</h3>
-      <strong>Género</strong>
-      <p>{{juego.genre}}</p>
-      <img src={{juego.thumbnail}} alt="...">
-
-      <strong>Descripción del juego</strong><br/><br/>
-      <p>{{juego.short_description}}</p>
-      <a style="color: white;" type="submit">Añadir al Carrito</a>
+      <h3>{{juego.nombre}}</h3>
+      {% if juego.picture%}
+      <img src="{{juego.picture.url}}" alt="...">
+      
+      {%endif%}
+      <br>
+      <strong>Descripción del juego</strong><br>
+      <p>{{juego.descripcion}}</p>
+        
+      <h5> <strong>Precio</strong>$ {{juego.costo}}</h5>
+      
+      <p>PLATAFORMA: {{juego.plataforma}}</p>
+      <p>CATEGORÍA: {{juego.categoria}}</p>
+      <form method="post" action="{% url 'add' juego.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
+        <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
+      </form>
 
     </article>
     {% endfor %}

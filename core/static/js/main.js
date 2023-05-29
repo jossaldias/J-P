@@ -7,12 +7,18 @@ function editarProducto(id, id_producto, nombre, descripcion, costo, cantidad) {
     document.getElementById("cantidad_editar").value = cantidad;
 }
 
-
 function eliminarProducto(id) {
     document.getElementById("id_producto_eliminar").value = id;
 }
 
-
+function editarPerfil(id, username, first_name, last_name, email, direccion) {
+    document.getElementById("id_perfil_editar").value = id;
+    document.getElementById("username_editar").value = username;
+    document.getElementById("nombre_editar").value = first_name;
+    document.getElementById("apellido_editar").value = last_name;
+    document.getElementById("email_editar").value = email;
+    document.getElementById("direccion_editar").value = direccion;
+}
 
 
 

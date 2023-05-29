@@ -6,187 +6,29 @@
 <main>
     <h1 class="card borders" style="text-align: center;color: darkblue;">CATALOGO DE ACCESORIOS</h1>
     <section>
+        {% for accesorio in productos %}
         <article>
-            <h3>JoyCon Neon</h3>
-            <h3>Nintendo Switch</h3>
-            <img src="{% static 'img/NS_JoyCon.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
+          <h3>{{accesorio.nombre}}</h3>
+          {% if accesorio.picture%}
+          <img src="{{accesorio.picture.url}}" alt="...">
+          
+          {%endif%}
+          <br>
+          <strong>Descripción del juego</strong><br>
+          <p>{{accesorio.descripcion}}</p>
+            
+          <h5> <strong>Precio</strong>$ {{accesorio.costo}}</h5>
+          
+          
+          <form method="post" action="{% url 'add' accesorio.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
+            <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
+          </form>
+    
         </article>
-
-        <article>
-            <h3>JoyCon Blue / Yellow</h3>
-            <h3>Nintendo Switch</h3>
-            <img src="{% static 'img/NS_JoyCon2.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Kit Accesorios</h3>
-            <h3>Nintendo Switch</h3>
-            <img src="{% static 'img/NS_kit_accesorios.jpg' %}" alt="">
-            <p>Precio</p>
-            <a <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Raquetas Inalambricas</h3>
-            <h3>Nintendo Switch</h3>
-            <img src="{% static 'img/NS_Raquetas.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Sandisk 64 GB Mario</h3>
-            <h3>Nintendo Switch</h3>
-            <img src="{% static 'img/NS_Sandisk_64.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Sandisk 128 GB Mario</h3>
-            <h3>Nintendo Switch</h3>
-            <img src="{% static 'img/NS_Sandisk_128.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Sandisk 256 GB Mario</h3>
-            <h3>Nintendo Switch</h3>
-            <img src="{% static 'img/NS_Sandisk_256.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Sandisk 512 GB Mario</h3>
-            <h3>Nintendo Switch</h3>
-            <img src="{% static 'img/NS_Sandisk_512.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Kit Gamer Black</h3>
-            <h3>PC /Notebook</h3>
-            <img src="{% static 'img/PC_kit_gamer1.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Kit Gamer RGB</h3>
-            <h3>PC /Notebook</h3>
-            <img src="{% static 'img/PC_kit_gamer2.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Mouse Turbo Fire</h3>
-            <h3>PC /Notebook</h3>
-            <img src="{% static 'img/PC_mouse_turbo_fire.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-
-        <article>
-            <h3>Teclado Mecanico</h3>
-            <h3>PC /Notebook</h3>
-            <img src="{% static 'img/PC_teclado.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Mouse Wasp</h3>
-            <h3>PC /Notebook</h3>
-            <img src="{% static 'img/PC_Mouse_Wasp.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-
-        <article>
-            <h3>Audifonos RGB</h3>
-            <h3>PC /Notebook</h3>
-            <img src="{% static 'img/PC_audifonos.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Cergador para 2 Controles</h3>
-            <h3>Play Sation</h3>
-            <img src="{% static 'img/PS_Cargador_Controles.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-
-        <article>
-            <h3>Estuches para Control</h3>
-            <h3>Play Station</h3>
-            <img src="{% static 'img/PS_estuche.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Joy Stick Black</h3>
-            <h3>Play Station</h3>
-            <img src="{% static 'img/PS_JoyStick_Black.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Joy Stick White</h3>
-            <h3>Play Station</h3>
-            <img src="{% static 'img/PS_JoyStick_White.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Control Inalambrico Black</h3>
-            <h3>XBOX</h3>
-            <img src="{% static 'img/XB_Control_Black.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Control Inalambrico Blue</h3>
-            <h3>XBOX</h3>
-            <img src="{% static 'img/XB_Control_Blue.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Control Inalambrico White</h3>
-            <h3>XBOX</h3>
-            <img src="{% static 'img/XB_Control_White.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-        <article>
-            <h3>Control Inalambrico Yellow</h3>
-            <h3>XBOX</h3>
-            <img src="{% static 'img/XB_Control_Yellow.jpg' %}" alt="">
-            <p>Precio</p>
-            <a style="color: white;" type="submit">Añadir al Carrito</a>
-        </article>
-
-
-    </section>
+        {% endfor %}
+      </section>
 </main>
 
 {% endblock %}
