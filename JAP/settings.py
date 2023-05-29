@@ -152,6 +152,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-
+CART_SESSION_ID = "cart"
+CART_ITEM_MAX_CANTIDAD = 10
 
 AUTH_USER_MODEL = 'core.User'

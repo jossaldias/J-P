@@ -1,4 +1,5 @@
 from .models import Producto
+from django.conf import settings
 from django import forms  
 from django.forms import TextInput
 from tkinter import Widget
@@ -222,3 +223,14 @@ class editarProductoForm(forms.ModelForm):
                             'cantidad':forms.TextInput(attrs={'id' :'cantidad_editar'}),
                             
                 }
+                
+PRODUCTO_CANTIDAD_CHOICES = [
+  (i, str(i)) for i in range(1, settings.CART_ITEM_MAX_CANTIDAD + 1)
+]
+
+
+class CartAddProductoForm(forms.Form):
+  cantidad = forms.IntegerField(
+    label="Cantidad",
+  )
+  override = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)

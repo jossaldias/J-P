@@ -44,7 +44,15 @@
       <br>
       <strong>Descripción del juego</strong><br>
       <p>{{juego.descripcion}}</p>
-      <a style="color: white;" type="submit">Añadir al Carrito</a>
+        
+      <h5> <strong>Precio</strong>$ {{juego.costo}}</h5>
+      
+      <p>PLATAFORMA: {{juego.plataforma}}</p>
+      <form method="post" action="{% url 'add' juego.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
+        <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
+      </form>
 
     </article>
     {% endfor %}
