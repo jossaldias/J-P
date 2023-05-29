@@ -62,6 +62,7 @@ def exit(request):
 # CARRO DE COMPRAS
 
 def carritoCompras(request):
+    
     return render(request, 'paginas/productos/carritoCompras.html')
 
 

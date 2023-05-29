@@ -132,12 +132,19 @@ class Producto(models.Model):
                     ('Shooter', 'Shooter'),
                     ('Simulación', 'Simulación')
         ]
+
+    TIPO_PRODUCTO = [
+                        ('Juego','Juego'),
+                        ('Accesorio','Accesorio'),
+                        ('Juego Descargable','Juego Descargable'),
+                    ] 
  
     id_producto = models.CharField(max_length = 255, unique = True, null = True, blank= True)
     nombre = models.CharField(max_length = 255, unique = True, null = True)
     descripcion = models.CharField(max_length = 255, unique = True, null = False)
     categoria = models.CharField(max_length=200, choices=CATEGORIA, default=CATEGORIA[0][0])
     plataforma = models.CharField(max_length=200, choices=PLATAFORMA, default=PLATAFORMA[0][0])
+    tipo_producto = models.CharField(max_length=200, choices=TIPO_PRODUCTO, default=TIPO_PRODUCTO[0][0])
     picture = models.ImageField(upload_to = 'media/productos/', null = True, blank = True)
     costo = models.IntegerField(null = False)
     cantidad = models.IntegerField(null = False)

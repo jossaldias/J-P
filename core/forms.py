@@ -136,18 +136,25 @@ class agregarProductoForm(forms.ModelForm):
                     ('Simulación', 'Simulación')
         ]
 
+        TIPO_PRODUCTO = [
+                        ('Juego','Juego'),
+                        ('Accesorio','Accesorio'),
+                        ('Juego Descargable','Juego Descargable'),
+                    ] 
+
         plataforma = forms.ChoiceField(choices=PLATAFORMA)
         categoria = forms.ChoiceField(choices=CATEGORIA)
-
+        tipo_producto = forms.ChoiceField(choices=TIPO_PRODUCTO)
 
         class Meta:
                 model = Producto
-                fields = ['id_producto', 'nombre', 'categoria', 'plataforma','descripcion', 'picture', 'costo', 'cantidad'] 
+                fields = ['id_producto', 'nombre', 'categoria', 'plataforma','tipo_producto','descripcion', 'picture', 'costo', 'cantidad'] 
                 labels = {
                             'id_producto':'SKU',
                             'nombre':'Nombre Producto',
                             'categoria': 'Categoría', 
                             'plataforma': 'Plataforma',
+                            'tipo_producto': 'Tipo de Producto',
                             'descripcion':'Descripción del Producto',
                             'picture':'Imágen del Producto',
                             'costo':'Costo',
@@ -182,17 +189,26 @@ class editarProductoForm(forms.ModelForm):
                     ('Simulación', 'Simulación')
         ]
 
+    TIPO_PRODUCTO = [
+                        ('Juego','Juego'),
+                        ('Accesorio','Accesorio'),
+                        ('Juego Descargable','Juego Descargable'),
+                    ] 
+
     plataforma = forms.ChoiceField(choices=PLATAFORMA)
     categoria = forms.ChoiceField(choices=CATEGORIA)
+    tipo_producto = forms.ChoiceField(choices=TIPO_PRODUCTO)
+
 
     class Meta:
                 model = Producto
-                fields = ['id_producto', 'nombre', 'categoria', 'plataforma','descripcion', 'picture', 'costo', 'cantidad'] 
+                fields = ['id_producto', 'nombre', 'categoria', 'plataforma','tipo_producto','descripcion', 'picture', 'costo', 'cantidad'] 
                 labels = {
                             'id_producto':'SKU',
                             'nombre':'Nombre Producto',
                             'categoria': 'Categoría', 
                             'plataforma': 'Plataforma',
+                            'tipo_producto': 'Tipo de Producto',
                             'descripcion':'Descripción del Producto',
                             'picture':'Imágen del Producto',
                             'costo':'Costo',
