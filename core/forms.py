@@ -204,7 +204,7 @@ class editarPerfilForm(forms.ModelForm):
 
         class Meta:
                     model = User
-                    fields = ['username','first_name','last_name','email','region','comuna','direccion','telefono']
+                    fields = ['username','first_name','last_name','email','region','comuna','direccion','telefono', 'fecha_nac']
                     labels = {
                                 'username':'Nombre de Usuario',
                                 'first_name':'Primer Nombre',
@@ -214,6 +214,7 @@ class editarPerfilForm(forms.ModelForm):
                                 'comuna':'Comuna',
                                 'direccion':'Dirección',
                                 'telefono':'Teléfono',
+                                'fecha_nac':'Fecha de Nacimiento'
                             
                     }
                     widgets = {

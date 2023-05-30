@@ -45,13 +45,18 @@ def register(request):
 
 @login_required
 def perfil(request):
-    return render(request, 'paginas/perfil.html')
+    form = editarPerfilForm()
+    context = {
+        
+        'form':form
+    }
+    return render(request, 'paginas/perfil.html', context)
 
 @login_required
 def editarPerfil(request):
     if request.method == 'POST':
         user = get_object_or_404(User, pk=request.POST.get('id_perfil_editar'))
-        form = editarPerfilForm(data=request.POST, files=request.FILES, instance=user)
+        form = editarPerfilForm(data=request.POST, files=request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
         return redirect('perfil')

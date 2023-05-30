@@ -72,7 +72,6 @@
                         <h6>Miembro desde </h6>
                         <p class="text-muted">{{user.date_joined}}</p>
                       </div>
-                      
                   </div>
                 </div>
               </div>
@@ -93,9 +92,8 @@
                     <input type="hidden" id="id_perfil_editar" name="id_perfil_editar">
                     {% for field in form %}
                     <p>{{field.label}}<br>
-                        {{field|add_class:"form-control"}}</p>
+                        {{field | add_class:"form-control"}}</p>
                     {%endfor%}
-                </form>  
             </div>
             <div class="modal-footer bg-dark text-white">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">
@@ -105,6 +103,7 @@
                 <button type="submit" class="btn btn-success">
                     Guardar
                 </button>
+              </form>  
             </div>
         </div>
     </div>
