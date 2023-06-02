@@ -292,6 +292,7 @@ def accesorios(request):
 class OrderCreateView(CreateView):
   model = Order
   form_class = OrderCreateForm
+  template_name="order/order_form.html"
 
   def form_valid(self, form):
     cart = Cart(self.request)
@@ -308,7 +309,7 @@ class OrderCreateView(CreateView):
           cantidad=item["cantidad"],
         )
       cart.clear()
-      return render(self.request, 'paginas/ordenCreada.html', {'order': order})
+      return render(self.request, 'order/ordenCreada.html', {'order': order})
     return HttpResponseRedirect(reverse("home"))
 
   def get_context_data(self, **kwargs):

@@ -8,65 +8,87 @@
 {% endblock %} 
 
 {% block template %}
+
+<div class="h-100 h-custom">
+  <div class="container py-5 h-100">
+  <div class="row d-flex justify-content-center align-items-center h-100 rounded" >
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="wrapper">
+                  <div class="logo" style="margin-top:5%">
+                      <img src="{% static 'img/j&pmini.png' %}" alt="">
+                  </div>
+                  <h1 class="text-center mt-4 name text-white">
+                      Join And Play
+                  </h1>
+                  <h5 class="text-left mt-4 name text-white">
+                      Agregar Órden de Compra
+                  </h5>
+                </div>
+              </div> 
 <form method="post">
   {% csrf_token %}
-  <main class="main-content">
+  <main class="main-content rounded" style="background:#212529"   ">
     <div class="checkout-area section-space-y-axis-100">
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-12">
               <div class="checkbox-form">
-                <h3>DETALLES DE FACTURACIÓN</h3>
+                <h3 class="text-white">DETALLES DE FACTURACIÓN</h3>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="checkout-form-list">
-                      <label>Nombre completo <span class="required">*</span></label>
+                      <label class="text-white">Nombre completo <span class="required">*</span></label>
                       {{form.nombre}}
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="checkout-form-list">
-                      <label>Direccion <span class="required">*</span></label>
+                      <label class="text-white">Direccion <span class="required">*</span></label>
                       {{form.direccion}}
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="checkout-form-list">
-                      <label>País <span class="required">*</span></label>
+                      <label class="text-white">País <span class="required">*</span></label>
                       <input placeholder="" type="text">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="checkout-form-list">
-                      <label>Ciudad <span class="required">*</span></label>
+                      <label class="text-white">Ciudad <span class="required">*</span></label>
                       {{form.ciudad}}
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="checkout-form-list">
-                      <label>Email <span class="required">*</span></label>
+                      <label class="text-white">Email <span class="required">*</span></label>
                       {{form.email}}
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="checkout-form-list">
-                      <label>Teléfono <span class="required">*</span></label>
+                      <label class="text-white">Teléfono <span class="required">*</span></label>
                       {{form.numero}}
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="checkout-form-list">
-                      <label>Observaciones</label>
+                      <label class="text-white">Observaciones</label>
                       {{form.descripcion}}
                     </div>
                   </div>
                 </div>
               </div>
           </div>
-          {% include "compra/order_summary.html" with items=cart total_price=cart.get_precio_total %}
+          {% include "order/order_summary.html" with items=cart total_price=cart.get_precio_total %}
         </div>
       </div>
     </div>
   </main>
 </form>
+</div>
+</div>
+</div>
 {% endblock %}
