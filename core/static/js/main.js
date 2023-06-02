@@ -11,13 +11,17 @@ function eliminarProducto(id) {
     document.getElementById("id_producto_eliminar").value = id;
 }
 
-function editarPerfil(id, username, first_name, last_name, email, direccion) {
+function editarPerfil(id, username, first_name, last_name, email, direccion, region, comuna, telefono, fecha_nac) {
     document.getElementById("id_perfil_editar").value = id;
     document.getElementById("username_editar").value = username;
     document.getElementById("nombre_editar").value = first_name;
     document.getElementById("apellido_editar").value = last_name;
     document.getElementById("email_editar").value = email;
     document.getElementById("direccion_editar").value = direccion;
+    document.getElementById("region_editar").value = region;
+    document.getElementById("comuna_editar").value = comuna;
+    document.getElementById("telefono_editar").value = telefono;
+    document.getElementById("fecha_nac_editar").value = fecha_nac;
 }
 
 

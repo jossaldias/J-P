@@ -1,10 +1,12 @@
-from .models import Producto, User
+from .models import Producto, User, Order
 from django.conf import settings
 from django import forms  
 from django.forms import TextInput
 from tkinter import Widget
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Div, Field, Fieldset, Layout, Submit
 
 User = get_user_model()
 
@@ -204,11 +206,12 @@ class editarPerfilForm(forms.ModelForm):
 
         class Meta:
                     model = User
-                    fields = ['username','first_name','last_name','email','region','comuna','direccion','telefono', 'fecha_nac']
+                    fields = ['username','first_name','last_name','picture', 'email','region','comuna','direccion','telefono', 'fecha_nac']
                     labels = {
                                 'username':'Nombre de Usuario',
                                 'first_name':'Primer Nombre',
                                 'last_name': 'Apellido', 
+                                'picture':'Avatar',
                                 'email': 'E-mail',
                                 'region': 'Región',
                                 'comuna':'Comuna',
@@ -223,6 +226,10 @@ class editarPerfilForm(forms.ModelForm):
                                 'last_name':forms.TextInput(attrs={'id': 'apellido_editar'}),
                                 'email':forms.TextInput(attrs={'id': 'email_editar'}),
                                 'direccion':forms.TextInput(attrs={'id' :'direccion_editar'}),
+                                'region': forms.TextInput(attrs={'id': 'region_editar'}),
+                                'comuna':forms.TextInput(attrs={'id': 'comuna_editar'}),
+                                'telefono':forms.TextInput(attrs={'id': 'telefono_editar'}),
+                                'fecha_nac':forms.TextInput(attrs={'id': 'fecha_nac_editar'}),
                                 
                     }
 
@@ -358,3 +365,58 @@ class CartAddProductoForm(forms.Form):
     label="Cantidad",
   )
   override = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
+
+class OrderCreateForm(forms.ModelForm):
+
+  class Meta:
+    model = Order
+    fields = [
+      "username",
+      "email",
+      "direccion",
+      "telefono",
+      "descripcion",
+      "region",
+    ]
+
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.helper = FormHelper()
+    self.helper.form_method = "post"
+    self.helper.form_action = "."
+    self.helper.add_input(
+      Submit(
+        "submit",
+        "Realizar pedido",
+        css_class="btn btn-success btn-lg btn-block",
+      )
+    )
+    self.helper.layout = Layout(
+      Fieldset(
+        Div(
+          Field("username", css_class="form-control", wrapper_class="col"),
+          css_class="row",
+        ),
+        Div(
+          Field("email", css_class="form-control", wrapper_class="col"),
+          css_class="row",
+        ),
+        Div(
+          Field("region", css_class="form-control", wrapper_class="col"),
+          css_class="row",
+        ),
+        Div(
+          Field("direccion", css_class="form-control", wrapper_class="col"),
+          css_class="row",
+        ),
+        Div(
+          Field("telefono", css_class="form-control", wrapper_class="col"),
+          css_class="row",
+        ),
+        Div(
+          Field("descripcion", css_class="form-control", wrapper_class="col"),
+          css_class="row",
+        ),
+        css_class="border-bottom mb-3",
+      )
+    )

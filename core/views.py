@@ -1,5 +1,7 @@
 import os
 import requests
+from django.urls import reverse
+from django.views.generic import CreateView
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -7,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .cart import Cart
-from .models import Producto, User
-from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm
+from .models import Producto, User, Item, Order
+from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm
 
 
 # Create your views here.
@@ -19,8 +21,6 @@ def home(request):
     print(request.session.session_key)
 
     return render(request, 'base/home.html', {'home': home})
-
-
 
 
 # PERFILES
@@ -50,7 +50,7 @@ def perfil(request):
         
         'form':form
     }
-    return render(request, 'paginas/perfil.html', context)
+    return render(request, 'registration/perfil.html', context)
 
 @login_required
 def editarPerfil(request):
@@ -67,13 +67,35 @@ def editarPerfil(request):
         }
     return render(request, 'paginas/perfil.html', context)
 
-
 def exit(request):
     logout(request)
     return redirect('home')
 
+@login_required
+def usuarios(request):
+    productos = Producto.objects.all()
+    form_editar = editarProductoForm()
+    context = {
+        'productos': productos,
+        'form_editar':form_editar
+    }
+  
+    return render(request, 'registration/usuarios.html', context)
 
-
+@login_required
+def agregarUsuario(request):
+    
+    if request.method == 'POST':
+        form = agregarProductoForm(data = request.POST, files = request.FILES)
+        if form.is_valid():
+            form.save()
+        return redirect ('inventario')
+    else:
+        form = agregarProductoForm()
+        context = {
+            'form': form
+        }
+    return render(request, 'registration/agregarUsuario.html', context)
 
 
 # CARRO DE COMPRAS
@@ -81,8 +103,6 @@ def exit(request):
 def carritoCompras(request):
     
     return render(request, 'paginas/productos/carritoCompras.html')
-
-
 
 def cart_add(request, producto_id):
 
@@ -100,9 +120,6 @@ def cart_add(request, producto_id):
 
   return redirect("carritoCompras")
 
-
-
-
 def cart_eliminar(request, producto_id):
 
   cart = Cart(request)
@@ -110,22 +127,14 @@ def cart_eliminar(request, producto_id):
   cart.remove(producto)
   return redirect("carritoCompras")
 
-
-
-
-
 def cart_clear(request):
   cart = Cart(request)
   cart.clear()
   return redirect("carritoCompras")
 
-
 def cart_detalle(request):
   cart = Cart(request)
   return render(request, "paginas/productos/carritoCompras.html", {"cart": cart})
-
-
-
 
 
 # MANTENEDOR PRODUCTOS
@@ -180,13 +189,39 @@ def eliminarProducto(request):
     return redirect('inventario')
 
 
-
-
 # CONTACTO FORM
 
 def contacto(request):
     return render(request, 'paginas/informacion/contacto.html')
 
+
+#MIS COMPRAS
+
+def misOrdenes(request):
+    
+    return render(request, 'paginas/productos/misOrdenes.html')
+
+
+#ORDENES DE COMPRA
+
+def ordenes(request):
+    
+    return render(request, 'paginas/productos/ordenes.html')
+
+@login_required
+def agregarOrden(request):
+    
+    if request.method == 'POST':
+        form = agregarProductoForm(data = request.POST, files = request.FILES)
+        if form.is_valid():
+            form.save()
+        return redirect ('inventario')
+    else:
+        form = agregarProductoForm()
+        context = {
+            'form': form
+        }
+    return render(request, 'paginas/productos/agregarOrden.html', context)
 
 
 # PRODUCTOS
@@ -199,7 +234,6 @@ def juegos(request):
     }
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/catalogo/juegos.html', context)
-
 
 def accionAventura(request):
     productos = Producto.objects.filter(
@@ -245,7 +279,6 @@ def shooterEstrategia(request):
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/categorias/shooterEstrategia.html', context)
 
-
 def accesorios(request):
     productos = Producto.objects.filter(tipo_producto='Accesorio')
     context = {
@@ -254,5 +287,32 @@ def accesorios(request):
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/catalogo/accesorios.html', context)
 
+#CREAR ORDER
 
+class OrderCreateView(CreateView):
+  model = Order
+  form_class = OrderCreateForm
+
+  def form_valid(self, form):
+    cart = Cart(self.request)
+    if cart:
+      order = form.save(commit=False)
+      order.user = self.request.user
+      order.is_pagado = True
+      order.save()
+      for item in cart:
+        Item.objects.create(
+          orden=order,
+          producto=item["producto"],
+          precio=item["precio"],
+          cantidad=item["cantidad"],
+        )
+      cart.clear()
+      return render(self.request, 'paginas/ordenCreada.html', {'order': order})
+    return HttpResponseRedirect(reverse("home"))
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context["cart"] = Cart(self.request)
+    return context
 

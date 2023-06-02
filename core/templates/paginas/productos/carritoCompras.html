@@ -178,7 +178,7 @@
           <a href="{% url 'juegos'%}" class="btn btn-block btn-primary">Seguir comprando</a>
         </div>
         <div class="col-sm-3 col-md-3 text-right">
-          {% comment %} <a href="{% url 'order:create' %}" class="btn btn-block btn-success">Realizar pedido</a> {% endcomment %}
+          <a href="{% url 'create' %}" class="btn btn-block btn-success">Realizar pedido</a> 
         </div>
         <div class="col-sm-3 col-md-3 text-right">
           <form action="{% url 'clear' %}" method="post">
