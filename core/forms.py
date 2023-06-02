@@ -371,12 +371,12 @@ class OrderCreateForm(forms.ModelForm):
   class Meta:
     model = Order
     fields = [
-      "username",
       "email",
       "direccion",
       "telefono",
       "descripcion",
       "region",
+      "comuna",
     ]
 
   def __init__(self, *args, **kwargs):
@@ -394,7 +394,7 @@ class OrderCreateForm(forms.ModelForm):
     self.helper.layout = Layout(
       Fieldset(
         Div(
-          Field("username", css_class="form-control", wrapper_class="col"),
+          Field("nombre", css_class="form-control", wrapper_class="col"),
           css_class="row",
         ),
         Div(
@@ -403,6 +403,10 @@ class OrderCreateForm(forms.ModelForm):
         ),
         Div(
           Field("region", css_class="form-control", wrapper_class="col"),
+          css_class="row",
+        ),
+         Div(
+          Field("comuna", css_class="form-control", wrapper_class="col"),
           css_class="row",
         ),
         Div(

@@ -1,6 +1,7 @@
 import os
 import requests
 from django.urls import reverse
+from django.http import HttpResponseRedirect
 from django.views.generic import CreateView
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
@@ -198,9 +199,9 @@ def contacto(request):
 #MIS COMPRAS
 
 def misOrdenes(request):
-    
-    return render(request, 'paginas/productos/misOrdenes.html')
-
+    ordenes = Order.objects.filter(user=request.user)
+    print(ordenes)
+    return render(request, 'paginas/productos/misOrdenes.html',  {'ordenes': ordenes} )
 
 #ORDENES DE COMPRA
 
@@ -305,7 +306,7 @@ class OrderCreateView(CreateView):
         Item.objects.create(
           orden=order,
           producto=item["producto"],
-          precio=item["precio"],
+          costo=item["costo"],
           cantidad=item["cantidad"],
         )
       cart.clear()

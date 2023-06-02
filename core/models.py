@@ -172,12 +172,12 @@ class Producto(models.Model):
 
 class Order(TimeStampedModel):
     user=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    username = models.CharField("Nombre completo", max_length=250)
     email = models.EmailField()
-    direccion = models.CharField("Direccion", max_length=250)
-    telefono = models.CharField("Número", max_length=250)
-    descripcion = models.CharField("Descripcion", max_length=250, blank=True)
-    region = models.CharField("Ciudad", max_length=250)
+    direccion = models.CharField("Dirección", max_length=250, null = True)
+    telefono = models.CharField("Teléfono", max_length=250, null = True)
+    descripcion = models.CharField("Descripción", max_length=250, blank=True)
+    region = models.CharField("Región", max_length=250, null = True)
+    comuna = models.CharField("Comuna", max_length=250, null = True)
     is_pagado = models.BooleanField(default=False)
 
     class Meta:

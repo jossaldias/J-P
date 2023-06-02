@@ -13,50 +13,41 @@
 
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="wrapper">
-                <div class="logo">
-                    <img src="{% static 'img/j&pmini.png' %}" alt="">
-                </div>
-                <div class="text-center mt-4 name">
-                    Join And Play
-                </div>
-                <div class="text-left mt-4 name">
-                    Mis Órdenes
-                </div>
-                <div>
-
-
-<div class="tab-pane fade" id="account-orders" role="tabpanel" aria-labelledby="account-orders-tab">
-    <div class="myaccount-orders">
-      <h4 class="small-title">Mis Ordenes</h4>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <tbody>
-            <tr>
-              <th>Orden</th>
-              <th>Fecha</th>
-              <th>Descripcion</th>
-              <th>Total</th>
-            </tr>
-            {% for order in ordenes %}
-            <tr>
-              <td><a class="account-order-id" href="#">{{order}}</a></td>
-              <td>{{order.created}}</td>
-              <td>{{order.get_description}}</td>
-              <td>${{order.get_precio_total}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="wrapper">
+                            <div class="logo">
+                                <img src="{% static 'img/j&pmini.png' %}" alt="">
+                            </div>
+                            <div class="text-center mt-4 name">
+                                Join And Play
+                            </div>
+                            <div class="text-left mt-4 name">
+                                Mis Compras
+                            </div>
+                              <div>
+                                  <table class="table table-dark table-hover rounded">
+                                    <tbody>
+                                      <tr>
+                                        <th>Nº Orden</th>
+                                        <th>Fecha</th>
+                                        <th>Descripcion</th>
+                                        <th>Total</th>
+                                      </tr>
+                                      {% for order in ordenes %}
+                                      <tr>
+                                        <td><a class="account-order-id" href="#">{{order}}</a></td>
+                                        <td>{{order.created}}</td>
+                                        <td>{{order.get_description}}</td>
+                                        <td>${{order.get_precio_total}}</td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                              </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-  </div>
 
-
-</div>
-</div>
-</div>
-</div>
 {% endblock %}
