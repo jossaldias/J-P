@@ -123,3 +123,10 @@
 .action_btn {
     width: 500px;
     margin: 0 auto;}
+
+.container{
+    background-size: contain !important;
+    display: inline-block !important;
+    position: relative !important;
+    width: 100% !important;
+}

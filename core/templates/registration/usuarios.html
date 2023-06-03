@@ -25,7 +25,7 @@
                 <div class="text-left mt-4 name">
                     Gestión de Recursos Humanos
                 </div>
-                <div>
+                <div class="table-responsive">
                     <table class="table table-dark table-hover">
                         <br>
                         <a class="btn btn-success btn-lg" href="{% url 'agregarUsuario' %}"><i
@@ -34,8 +34,8 @@
                         <thead>
                             <tr class="table-dark">
                                 <th>Tipo de Usuario</th>
-                                <th>Nombre de Usuario</th>
-                                <th>Nombre y Apellido</th>
+                                <th>Usuario</th>
+                                <th>User Name</th>
                                 <th>E-mail</th>
                                 <th>Dirección</th>
                                 <th>Región</th>                               
@@ -47,21 +47,21 @@
                             </tr>
                         </thead>
                         <tbody class="text-dark">
-                            {% for i in productos %}
+                            {% for i in user %}
                             <tr class="table-dark">
-                                <td class="table-dark">{{i.id}}</td>
-                                <td class="table-dark">{{i.id_producto}}</td>
-                                <td class="table-dark">{{i.nombre}}</td>
-                                <td class="table-dark">{{i.categoria}}</td>
-                                <td class="table-dark">{{i.plataforma}}</td>
-                                <td class="table-dark">${{i.costo}}</td>
-                                <td class="table-dark">{{i.cantidad}}</td>
-                                <td class="table-dark">${{i.costo}}</td>
-                                <td class="table-dark">{{i.cantidad}}</td>
+                                <td class="table-dark">{{i.tipo_user}}</td>
+                                <td class="table-dark">{{i.first_name}} {{i.last_name}}</td>
+                                <td class="table-dark">{{i.username}}</td>
+                                <td class="table-dark">{{i.email}}</td>
+                                <td class="table-dark">{{i.direccion}}</td>
+                                <td class="table-dark">{{i.region}}</td>
+                                <td class="table-dark">{{i.comuna}}</td>
+                                <td class="table-dark">{{i.telefono}}</td>
+                                <td class="table-dark">{{i.fecha_nac}}</td>
                                 <td>
-                                    <button type="button"
-                                        onclick="editarProducto('{{i.id}}','{{i.id_producto}}', '{{i.nombre}}', '{{i.descripcion}}', '{{i.costo}}', '{{i.cantidad}}')"
-                                        class="btn btn-primary" data-toggle="modal" href="#EditarProductoModal">
+                                     <button type="button"
+                                        onclick="editarUsuario('{{i.id}}','{{i.username}}', '{{i.first_name}}', '{{i.last_name}}',  '{{i.email}}', '{{i.direccion}}' , '{{i.region}}', '{{i.comuna}}', '{{i.telefono}}', '{{i.fecha_nac}}','{{i.tipo_user}}')"
+                                        class="btn btn-primary" data-toggle="modal" href="#EditarPerfilModal">
                                         <i class="bi bi-pen-fill"></i>
                                     </button>
                                 </td>
@@ -76,7 +76,7 @@
                         </tbody>
                     </table>
                 </div>
-                    <div id="EliminarProductoModal" class="modal">
+                    <div id="EliminarPerfilModal" class="modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-info">
@@ -100,16 +100,16 @@
                             </div>
                         </div>
                     </div>
-                    <div id="EditarProductoModal" class="modal">
+                    <div id="EditarPerfilModal" class="modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-info">
-                                    <h3 class="modal-title text-dark">Editar Producto</h3>
+                                    <h3 class="modal-title text-dark">Editar Usuario</h3>
                                 </div>
                                 <div class="modal-body bg-dark text-white">
-                                    <form method="POST" action="{% url 'editarProducto'%}"
+                                    <form method="POST" action="{% url 'editarUsuario'%}"
                                         enctype="multipart/form-data">{% csrf_token %}
-                                        <input type="hidden" id="id_producto_editar" name="id_producto_editar">
+                                        <input type="hidden" id="id_usuario_editar" name="id_usuario_editar">
                                         {% for field in form_editar %}
                                         <p>{{field.label}}<br>
                                             {{field|add_class:"form-control"}}</p>

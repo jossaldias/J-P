@@ -24,5 +24,18 @@ function editarPerfil(id, username, first_name, last_name, email, direccion, reg
     document.getElementById("fecha_nac_editar").value = fecha_nac;
 }
 
+function editarUsuario(id, username, first_name, last_name, email, direccion, region, comuna, telefono, fecha_nac, tipo_user) {
+    document.getElementById("id_usuario_editar").value = id;
+    document.getElementById("username_editar").value = username;
+    document.getElementById("nombre_editar").value = first_name;
+    document.getElementById("apellido_editar").value = last_name;
+    document.getElementById("email_editar").value = email;
+    document.getElementById("direccion_editar").value = direccion;
+    document.getElementById("region_editar").value = region;
+    document.getElementById("comuna_editar").value = comuna;
+    document.getElementById("telefono_editar").value = telefono;
+    document.getElementById("fecha_nac_editar").value = fecha_nac;
+    document.getElementById("tipo_user_editar").value = tipo_user;
+}
 
 

@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .cart import Cart
 from .models import Producto, User, Item, Order
-from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm
+from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm, editarUsuarioForm   
 
 
 # Create your views here.
@@ -68,16 +68,32 @@ def editarPerfil(request):
         }
     return render(request, 'paginas/perfil.html', context)
 
+@login_required
+def editarUsuario(request):
+    if request.method == 'POST':
+        user = get_object_or_404(User, pk=request.POST.get('id_usuario_editar'))
+        form_editar = editarUsuarioForm(data=request.POST, files=request.FILES, instance=user)
+        if form_editar.is_valid():
+            form_editar.save()
+           
+        return redirect('usuarios')
+    else:
+        form_editar = editarUsuarioForm()
+        context = {
+            'form_editar': form_editar
+        }
+    return render(request, 'paginas/usuarios.html', context)
+
 def exit(request):
     logout(request)
     return redirect('home')
 
 @login_required
 def usuarios(request):
-    productos = Producto.objects.all()
-    form_editar = editarProductoForm()
+    user = User.objects.all()
+    form_editar = editarUsuarioForm()
     context = {
-        'productos': productos,
+        'user': user,
         'form_editar':form_editar
     }
   
