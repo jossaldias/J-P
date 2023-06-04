@@ -12,11 +12,12 @@ urlpatterns = [
    
     path('paginas/perfil', views.perfil, name="perfil"),
     path('paginas/editarPerfil', views.editarPerfil, name="editarPerfil"),
-    path('paginas/editarUsuario', views.editarUsuario, name="editarUsuario"),
     path('paginas/misOrdenes', views.misOrdenes, name="misOrdenes"),
 
     path('paginas/usuarios', views.usuarios, name="usuarios"),    
     path('paginas/agregarUsuario', views.agregarUsuario, name="agregarUsuario"),
+    path('paginas/eliminarUsuario', views.eliminarUsuario, name="eliminarUsuario"),
+    path('paginas/editarUsuario', views.editarUsuario, name="editarUsuario"),
 
     path('paginas/accesorios', views.accesorios, name="accesorios"),
     path('paginas/contacto', views.contacto, name="contacto"),

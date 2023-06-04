@@ -94,12 +94,13 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a>
         <a class="dropdown-item"  href="{% url 'misOrdenes' %}">Mis compras</a>
+        
         <a class="dropdown-item"  href="{% url 'carritoCompras' %}">Carrito</a>     
               
         
         {% if user.is_superuser %}
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="{% url 'usuarios' %}">Recursos Humanos</a>
+        <a class="dropdown-item" href="{% url 'usuarios' %}">Gestión de Usuarios</a>
         <a class="dropdown-item" href="{% url 'inventario' %}">Inventario de Productos</a>
         <a class="dropdown-item" href="{% url 'ordenes' %}">Órdenes de Compra</a>
 

@@ -145,7 +145,7 @@ class Producto(models.Model):
                         ('', '----'),
                         ('Juego','Juego'),
                         ('Accesorio','Accesorio'),
-                        ('Juego Descargable','Juego Descargable'),
+                        ('Codigo Digital','Codigo Digital'),
                     ] 
  
     id_producto = models.CharField(max_length = 255, unique = True, null = True, blank= True)

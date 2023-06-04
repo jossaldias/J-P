@@ -23,7 +23,7 @@
                     Join And Play
                 </div>
                 <div class="text-left mt-4 name">
-                    Gestión de Recursos Humanos
+                    Gestión de Usuarios
                 </div>
                 <div class="table-responsive">
                     <table class="table table-dark table-hover">
@@ -47,27 +47,27 @@
                             </tr>
                         </thead>
                         <tbody class="text-dark">
-                            {% for i in user %}
+                            {% for user in users %}
                             <tr class="table-dark">
-                                <td class="table-dark">{{i.tipo_user}}</td>
-                                <td class="table-dark">{{i.first_name}} {{i.last_name}}</td>
-                                <td class="table-dark">{{i.username}}</td>
-                                <td class="table-dark">{{i.email}}</td>
-                                <td class="table-dark">{{i.direccion}}</td>
-                                <td class="table-dark">{{i.region}}</td>
-                                <td class="table-dark">{{i.comuna}}</td>
-                                <td class="table-dark">{{i.telefono}}</td>
-                                <td class="table-dark">{{i.fecha_nac}}</td>
+                                <td class="table-dark">{{user.tipo_user}}</td>
+                                <td class="table-dark">{{user.first_name}} {{i.last_name}}</td>
+                                <td class="table-dark">{{user.username}}</td>
+                                <td class="table-dark">{{user.email}}</td>
+                                <td class="table-dark">{{user.direccion}}</td>
+                                <td class="table-dark">{{user.region}}</td>
+                                <td class="table-dark">{{user.comuna}}</td>
+                                <td class="table-dark">{{user.telefono}}</td>
+                                <td class="table-dark">{{user.fecha_nac}}</td>
                                 <td>
                                      <button type="button"
-                                        onclick="editarUsuario('{{i.id}}','{{i.username}}', '{{i.first_name}}', '{{i.last_name}}',  '{{i.email}}', '{{i.direccion}}' , '{{i.region}}', '{{i.comuna}}', '{{i.telefono}}', '{{i.fecha_nac}}','{{i.tipo_user}}')"
+                                        onclick="editarUsuario('{{user.id}}','{{user.username}}', '{{user.first_name}}', '{{user.last_name}}',  '{{user.email}}', '{{user.direccion}}' , '{{user.region}}', '{{user.comuna}}', '{{user.telefono}}', '{{user.fecha_nac}}','{{user.tipo_user}}')"
                                         class="btn btn-primary" data-toggle="modal" href="#EditarPerfilModal">
                                         <i class="bi bi-pen-fill"></i>
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" onclick="eliminarProducto('{{i.id}}')" class="btn btn-danger"
-                                        data-toggle="modal" href="#EliminarProductoModal">
+                                    <button type="button" onclick="eliminarUsuario('{{user.id}}')" class="btn btn-danger"
+                                        data-toggle="modal" href="#EliminarUsuarioModal">
                                         <i class="bi bi-x-square-fill"></i>
                                     </button>
                                 </td>
@@ -76,16 +76,16 @@
                         </tbody>
                     </table>
                 </div>
-                    <div id="EliminarPerfilModal" class="modal">
+                    <div id="EliminarUsuarioModal" class="modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-info">
-                                    <h3 class="modal-title text-dark">Eliminar Producto</h3>
+                                    <h3 class="modal-title text-dark">Eliminar Usuario</h3>
                                 </div>
                                 <div class="modal-body bg-dark text-white">
                                     <p class="labelmodal">Estas seguro?</p>
-                                    <form method="POST" action="{% url 'eliminarProducto'%}">{% csrf_token %}
-                                        <input type="hidden" id="id_producto_eliminar" name="id_producto_eliminar">
+                                    <form method="POST" action="{% url 'eliminarUsuario'%}">{% csrf_token %}
+                                        <input type="hidden" id="id_usuario_eliminar" name="id_usuario_eliminar">
                                 </div>
                                 <div class="modal-footer bg-dark">
                                     <button type="submit" class="btn btn-danger">

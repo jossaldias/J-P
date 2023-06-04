@@ -403,7 +403,7 @@ class agregarProductoForm(forms.ModelForm):
         TIPO_PRODUCTO = [
                         ('Juego','Juego'),
                         ('Accesorio','Accesorio'),
-                        ('Juego Descargable','Juego Descargable'),
+                        ('Codigo Digital','Codigo Digital'),
                     ] 
 
         plataforma = forms.ChoiceField(choices=PLATAFORMA, required=False)
@@ -459,7 +459,7 @@ class editarProductoForm(forms.ModelForm):
     TIPO_PRODUCTO = [
                         ('Juego','Juego'),
                         ('Accesorio','Accesorio'),
-                        ('Juego Descargable','Juego Descargable'),
+                        ('Codigo Digital','Codigo Digital'),
                     ] 
 
     plataforma = forms.ChoiceField(choices=PLATAFORMA, required=False)

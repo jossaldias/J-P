@@ -38,4 +38,6 @@ function editarUsuario(id, username, first_name, last_name, email, direccion, re
     document.getElementById("tipo_user_editar").value = tipo_user;
 }
 
-
+function eliminarUsuario(id) {
+    document.getElementById("id_usuario_eliminar").value = id;
+}

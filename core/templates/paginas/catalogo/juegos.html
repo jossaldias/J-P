@@ -4,6 +4,22 @@
 {% block template %}
 
 <main>
+  <article>
+    <h1>TIPO DE JUEGO</h1>
+  </article>
+
+  <div class="container-fluid mt-12">
+    <div class="row">
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href="{% url 'accionAventura' %}" style="color: white;">Acción y
+          Aventura</a>
+      </article>
+      <article style="width: 150px;">
+        <a class="col-md-12 mb-4" href=" {% url 'arcadeSimulacion' %}" style="color: white;">Arcade y
+          Simulación</a>
+      </article>  
+    </div>
+  </div>
 
 
   <article>
@@ -48,6 +64,15 @@
       <h5> <strong>Precio</strong>$ {{juego.costo}}</h5>
       
       <p>PLATAFORMA: {{juego.plataforma}}</p>
+
+      {% if juego.tipo_producto == 'Codigo Digital' %}
+      <form method="post" action="{% url 'add' juego.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
+        <a  style="background: blue"onmouseover="this.style.background='none';"  onmouseout="this.style.background='blue';" href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-key-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-theme="light-border"></i>&nbsp;Código Digital</a>
+      </form>
+      {% endif %}
+
       <form method="post" action="{% url 'add' juego.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">

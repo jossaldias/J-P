@@ -90,10 +90,10 @@ def exit(request):
 
 @login_required
 def usuarios(request):
-    user = User.objects.all()
+    users = User.objects.all()
     form_editar = editarUsuarioForm()
     context = {
-        'user': user,
+        'users': users,
         'form_editar':form_editar
     }
   
@@ -114,44 +114,13 @@ def agregarUsuario(request):
         }
     return render(request, 'registration/agregarUsuario.html', context)
 
-
-# CARRO DE COMPRAS
-
-def carritoCompras(request):
-    
-    return render(request, 'paginas/productos/carritoCompras.html')
-
-def cart_add(request, producto_id):
-
-  cart = Cart(request)
-  producto = get_object_or_404(Producto, id=producto_id)
-
-  form = CartAddProductoForm(request.POST)
-  if form.is_valid():
-    cart_add = form.cleaned_data
-    cart.add(
-      producto=producto,
-      cantidad=cart_add["cantidad"],
-      override_cantidad=cart_add["override"]
-    )
-
-  return redirect("carritoCompras")
-
-def cart_eliminar(request, producto_id):
-
-  cart = Cart(request)
-  producto = get_object_or_404(Producto, id=producto_id)
-  cart.remove(producto)
-  return redirect("carritoCompras")
-
-def cart_clear(request):
-  cart = Cart(request)
-  cart.clear()
-  return redirect("carritoCompras")
-
-def cart_detalle(request):
-  cart = Cart(request)
-  return render(request, "paginas/productos/carritoCompras.html", {"cart": cart})
+@login_required
+def eliminarUsuario(request):
+    if request.POST:
+        users = User.objects.get(pk=request.POST.get('id_usuario_eliminar'))
+        users.delete()    
+  
+    return redirect('usuarios')
 
 
 # MANTENEDOR PRODUCTOS
@@ -206,6 +175,46 @@ def eliminarProducto(request):
     return redirect('inventario')
 
 
+# CARRO DE COMPRAS
+@login_required
+def carritoCompras(request):
+    return redirect('carritoCompras')
+
+
+def cart_add(request, producto_id):
+
+  cart = Cart(request)
+  producto = get_object_or_404(Producto, id=producto_id)
+
+  form = CartAddProductoForm(request.POST)
+  if form.is_valid():
+    cart_add = form.cleaned_data
+    cart.add(
+      producto=producto,
+      cantidad=cart_add["cantidad"],
+      override_cantidad=cart_add["override"]
+    )
+
+  return redirect("carritoCompras")
+
+def cart_eliminar(request, producto_id):
+
+  cart = Cart(request)
+  producto = get_object_or_404(Producto, id=producto_id)
+  cart.remove(producto)
+  return redirect("carritoCompras")
+
+def cart_clear(request):
+  cart = Cart(request)
+  cart.clear()
+  return redirect("carritoCompras")
+
+@login_required
+def cart_detalle(request):
+  cart = Cart(request)
+  return render(request, "paginas/productos/carritoCompras.html", {"cart": cart})
+
+
 # CONTACTO FORM
 
 def contacto(request):
@@ -245,7 +254,10 @@ def agregarOrden(request):
 
 def juegos(request):
     
-    productos = Producto.objects.filter(tipo_producto='Juego')
+    productos = Producto.objects.filter(
+                                        Q(tipo_producto='Juego')|
+                                        Q(tipo_producto='Codigo Digital')
+                                        )
     context = {
         'productos': productos
     }

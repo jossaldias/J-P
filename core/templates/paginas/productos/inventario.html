@@ -36,10 +36,12 @@
                                 <th># ID</th>
                                 <th>SKU</th>
                                 <th>Nombre</th>
+                                <th>Tipo de Producto</th>
                                 <th>Categoría</th>
                                 <th>Plataforma</th>
                                 <th>Precio $</th>
                                 <th>Cantidad</th>
+                                <th>Códigos</th>
                                 <th>Editar</th>
                                 <th>Quitar</th>
                             </tr>
@@ -50,10 +52,29 @@
                                 <td class="table-dark">{{i.id}}</td>
                                 <td class="table-dark">{{i.id_producto}}</td>
                                 <td class="table-dark">{{i.nombre}}</td>
+                                <td class="table-dark">{{i.tipo_producto}}</td>
+                                {% if i.categoria == '' %}
+                                <td>--</td>
+                                {% else %}
                                 <td class="table-dark">{{i.categoria}}</td>
+                                {% endif %}
+                                {% if i.categoria == '' %}
+                                <td>--</td>
+                                {% else %}
                                 <td class="table-dark">{{i.plataforma}}</td>
+                                {% endif %}
                                 <td class="table-dark">${{i.costo}}</td>
                                 <td class="table-dark">{{i.cantidad}}</td>
+                                {% if i.tipo_producto == 'Codigo Digital' %}
+                                <td>
+                                    <button type="button" class="btn btn-warning">
+                                        <a  href="{% url 'home' %}">
+                                        <i class="bi bi-view-list"></i>
+                                    </button>
+                                </td>
+                                {% else %}
+                                <td>--</td>
+                                {% endif %}
                                 <td>
                                     <button type="button"
                                         onclick="editarProducto('{{i.id}}','{{i.id_producto}}', '{{i.nombre}}', '{{i.descripcion}}', '{{i.costo}}', '{{i.cantidad}}')"
