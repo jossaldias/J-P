@@ -31,7 +31,7 @@ urlpatterns = [
     path("eliminar/<int:producto_id>/", views.cart_eliminar, name="eliminar"),
     path("clear/", views.cart_clear, name="clear"),
     
-    path("create/", views.OrderCreateView.as_view(), name="create"),
+    path("create-order/", views.OrderCreateView.as_view(), name="create-order"),
 
 
     path('paginas/inventario', views.inventarioProducto, name="inventario"),
