@@ -30,7 +30,8 @@ urlpatterns = [
     path("add/<int:producto_id>/", views.cart_add, name="add"),
     path("eliminar/<int:producto_id>/", views.cart_eliminar, name="eliminar"),
     path("clear/", views.cart_clear, name="clear"),
-    
+    path('paginas/pedidoListo', views.pedidoListo, name="pedidoListo"),
+
     path("create-order/", views.OrderCreateView.as_view(), name="create-order"),
 
 

@@ -214,7 +214,9 @@ def cart_detalle(request):
   cart = Cart(request)
   return render(request, "paginas/productos/carritoCompras.html", {"cart": cart})
 
-
+def pedidoListo(request):
+    
+    return render(request, 'paginas/productos/pedidoListo.html')
 # CONTACTO FORM
 
 def contacto(request):
