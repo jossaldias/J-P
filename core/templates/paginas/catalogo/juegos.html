@@ -4,7 +4,7 @@
 {% block template %}
 
 <main>
-  <article>
+  <!-- <article>
     <h1>TIPO DE JUEGO</h1>
   </article>
 
@@ -19,7 +19,7 @@
           Simulación</a>
       </article>  
     </div>
-  </div>
+  </div> -->
 
 
   <article>
@@ -55,30 +55,37 @@
       <h3>{{juego.nombre}}</h3>
       {% if juego.picture%}
       <img src="{{juego.picture.url}}" alt="...">
-      
+
       {%endif%}
       <br>
       <strong>Descripción del juego</strong><br>
       <p>{{juego.descripcion}}</p>
-        
+
       <h5> <strong>Precio</strong>$ {{juego.costo}}</h5>
-      
+      {% if juego.tipo_producto == 'Juego'%}
       <p>PLATAFORMA: {{juego.plataforma}}</p>
+      {% endif %}
+      <p>TIPO PRODUCTO: {{juego.tipo_producto}}</p>
 
       {% if juego.tipo_producto == 'Codigo Digital' %}
       <form method="post" action="{% url 'add' juego.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
-        <a  style="background: blue"onmouseover="this.style.background='none';"  onmouseout="this.style.background='blue';" href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-key-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-theme="light-border"></i>&nbsp;Código Digital</a>
+        <a style="background: blue" onmouseover="this.style.background='none';"
+          onmouseout="this.style.background='blue';" href="#" onClick="javascript:this.parentNode.submit()"><i
+            class="bi bi-key-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50"
+            data-tippy-arrow="true" data-tippy-theme="light-border"></i>&nbsp;Añadir al Carrito (Código Digital)</a>
       </form>
-      {% endif %}
-
+     
+      {% else %}
       <form method="post" action="{% url 'add' juego.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
-        <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
+        <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true"
+            data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true"
+            data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
       </form>
-
+      {% endif %}
     </article>
     {% endfor %}
   </section>

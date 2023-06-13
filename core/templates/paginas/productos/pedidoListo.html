@@ -8,7 +8,7 @@
 {% block template %}
 
 
-<div class="container h-100" style="padding-top:5%; padding-bottom:5%">
+<div class="container h-100" style="padding-top:5%; padding-bottom:3%; ">
   <div class="row d-flex justify-content-center align-items-center h-500 rounded" style="background: #212529">
 
 
@@ -25,15 +25,20 @@
             seguimiento</p>
         </div>
         <div class="d-flex justify-content-center">
-          <img src="{% static 'img/envio.png'%}" height="100" class="carro" alt="" /><br />
+          <img src="{% static 'img/envio.png'%}" height="100" class="carro" alt="">
+
+        </div>
+        <div style="padding-top:5%; padding-bottom:3%; text-align: center;">
+          <a class="btn btn-success btn-lg" href="{% url 'misOrdenes' %}">
+            <i class="bi bi-bag-heart"></i>&nbsp;&nbsp;Seguir Mi
+            Compra</a><br>
         </div>
       </div>
+
     </div>
 
-
-
-
   </div>
+
 </div>
 
 {% endblock %}

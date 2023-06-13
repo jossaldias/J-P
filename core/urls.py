@@ -1,4 +1,6 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
+
 
 from . import views
 
@@ -32,7 +34,7 @@ urlpatterns = [
     path("clear/", views.cart_clear, name="clear"),
     path('paginas/pedidoListo', views.pedidoListo, name="pedidoListo"),
 
-    path("create-order/", views.OrderCreateView.as_view(), name="create-order"),
+    path("create-order/",login_required(views.OrderCreateView.as_view()), name="create-order"),
 
 
     path('paginas/inventario', views.inventarioProducto, name="inventario"),

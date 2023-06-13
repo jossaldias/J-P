@@ -176,7 +176,7 @@ def eliminarProducto(request):
 
 
 # CARRO DE COMPRAS
-@login_required
+
 def carritoCompras(request):
     return redirect('carritoCompras')
 
@@ -209,7 +209,6 @@ def cart_clear(request):
   cart.clear()
   return redirect("carritoCompras")
 
-@login_required
 def cart_detalle(request):
   cart = Cart(request)
   return render(request, "paginas/productos/carritoCompras.html", {"cart": cart})
@@ -319,7 +318,6 @@ def accesorios(request):
     return render(request, 'paginas/catalogo/accesorios.html', context)
 
 #CREAR ORDER
-
 class OrderCreateView(CreateView):
   model = Order
   form_class = OrderCreateForm

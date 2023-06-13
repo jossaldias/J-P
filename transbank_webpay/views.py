@@ -36,7 +36,7 @@ def webpay_plus_commit(request):
     # print("response: {}".format(response))
     #return render(request, 'webpayplus/commit.html', {'token': token, 'response': response})
 
-    return render(request, 'webpay-plus/commit.html', {'token': token})
+    return render(request, 'paginas/productos/pedidoListo.html', {'token': token})
 
 def webpay_plus_commit_error(request):
     token = request.POST.get("token_ws")
