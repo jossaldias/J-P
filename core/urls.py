@@ -24,7 +24,7 @@ urlpatterns = [
     path('paginas/accesorios', views.accesorios, name="accesorios"),
     path('paginas/contacto', views.contacto, name="contacto"),
 
-    path('paginas/ordenes', views.ordenes, name="ordenes"),    
+    path('paginas/ordenes', views.ordenesCompra, name="ordenes"),    
     path('paginas/agregarOrden', views.agregarOrden, name="agregarOrden"),
 
     

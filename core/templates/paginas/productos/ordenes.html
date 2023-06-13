@@ -40,24 +40,90 @@
                                 <th>Proveedor</th>                               
                                 <th>Precio $</th>
                                 <th>Cantidad</th>
-                                <th>Estado Orden de Compra</th>
+                                <th>Estado</th>
+                                <th>Editar O/C</th>
+                                <th>Eliminar O/C</th>
                             </tr>
                         </thead>
                         <tbody class="text-dark">
-                            {% for i in orden %}
+                            {% for i in compras %}
                             <tr class="table-dark">
                                 <td class="table-dark">{{i.id_orden}}</td>
-                                <td class="table-dark">{{i.id_producto}}</td>
+                                <td class="table-dark">{{i.sku}}</td>
                                 <td class="table-dark">{{i.nombre}}</td>
                                 <td class="table-dark">{{i.plataforma}}</td>
                                 <td class="table-dark">{{i.proveedor}}</td>
                                 <td class="table-dark">${{i.costo}}</td>
+                                <td class="table-dark">${{i.cantidad}}</td>
                                 <td class="table-dark">{{i.estado_orden}}</td>
+                                <td>
+                                    <button type="button"
+                                        onclick="editarCompra('{{i.id_order}}','{{i.sku}}', '{{i.nombre}}', '{{i.plataforma}}', '{{i.costo}}', '{{i.cantidad}}','{{i.estado_orden}}')"
+                                        class="btn btn-primary" data-toggle="modal" href="#EditarCompraModal">
+                                        <i class="bi bi-pen-fill"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="eliminarCompra('{{i.id}}')" class="btn btn-danger"
+                                        data-toggle="modal" href="#EliminarCompraModal">
+                                        <i class="bi bi-x-square-fill"></i>
+                                    </button>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
-                    </table>
-                
+                    </table>                
+                </div>
+                <div id="EliminarCompraModal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-info">
+                                <h3 class="modal-title text-dark">Eliminar Orden de Compra</h3>
+                            </div>
+                            <div class="modal-body bg-dark text-white">
+                                <p class="labelmodal">Estas seguro?</p>
+                                <form method="POST" action="{% url 'eliminarCompra'%}">{% csrf_token %}
+                                    <input type="hidden" id="id_compra_eliminar" name="id_compra_eliminar">
+                            </div>
+                            <div class="modal-footer bg-dark">
+                                <button type="submit" class="btn btn-danger">
+                                    Eliminar
+                                </button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                    Cerrar
+                                    <i class="bi bi-x-square-fill"></i>
+                                </button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="EditarCompraModal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-info">
+                                <h3 class="modal-title text-dark">Editar Orden de Compra</h3>
+                            </div>
+                            <div class="modal-body bg-dark text-white">
+                                <form method="POST" action="{% url 'editarCompra'%}"
+                                    enctype="multipart/form-data">{% csrf_token %}
+                                    <input type="hidden" id="id_compra_editar" name="id_compra_editar">
+                                    {% for field in form_editar %}
+                                    <p>{{field.label}}<br>
+                                        {{field|add_class:"form-control"}}</p>
+                                    {%endfor%}
+                            </div>
+                            <div class="modal-footer bg-dark text-white">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                    Cerrar
+                                    <i class="bi bi-x-square-fill"></i>                                    </button>
+                                <button type="submit" class="btn btn-success">
+                                    Guardar
+                                </button>
+                            </form>   
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

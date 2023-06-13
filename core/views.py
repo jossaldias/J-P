@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .cart import Cart
 from .models import Producto, User, Item, Order, Compra
-from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm, editarUsuarioForm, agregarOrdenCompraForm   
+from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm, editarUsuarioForm, OrdenCompraForm, editarOrdenCompraForm   
 
 
 # Create your views here.
@@ -232,25 +232,29 @@ def misOrdenes(request):
 
 #ORDENES DE COMPRA
 @login_required
-def ordenes(request):
-    
+def ordenesCompra(request):
     compras = Compra.objects.all()
+    form_editar = editarOrdenCompraForm()
+
     context = {
         'compras': compras,
+        'form_editar':form_editar
     }
-
+  
     return render(request, 'paginas/productos/ordenes.html',context)
+
+
 
 @login_required
 def agregarOrden(request):
     
     if request.method == 'POST':
-        form_orden = agregarOrdenCompraForm(data = request.POST, files = request.FILES)
+        form_orden = OrdenCompraForm(data = request.POST)
         if form_orden.is_valid():
             form_orden.save()
         return redirect ('ordenes')
     else:
-        form_orden = agregarOrdenCompraForm()
+        form_orden = OrdenCompraForm()
         context = {
             'form_orden': form_orden
         }

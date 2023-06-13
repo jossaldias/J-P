@@ -426,6 +426,8 @@ class agregarProductoForm(forms.ModelForm):
                             'cantidad':'Cantidad',
                 }
 
+
+
 class editarProductoForm(forms.ModelForm):
     PLATAFORMA = [
                     ('', '----'),
@@ -491,7 +493,110 @@ class editarProductoForm(forms.ModelForm):
                             'cantidad':forms.TextInput(attrs={'id' :'cantidad_editar'}),
                             
                 }
-                
+
+
+class OrdenCompraForm(forms.ModelForm):
+
+    PLATAFORMA = [
+                    ('', '----'),
+                    ('PlayStation 5', 'PlayStation 5'),
+                    ('Xbox Series X', 'Xbox Series X'),
+                    ('Xbox 360', 'Xbox 360'),
+                    ('Nintendo Switch', 'Nintendo Switch'),
+                    ('PC Gaming', 'PC Gaming'),
+                    ('PlayStation 4', 'PlayStation 4'),
+                    ('Xbox One', 'Xbox One'),
+                    ('Nintendo 3DS', 'Nintendo 3DS'),
+                    ('Sega Genesis Mini', 'Sega Genesis Mini'),
+                    ('Super Nintendo Entertainment System (SNES) Classic Edition', 'Super Nintendo Entertainment System (SNES) Classic Edition'),
+                    ('Nintendo Entertainment System (NES) Classic Edition', 'Nintendo Entertainment System (NES) Classic Edition')
+        ]
+
+    TIPO_PRODUCTO = [
+                        ('', '----'),
+                        ('Juego Físico','Juego Físico'),
+                        ('Accesorio','Accesorio'),
+                        ('Código Digital','Código Digital'),
+                    ] 
+    
+    ESTADO_ORDEN = [
+                        ('', '----'),
+                        ('Bloqueada','Bloqueada'),
+                        ('Aceptada','Aceptada'),
+                        ('Pendiente','Pendiente'),
+                    ] 
+    
+    plataforma = forms.ChoiceField(choices=PLATAFORMA, required=False)
+    tipo_producto = forms.ChoiceField(choices=TIPO_PRODUCTO, required=False)
+    estado_orden = forms.ChoiceField(choices=ESTADO_ORDEN, required=False)
+
+
+    class Meta:
+                model = Compra
+                fields = ['id_orden', 'sku', 'nombre', 'proveedor', 'plataforma','tipo_producto', 'costo', 'cantidad','estado_orden'] 
+                labels = {
+                            'id_orden':'Nº Órden de Compra',
+                            'sku':'SKU',
+                            'nombre':'Nombre Producto',
+                            'proveedor':'Proveedor',
+                            'plataforma': 'Plataforma',
+                            'tipo_producto': 'Tipo de Producto',
+                            'costo':'Costo',
+                            'cantidad':'Cantidad',
+                            'estado_orden':'Estado de Órden de Compra'
+                }
+
+class editarOrdenCompraForm(forms.ModelForm):
+
+    PLATAFORMA = [
+                    ('', '----'),
+                    ('PlayStation 5', 'PlayStation 5'),
+                    ('Xbox Series X', 'Xbox Series X'),
+                    ('Xbox 360', 'Xbox 360'),
+                    ('Nintendo Switch', 'Nintendo Switch'),
+                    ('PC Gaming', 'PC Gaming'),
+                    ('PlayStation 4', 'PlayStation 4'),
+                    ('Xbox One', 'Xbox One'),
+                    ('Nintendo 3DS', 'Nintendo 3DS'),
+                    ('Sega Genesis Mini', 'Sega Genesis Mini'),
+                    ('Super Nintendo Entertainment System (SNES) Classic Edition', 'Super Nintendo Entertainment System (SNES) Classic Edition'),
+                    ('Nintendo Entertainment System (NES) Classic Edition', 'Nintendo Entertainment System (NES) Classic Edition')
+        ]
+
+    TIPO_PRODUCTO = [
+                        ('', '----'),
+                        ('Juego Físico','Juego Físico'),
+                        ('Accesorio','Accesorio'),
+                        ('Código Digital','Código Digital'),
+                    ] 
+    
+    ESTADO_ORDEN = [
+                        ('', '----'),
+                        ('Bloqueada','Bloqueada'),
+                        ('Aceptada','Aceptada'),
+                        ('Pendiente','Pendiente'),
+                    ] 
+    
+    plataforma = forms.ChoiceField(choices=PLATAFORMA, required=False)
+    tipo_producto = forms.ChoiceField(choices=TIPO_PRODUCTO, required=False)
+    estado_orden = forms.ChoiceField(choices=ESTADO_ORDEN, required=False)
+
+
+    class Meta:
+                model = Compra
+                fields = ['id_orden', 'sku', 'nombre', 'proveedor', 'plataforma','tipo_producto', 'costo', 'cantidad','estado_orden'] 
+                labels = {
+                            'id_orden':'Nº Órden de Compra',
+                            'sku':'SKU',
+                            'nombre':'Nombre Producto',
+                            'proveedor':'Proveedor',
+                            'plataforma': 'Plataforma',
+                            'tipo_producto': 'Tipo de Producto',
+                            'costo':'Costo',
+                            'cantidad':'Cantidad',
+                            'estado_orden':'Estado de Órden de Compra'
+                }
+
 PRODUCTO_CANTIDAD_CHOICES = [
   (i, str(i)) for i in range(1, settings.CART_ITEM_MAX_CANTIDAD + 1)
 ]
@@ -563,54 +668,4 @@ class OrderCreateForm(forms.ModelForm):
     )
 
 
-class agregarOrdenCompraForm(forms.ModelForm):
-
-    PLATAFORMA = [
-                    ('', '----'),
-                    ('PlayStation 5', 'PlayStation 5'),
-                    ('Xbox Series X', 'Xbox Series X'),
-                    ('Xbox 360', 'Xbox 360'),
-                    ('Nintendo Switch', 'Nintendo Switch'),
-                    ('PC Gaming', 'PC Gaming'),
-                    ('PlayStation 4', 'PlayStation 4'),
-                    ('Xbox One', 'Xbox One'),
-                    ('Nintendo 3DS', 'Nintendo 3DS'),
-                    ('Sega Genesis Mini', 'Sega Genesis Mini'),
-                    ('Super Nintendo Entertainment System (SNES) Classic Edition', 'Super Nintendo Entertainment System (SNES) Classic Edition'),
-                    ('Nintendo Entertainment System (NES) Classic Edition', 'Nintendo Entertainment System (NES) Classic Edition')
-        ]
-
-    TIPO_PRODUCTO = [
-                        ('', '----'),
-                        ('Juego Físico','Juego Físico'),
-                        ('Accesorio','Accesorio'),
-                        ('Código Digital','Código Digital'),
-                    ] 
-    
-    ESTADO_ORDEN = [
-                        ('', '----'),
-                        ('Bloqueada','Bloqueada'),
-                        ('Aceptada','Aceptada'),
-                        ('Pendiente','Pendiente'),
-                    ] 
-    
-    plataforma = forms.ChoiceField(choices=PLATAFORMA, required=False)
-    tipo_producto = forms.ChoiceField(choices=TIPO_PRODUCTO, required=False)
-    estado_orden = forms.ChoiceField(choices=ESTADO_ORDEN, required=False)
-
-
-    class Meta:
-                model = Compra
-                fields = ['id_orden', 'id_producto', 'nombre', 'proveedor', 'plataforma','tipo_producto', 'costo', 'cantidad', 'estado_orden'] 
-                labels = {
-                            'id_orden':'Nº Órden de Compra',
-                            'id_producto':'SKU',
-                            'nombre':'Nombre Producto',
-                            'proveedor':'Proveedor',
-                            'plataforma': 'Plataforma',
-                            'tipo_producto': 'Tipo de Producto',
-                            'costo':'Costo',
-                            'cantidad':'Cantidad',
-                            'estado_orden':'Estado de Órden de Compra'
-                }
 
