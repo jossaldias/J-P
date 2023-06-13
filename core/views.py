@@ -10,8 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .cart import Cart
-from .models import Producto, User, Item, Order
-from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm, editarUsuarioForm   
+from .models import Producto, User, Item, Order, Compra
+from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm, editarUsuarioForm, agregarOrdenCompraForm   
 
 
 # Create your views here.
@@ -103,12 +103,12 @@ def usuarios(request):
 def agregarUsuario(request):
     
     if request.method == 'POST':
-        form = agregarProductoForm(data = request.POST, files = request.FILES)
+        form = editarUsuarioForm(data = request.POST, files = request.FILES)
         if form.is_valid():
             form.save()
-        return redirect ('inventario')
+        return redirect ('usuarios')
     else:
-        form = agregarProductoForm()
+        form = editarUsuarioForm()
         context = {
             'form': form
         }
@@ -149,6 +149,7 @@ def agregarProducto(request):
         context = {
             'form': form
         }
+    print(context)
     return render(request, 'paginas/productos/agregarProducto.html', context)
 
 @login_required
@@ -230,24 +231,30 @@ def misOrdenes(request):
     return render(request, 'paginas/productos/misOrdenes.html',  {'ordenes': ordenes} )
 
 #ORDENES DE COMPRA
-
+@login_required
 def ordenes(request):
     
-    return render(request, 'paginas/productos/ordenes.html')
+    compras = Compra.objects.all()
+    context = {
+        'compras': compras,
+    }
+
+    return render(request, 'paginas/productos/ordenes.html',context)
 
 @login_required
 def agregarOrden(request):
     
     if request.method == 'POST':
-        form = agregarProductoForm(data = request.POST, files = request.FILES)
-        if form.is_valid():
-            form.save()
-        return redirect ('inventario')
+        form_orden = agregarOrdenCompraForm(data = request.POST, files = request.FILES)
+        if form_orden.is_valid():
+            form_orden.save()
+        return redirect ('ordenes')
     else:
-        form = agregarProductoForm()
+        form_orden = agregarOrdenCompraForm()
         context = {
-            'form': form
+            'form_orden': form_orden
         }
+    print(context)
     return render(request, 'paginas/productos/agregarOrden.html', context)
 
 

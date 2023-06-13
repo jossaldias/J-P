@@ -26,9 +26,9 @@
                     Agregar Órden de Compra
                 </div>
                 <div>
-                <form id=" " method="POST" class="p-3 mt-3" enctype="multipart/form-data">
+                <form id=" " method="POST" class="p-3 mt-3">
                     {% csrf_token %}
-                    {% for field in form %}
+                    {% for field in form_orden %}
                     <p>{{field.label}}<br>
                        {{field|add_class:"form-control text-dark"}}</p>
                     {%endfor%}
