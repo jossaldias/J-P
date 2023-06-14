@@ -39,7 +39,7 @@
                                 <th>Plataforma</th>
                                 <th>Proveedor</th>
                                 <th>Tipo de Producto</th>                                  
-                                <th>Precio $</th>
+                                <th>Total $</th>
                                 <th>Cantidad</th>
                                 <th>Estado</th>
                                 {% if user.tipo_user == 'Administrador Logístico' %}
@@ -58,7 +58,7 @@
                                 <td class="table-dark">{{i.proveedor}}</td>
                                 <td class="table-dark">{{i.tipo_producto}}</td>
                                 <td class="table-dark">${{i.costo}}</td>
-                                <td class="table-dark">${{i.cantidad}}</td>
+                                <td class="table-dark">{{i.cantidad}}</td>
                                 <td class="table-dark">{{i.estado_orden}}</td>
                                 {% if user.tipo_user == 'Administrador Logístico' %}
                                 <td>

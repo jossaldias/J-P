@@ -121,6 +121,9 @@
           <a class="dropdown-item"><strong>Menú Logístico</strong></a>
           <a class="dropdown-item" href="{% url 'inventario' %}">Inventario de Productos</a>
           <a class="dropdown-item" href="{% url 'ordenes' %}">Órdenes de Compra</a>
+          <a class="dropdown-item" href="{% url 'ordenes' %}">Facturas</a>
+          <a class="dropdown-item" href="{% url 'ordenes' %}">Estado Ventas</a>
+
           {%endif%}
 
           {% if user.tipo_user == 'Ejecutivo' %}
