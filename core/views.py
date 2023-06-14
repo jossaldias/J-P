@@ -261,14 +261,37 @@ def agregarOrden(request):
     print(context)
     return render(request, 'paginas/productos/agregarOrden.html', context)
 
+@login_required
+def editarOrden(request):
+    if request.method == 'POST':
+        compra = get_object_or_404(Compra, pk=request.POST.get('id_compra_editar'))
+        form_editar = editarOrdenCompraForm(data=request.POST, files=request.FILES, instance=compra)
+        if form_editar.is_valid():
+            form_editar.save()
+        return redirect('ordenes')
+    else:
+        form_editar = editarOrdenCompraForm()
+        context = {
+            'form_editar': form_editar
+        }
+    return render(request, 'paginas/productos/ordenes.html', context)
+
+
+@login_required
+def eliminarOrden(request):
+    if request.POST:
+        compras = Compra.objects.get(pk=request.POST.get('id_compra_eliminar'))
+        compras.delete()    
+  
+    return redirect('ordenes')
 
 # PRODUCTOS
 
 def juegos(request):
     
     productos = Producto.objects.filter(
-                                        Q(tipo_producto='Juego')|
-                                        Q(tipo_producto='Codigo Digital')
+                                        Q(tipo_producto='Juego Físico')|
+                                        Q(tipo_producto='Código Digital')
                                         )
     context = {
         'productos': productos

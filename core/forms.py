@@ -199,9 +199,9 @@ class editarUsuarioForm(forms.ModelForm):
                 ('Yungay', 'Yungay'), ('Zapallar', 'Zapallar')
             ]
         TIPO_USER = [
-                      ('Administrador', 'Administrador'), 
-                      ('Logística', 'Logística'), 
-                      ('Recursos Humanos', 'Recursos Humanos'), 
+                      ('Administrador General', 'Administrador General'), 
+                      ('Administrador Logístico', 'Administrador Logístico'), 
+                      ('Ejecutivo', 'Ejecutivo'), 
                       ('Cliente', 'Cliente'), 
         ]
         region = forms.ChoiceField(choices=REGION)
@@ -596,6 +596,19 @@ class editarOrdenCompraForm(forms.ModelForm):
                             'cantidad':'Cantidad',
                             'estado_orden':'Estado de Órden de Compra'
                 }
+                widgets = {
+                            'id_orden':forms.TextInput(attrs={'type': 'text', 'id': 'orden_editar'}),
+                            'sku':forms.TextInput(attrs={'id': 'sku_editar'}),
+                            'nombre':forms.TextInput(attrs={'id': 'nombre_editar'}),
+                            'proveedor':forms.TextInput(attrs={'id': 'proveedor_editar'}),
+                            'plataforma':forms.TextInput(attrs={'id' :'plataforma_editar'}),
+                            'tipo_producto':forms.TextInput(attrs={'id' :'tipo_editar'}),
+                            'costo':forms.TextInput(attrs={'id' :'costo_editar'}),
+                            'cantidad':forms.TextInput(attrs={'id' :'cantidad_editar'}),
+                            'estado_orden':forms.TextInput(attrs={'id' :'estado_editar'}),
+                            
+                }
+
 
 PRODUCTO_CANTIDAD_CHOICES = [
   (i, str(i)) for i in range(1, settings.CART_ITEM_MAX_CANTIDAD + 1)

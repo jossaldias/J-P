@@ -107,25 +107,29 @@
 
 
           {% comment %} {% if user.is_superuser %} {% endcomment %}
-          {% if user.tipo_user == 'Administrador' %}
-
+          {% if user.tipo_user == 'Administrador General' %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item"><strong>Informes Administrativos</strong></a>
           <a class="dropdown-item" href="{% url 'usuarios' %}">Gestión de Usuarios</a>
           <a class="dropdown-item" href="{% url 'inventario' %}">Inventario de Productos</a>
           <a class="dropdown-item" href="{% url 'ordenes' %}">Órdenes de Compra</a>
+          <a class="dropdown-item" href="{% url 'ordenes' %}">Facturas</a>
           {%endif%}
-          {% if user.tipo_user == 'Logístico' %}
+
+          {% if user.tipo_user == 'Administrador Logístico' %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item"><strong>Menú Logístico</strong></a>
           <a class="dropdown-item" href="{% url 'inventario' %}">Inventario de Productos</a>
           <a class="dropdown-item" href="{% url 'ordenes' %}">Órdenes de Compra</a>
           {%endif%}
-          {% if user.tipo_user == 'Recursos Humanos' %}
+
+          {% if user.tipo_user == 'Ejecutivo' %}
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item"><strong>Menú Logístico</strong></a>
+          <a class="dropdown-item"><strong>Informes Administrativos</strong></a>
+          <a class="dropdown-item"><strong>Menú Ejecutivo</strong></a>
           <a class="dropdown-item" href="{% url 'inventario' %}">Inventario de Productos</a>
           <a class="dropdown-item" href="{% url 'ordenes' %}">Órdenes de Compra</a>
+          <a class="dropdown-item" href="{% url 'misOrdenes' %}">Seguimiento Despachos</a>
           {%endif%}
         </div>
       </li>

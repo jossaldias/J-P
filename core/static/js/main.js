@@ -41,3 +41,21 @@ function editarUsuario(id, username, first_name, last_name, email, direccion, re
 function eliminarUsuario(id) {
     document.getElementById("id_usuario_eliminar").value = id;
 }
+
+function editarOrden(id, id_orden, sku, nombre, proveedor, plataforma, tipo_producto, costo, cantidad, estado_orden) {
+    document.getElementById("id_compra_editar").value = id;
+    document.getElementById("orden_editar").value = id_orden;
+    document.getElementById("sku_editar").value = sku;
+    document.getElementById("nombre_editar").value = nombre;
+    document.getElementById("proveedor_editar").value = proveedor;
+    document.getElementById("plataforma_editar").value = plataforma;
+    document.getElementById("tipo_editar").value = tipo_producto;
+    document.getElementById("costo_editar").value = costo;
+    document.getElementById("cantidad_editar").value = cantidad;
+    document.getElementById("estado_editar").value = estado_orden;
+
+}
+
+function eliminarOrden(id) {
+    document.getElementById("id_compra_eliminar").value = id;
+}

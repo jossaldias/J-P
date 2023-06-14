@@ -42,8 +42,11 @@
                                 <th>Precio $</th>
                                 <th>Cantidad</th>
                                 <th>Códigos</th>
+                                {% if user.tipo_user == 'Administrador Logístico' %}
                                 <th>Editar</th>
                                 <th>Quitar</th>
+                                {% endif %}
+
                             </tr>
                         </thead>
                         <tbody class="text-dark">
@@ -65,7 +68,7 @@
                                 {% endif %}
                                 <td class="table-dark">${{i.costo}}</td>
                                 <td class="table-dark">{{i.cantidad}}</td>
-                                {% if i.tipo_producto == 'Codigo Digital' %}
+                                {% if i.tipo_producto == 'Código Digital' %}
                                 <td>
                                     <button type="button" class="btn btn-warning">
                                         <a  href="{% url 'home' %}">
@@ -75,6 +78,7 @@
                                 {% else %}
                                 <td>--</td>
                                 {% endif %}
+                                {% if user.tipo_user == 'Administrador Logístico' %}
                                 <td>
                                     <button type="button"
                                         onclick="editarProducto('{{i.id}}','{{i.id_producto}}', '{{i.nombre}}', '{{i.descripcion}}', '{{i.costo}}', '{{i.cantidad}}')"
@@ -88,6 +92,8 @@
                                         <i class="bi bi-x-square-fill"></i>
                                     </button>
                                 </td>
+                                {% endif %}
+
                             </tr>
                             {% endfor %}
                         </tbody>

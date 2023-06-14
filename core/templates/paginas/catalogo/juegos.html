@@ -62,12 +62,12 @@
       <p>{{juego.descripcion}}</p>
 
       <h5> <strong>Precio</strong>$ {{juego.costo}}</h5>
-      {% if juego.tipo_producto == 'Juego'%}
+      {% if juego.tipo_producto == 'Juego Físico'%}
       <p>PLATAFORMA: {{juego.plataforma}}</p>
       {% endif %}
       <p>TIPO PRODUCTO: {{juego.tipo_producto}}</p>
 
-      {% if juego.tipo_producto == 'Codigo Digital' %}
+      {% if juego.tipo_producto == 'Código Digital' %}
       <form method="post" action="{% url 'add' juego.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
