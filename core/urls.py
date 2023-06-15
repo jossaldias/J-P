@@ -25,10 +25,15 @@ urlpatterns = [
     path('paginas/contacto', views.contacto, name="contacto"),
 
     path('paginas/ordenes', views.ordenesCompra, name="ordenes"),    
-    path('paginas/agregarOrden', views.agregarOrden, name="agregarOrden"),
     path('paginas/editarOrden', views.editarOrden, name="editarOrden"),
     path('paginas/eliminarOrden', views.eliminarOrden, name="eliminarOrden"),
     path('paginas/crearOrden', views.crearOrden, name="crearOrden"),
+
+    path("addoc/<int:producto_id>/", views.provider_add, name="addoc"),
+    path("eliminaroc/<int:producto_id>/", views.provider_eliminar, name="eliminaroc"),
+    path("clearoc/", views.provider_clear, name="clearoc"),
+
+    path("crear-orden/",views.ProviderCreateView.as_view(), name="crear-orden"),
 
 
     

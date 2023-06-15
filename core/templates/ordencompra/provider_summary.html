@@ -1,8 +1,8 @@
 
 <div class="card-header text-white">
-  <h4>Resumen de Pedido</h4>
+  <h4>Resumen de Órden de Compra</h4>
   <ul class="list-group list-group-flush">
-      {% for item in items %}
+      {% for item in itemproviders %}
       <li class="list-group-item text-white bg-dark">
           {{ item.cantidad }} x {{ item.producto.nombre }}
           <span class="float-right">{{ item.precio_total }}</span>

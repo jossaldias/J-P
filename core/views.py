@@ -1,5 +1,7 @@
 import os
 import requests
+import time
+
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView
@@ -10,8 +12,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .cart import Cart
-from .models import Producto, User, Item, Order, Compra
-from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm, editarUsuarioForm, OrdenCompraForm, editarOrdenCompraForm   
+from .provider import Provider
+from .models import Producto, User, Item, Order, Compra, Orden, ItemProvider
+from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm, editarUsuarioForm,  ProviderAddProductoForm, OrdenCreateForm, OrdenCompraForm, editarOrdenCompraForm   
 
 
 # Create your views here.
@@ -231,43 +234,87 @@ def misOrdenes(request):
     return render(request, 'paginas/productos/misOrdenes.html',  {'ordenes': ordenes} )
 
 #ORDENES DE COMPRA
-@login_required
-def ordenesCompra(request):
-    compras = Compra.objects.all()
-    form_editar = editarOrdenCompraForm()
 
-    context = {
-        'compras': compras,
-        'form_editar':form_editar
-    }
+def ordenesCompra(request):
+    orders = Orden.objects.filter(user=request.user)
+    print(orders)
   
-    return render(request, 'paginas/productos/ordenes.html',context)
+    return render(request, 'ordencompra/ordenes.html', {'orders': orders})
 
 def crearOrden (request):
     productos = Producto.objects.all()
-    
+    provider = Provider(request)
+
     context = {
         'productos': productos,
-       
+        "provider": provider
     }
+    extra_context = {"form": ProviderAddProductoForm()}
     return render(request, 'ordenCompra/crearOrden.html',context)
 
 
-@login_required
-def agregarOrden(request):
-    
-    if request.method == 'POST':
-        form_orden = OrdenCompraForm(data = request.POST)
-        if form_orden.is_valid():
-            form_orden.save()
-        return redirect ('ordenes')
-    else:
-        form_orden = OrdenCompraForm()
-        context = {
-            'form_orden': form_orden
-        }
-    print(context)
-    return render(request, 'paginas/productos/agregarOrden.html', context)
+
+def provider_add(request, producto_id):
+
+  provider = Provider(request)
+  producto = get_object_or_404(Producto, id=producto_id)
+
+  form = ProviderAddProductoForm(request.POST)
+  if form.is_valid():
+    provider_add = form.cleaned_data
+    provider.add(
+      producto=producto,
+      cantidad=provider_add["cantidad"],
+      override_cantidad=provider_add["override"]
+    )
+    return HttpResponseRedirect(reverse("crearOrden"))
+
+
+
+def provider_eliminar(request, producto_id):
+
+  provider = Provider(request)
+  producto = get_object_or_404(Producto, id=producto_id)
+  provider.remove(producto)
+  return redirect("crearOrden")
+
+def provider_clear(request):
+  provider = Provider(request)
+  provider.clear()
+  return redirect("crearOrden")
+
+
+class ProviderCreateView(CreateView):
+  model = Orden
+  form_class = OrdenCreateForm
+  template_name="ordencompra/provider_form.html"
+
+  def form_valid(self, form):
+    provider = Provider(self.request)
+    if provider:
+      orden = form.save(commit=False)
+      orden.user = self.request.user
+      orden.is_pagado = True
+      orden.save()
+      for itemprovider in provider:
+          ItemProvider.objects.create(
+          orden=orden,
+          producto=itemprovider["producto"],
+          costo=itemprovider["costo"],
+          cantidad=itemprovider["cantidad"],
+        )
+      provider.clear()
+      return render(self.request, 'ordencompra/ordenEnviada.html', {'orden': orden})
+    return HttpResponseRedirect(reverse("home"))
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context["provider"] = Provider(self.request)
+    return context
+
+
+
+
 
 @login_required
 def editarOrden(request):
@@ -292,6 +339,9 @@ def eliminarOrden(request):
         compras.delete()    
   
     return redirect('ordenes')
+
+
+
 
 # PRODUCTOS
 
@@ -387,4 +437,7 @@ class OrderCreateView(CreateView):
     context = super().get_context_data(**kwargs)
     context["cart"] = Cart(self.request)
     return context
+
+
+
 

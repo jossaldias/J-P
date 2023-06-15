@@ -1,0 +1,31 @@
+
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %} 
+
+{% block template %}
+
+
+<div class="container mt-3 rounded" style="background-color: #212529; padding-top:3%; margin-bottom:3%; ">
+ 
+<div class="logo">
+  <img src="{% static 'img/j&pmini.png' %}" alt="">
+</div> 
+  <h4  class="font-weight-bold text-white">Datos de Proveedor</h4> 
+  <div class="row">
+    <div class="col-lg-6 text-white">
+      {% crispy form %}
+    </div>
+    <div class="col-lg-6 mt-5">
+       {% include "ordencompra/provider_summary.html" with itemproviders=provider total_price=provider.get_precio_total %}
+    </div>
+  </div>
+ 
+</div>
+
+{% endblock %} 
