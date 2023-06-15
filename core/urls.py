@@ -28,6 +28,7 @@ urlpatterns = [
     path('paginas/agregarOrden', views.agregarOrden, name="agregarOrden"),
     path('paginas/editarOrden', views.editarOrden, name="editarOrden"),
     path('paginas/eliminarOrden', views.eliminarOrden, name="eliminarOrden"),
+    path('paginas/crearOrden', views.crearOrden, name="crearOrden"),
 
 
     

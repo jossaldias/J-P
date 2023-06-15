@@ -1,0 +1,141 @@
+{% extends "base/base.html" %} {% load widget_tweaks %} 
+{% load static %} 
+
+{%block css %}
+<link rel="stylesheet" href="{% static 'css/carro.css' %}" />
+{% endblock %} 
+
+{% block template %}
+
+
+
+  <div class="container h-100" style="padding-top:5%; padding-bottom:5%">
+    <div class="row d-flex justify-content-center align-items-center h-500 rounded" style="background: #212529" >
+      {% for juego in productos %}
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Producto</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{juego.nombre}}</td>
+            <td>
+              <form method="post" action="{% url 'add' juego.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
+                <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true"
+                    data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true"
+                    data-tippy-theme="sharpborder"></i>&nbsp;Añadir a la Órden</a>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>     
+     
+      {% endfor %}
+
+      
+      <h1>Carrito de compras</h1>
+      <h5>Detalle de producto</h5>
+      <hr/>
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Producto</th>
+                <th scope="col" class="text-center">Cantidad</th>
+                <th scope="col" class="text-right">Precio Unitario</th>
+                <th scope="col" class="text-right">Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cart %} {% with producto=item.producto %}
+              <tr>
+                <td>
+                  <img
+                    src="{{producto.picture.url}}"
+                    width="100"
+                    height="100"
+                  />
+                </td>
+                <td>{{producto.nombre}}</td>
+                <td>
+                  <form action="{% url 'add' producto.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                      <div class="col">
+                        {% render_field item.update_cantidad_form.cantidad class+="form-control" %}
+                      </div>
+                      <br />
+                      <div class="col">
+                        <button class="btn btn-outline-info" type="submit">
+                          Actualizar Item <i class="bi bi-cart-check-fill"></i>
+                        </button>
+                      </div>
+                    </div>
+                    {{ item.update_cantidad_form.override }}
+                  </form>
+                </td>
+                <td class="text-right">${{item.costo}}</td>
+                <td class="text-right">$ {{item.precio_total}}</td>
+                <td class="text-right">
+                  <form action="{% url 'eliminar' producto.id %}" method="post">
+                    {% csrf_token %}
+                    <span class="icon-input-btn">
+                      <button class="btn btn-danger" type="submit">
+                        <i class="bi bi-trash3-fill"></i> Eliminar
+                      </button>
+                    </span>
+                  </form>
+                </td>
+              </tr>
+              {% endwith %} {% endfor %}
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>Total</strong></td>
+                <td class="text-right">
+                  <strong>$ {{cart.get_precio_total}}</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col mb-2">
+        <div class="row">
+          <div class="col-sm-3 col-md-3">
+            <a href="{% url 'juegos'%}" class="btn btn-block btn-primary"
+              >Seguir comprando</a>
+          </div>
+          <div class="col-sm-3 col-md-3 text-right">
+            <a href="{% url 'create-order' %}" class="btn btn-block btn-success"
+              >Realizar pedido</a>
+          </div>
+          <div class="col-sm-3 col-md-3 text-right">
+            <form action="{% url 'clear' %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-block btn-danger" type="submit">
+                <i class="bi bi-cart-x-fill"></i> Vaciar carrito
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+
+
+  {% endblock %}
+

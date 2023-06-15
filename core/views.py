@@ -243,6 +243,14 @@ def ordenesCompra(request):
   
     return render(request, 'paginas/productos/ordenes.html',context)
 
+def crearOrden (request):
+    productos = Producto.objects.all()
+    
+    context = {
+        'productos': productos,
+       
+    }
+    return render(request, 'ordenCompra/crearOrden.html',context)
 
 
 @login_required
