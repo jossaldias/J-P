@@ -9,7 +9,7 @@
 
 
   <div class="container h-100" style="padding-top:5%; padding-bottom:5%">
-    <div class="row d-flex justify-content-center align-items-center h-500 rounded" style="background: #212529" >
+    <div class="row d-flex justify-content-center align-items-center h-500 rounded" style="background: #212529; padding-bottom:20%; margin-bottom:15%" >
       {% if cart %}
       <h1>Carrito de compras</h1>
       <h5>Detalle de producto</h5>
@@ -105,12 +105,12 @@
         </div>
       </div>
       {% else %}
-      <div class="row">
-        <div class="container">
+      <div class="row" >
+        <div class="container"><br><br>
           <div class="d-flex justify-content-center">
             <h1>Opps! Su Carrito esta vacío...</h1>
             <br />
-          </div>
+          </div><br><br>
           <div class="d-flex justify-content-center">
             <img
               src="{% static 'img/emptycart.png'%}"
@@ -123,6 +123,7 @@
       {% endif %}
     </div>
   </div>
+  
 
 
 

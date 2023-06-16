@@ -217,6 +217,37 @@ def cart_detalle(request):
   cart = Cart(request)
   return render(request, "paginas/productos/carritoCompras.html", {"cart": cart})
 
+class OrderCreateView(CreateView):
+  model = Order
+  form_class = OrderCreateForm
+  template_name="order/order_form.html"
+
+  
+  def form_valid(self, form):
+    cart = Cart(self.request)
+    if cart:
+      order = form.save(commit=False)
+      order.user = self.request.user
+      order.is_pagado = True
+      order.save()
+      for item in cart:
+        Item.objects.create(
+          orden=order,
+          producto=item["producto"],
+          costo=item["costo"],
+          cantidad=item["cantidad"],
+        )
+      cart.clear()
+      return render(self.request, 'order/ordenCreada.html', {'order': order})
+    return HttpResponseRedirect(reverse("home"))
+  
+  
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context["cart"] = Cart(self.request)
+    return context  
+
+@login_required
 def pedidoListo(request):
     
     return render(request, 'paginas/productos/pedidoListo.html')
@@ -227,14 +258,14 @@ def contacto(request):
 
 
 #MIS COMPRAS
-
+@login_required
 def misOrdenes(request):
     ordenes = Order.objects.filter(user=request.user)
     print(ordenes)
     return render(request, 'paginas/productos/misOrdenes.html',  {'ordenes': ordenes} )
 
 #ORDENES DE COMPRA
-
+@login_required
 def ordenesCompra(request):
     orders = Orden.objects.all()
     print(orders)
@@ -307,33 +338,11 @@ class ProviderCreateView(CreateView):
     context["provider"] = Provider(self.request)
     return context
 
-class OrderCreateView(CreateView):
-  model = Order
-  form_class = OrderCreateForm
-  template_name="order/order_form.html"
 
-  def form_valid(self, form):
-    cart = Cart(self.request)
-    if cart:
-      order = form.save(commit=False)
-      order.user = self.request.user
-      order.is_pagado = True
-      order.save()
-      for item in cart:
-        Item.objects.create(
-          orden=order,
-          producto=item["producto"],
-          costo=item["costo"],
-          cantidad=item["cantidad"],
-        )
-      cart.clear()
-      return render(self.request, 'order/ordenCreada.html', {'order': order})
-    return HttpResponseRedirect(reverse("home"))
-
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    context["cart"] = Cart(self.request)
-    return context
+@login_required
+def ordenEnviada(request):
+    
+    return render(request, 'ordencompra/ordenEnviada.html')
 
 ########
 
@@ -435,11 +444,7 @@ def accesorios(request):
 
 # COMPRAS
 
-
-
-
-
-
+@login_required
 def compras(request):
    ordenes = Order.objects.all()
   

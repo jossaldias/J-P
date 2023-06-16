@@ -11,7 +11,6 @@
 {% block template %}
 
 
-<section class="vh-100">
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -37,6 +36,7 @@
                             {% endif %}
                           <tr>
                             <th>Nº Compra</th>
+                            <th>Proveedor</th>
                             <th>Fecha</th>
                             <th>Descripción</th>
                             <th>Total</th>
@@ -45,6 +45,7 @@
                           {% for order in orders %}
                           <tr>
                             <td><a class="account-order-id" href="#">{{order}}</a></td>
+                            <td>{{order.nombre}}</td>
                             <td>{{order.created}}</td>
                             <td>{{order.get_description}}</td>
                             <td>${{order.get_precio_total}}</td>
@@ -58,5 +59,4 @@
         </div>
     </div>
 </div>
-</section>
 {% endblock %}
