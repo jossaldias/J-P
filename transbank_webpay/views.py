@@ -5,8 +5,8 @@ from transbank.error.transbank_error import TransbankError
 from transbank.webpay.webpay_plus.transaction import Transaction
 from datetime import datetime as dt
 from datetime import timedelta
-from core.models import Order, Item
-from core.cart import Cart
+from core.models import Order
+
 
 # Create your views here.
 @login_required
@@ -38,19 +38,6 @@ def webpay_plus_commit(request):
     token = request.GET.get("token_ws")
     print("commit for token_ws: {}".format(token))
 
-    # response = commit_transaction(token)
-    # print("response: {}".format(response))
-    #return render(request, 'webpayplus/commit.html', {'token': token, 'response': response})
-
     return render(request, 'paginas/productos/pedidoListo.html', {'token': token})
 
-def webpay_plus_commit_error(request):
-    token = request.POST.get("token_ws")
-    print("commit error for token_ws: {}".format(token))
-
-    response = {
-        "error": "Transacción con errores"
-    }
-
-    return render(request, 'webpay-plus/commit.html', {'token': token, 'response': response})
 
