@@ -23,32 +23,28 @@
                     Join And Play
                 </div>
                 <div class="text-left mt-4 name">
-                    Órdenes de Compra
+                    Estado de Ventas 
                 </div>
                 <div class="table-responsive">
                     <table class="table table-responsive table-dark table-hover rounded">
                         <tbody>
-                            <br>
-                            {% if user.tipo_user == 'Administrador General' or user.tipo_user == 'Administrador Logístico' %}
 
-                            <a class="btn btn-success btn-lg" href="{% url 'crearOrden' %}"><i
-                                    class="bi bi-plus-square-fill"></i>&nbsp;&nbsp;Crear Órden de Compra</a>
-                            <br><br>
-                            {% endif %}
                           <tr>
-                            <th>Nº Compra</th>
+                            <th>Nº Venta</th>
                             <th>Fecha</th>
+                            <th>Contacto Comprador</th>
                             <th>Descripción</th>
-                            <th>Total</th>
-                            <th>Estado de Órden de Compra</th>
+                            <th>Total Compra</th>
+                            <th>Seguimiento Venta</th>
                           </tr>
-                          {% for order in orders %}
+                          {% for order in ordenes %}
                           <tr>
                             <td><a class="account-order-id" href="#">{{order}}</a></td>
                             <td>{{order.created}}</td>
+                            <td>{{order.email}}</td>
                             <td>{{order.get_description}}</td>
                             <td>${{order.get_precio_total}}</td>
-                            <td>{{order.estado_orden}}</td>
+                            <td>{{order.estado_venta}}</td>
                           </tr>
                           {% endfor %}
                         </tbody>

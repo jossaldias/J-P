@@ -312,7 +312,11 @@ class Order(TimeStampedModel):
                 ('Viña del Mar', 'Viña del Mar'), ('Vitacura', 'Vitacura'), ('Yerbas Buenas', 'Yerbas Buenas'), ('Yumbel', 'Yumbel'),
                 ('Yungay', 'Yungay'), ('Zapallar', 'Zapallar')
             ]
-    
+    ESTADO_VENTA = [
+                    ('En Preparación', 'En Preparación'),
+                    ('En Ruta', 'En Ruta'),
+                    ('Entregado', 'Entregado'),
+    ]
     user=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     email = models.EmailField()
     direccion = models.CharField("Dirección", max_length=250, null = True)
@@ -320,6 +324,7 @@ class Order(TimeStampedModel):
     descripcion = models.CharField("Descripción", max_length=250, blank=True)
     region = models.CharField("Región", max_length=200, choices=REGION, default=REGION[0][0])
     comuna = models.CharField("Comuna", max_length=200, choices=COMUNA, default=COMUNA[0][0])
+    estado_venta = models.CharField("Estado Órden", max_length=200, choices=ESTADO_VENTA, default=ESTADO_VENTA[0][0])
     is_pagado = models.BooleanField(default=False)
 
     class Meta:
@@ -443,6 +448,12 @@ class Orden(TimeStampedModel):
                 ('Yungay', 'Yungay'), ('Zapallar', 'Zapallar')
             ]
 
+    ESTADO_ORDEN = [
+                    ('Pendiente', 'Pendiente'),
+                    ('Bloqueada', 'Bloqueada'),
+                    ('Aceptada', 'Aceptada'),
+    ]
+
     user=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     nombre = models.CharField("Nombre de Empresa", max_length=250, null = True)
     email = models.EmailField()
@@ -451,6 +462,7 @@ class Orden(TimeStampedModel):
     descripcion = models.CharField("Comentarios", max_length=250, blank=True)
     region = models.CharField("Región", max_length=200, choices=REGION, default=REGION[0][0])
     comuna = models.CharField("Comuna", max_length=200, choices=COMUNA, default=COMUNA[0][0])
+    estado_orden = models.CharField("Estado Órden", max_length=200, choices=ESTADO_ORDEN, default=ESTADO_ORDEN[0][0])
     is_pagado = models.BooleanField(default=False)
 
     class Meta:

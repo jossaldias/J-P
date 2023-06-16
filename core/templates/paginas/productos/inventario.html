@@ -25,12 +25,14 @@
                 <div class="text-left mt-4 name">
                     Inventario de productos
                 </div>
-                <div>
+                <div class="table-responsive">
                     <table class="table table-dark table-hover">
                         <br>
+                        {% if user.tipo_user == 'Administrador General' or user.tipo_user == 'Administrador Logístico' %}
                         <a class="btn btn-success btn-lg" href="{% url 'agregarProducto' %}"><i
                                 class="bi bi-plus-square-fill"></i>&nbsp;&nbsp;Agregar Productos</a>
                         <br><br>
+                        {% endif %}
                         <thead>
                             <tr class="table-dark">
                                 <th># ID</th>
@@ -42,7 +44,7 @@
                                 <th>Precio $</th>
                                 <th>Cantidad</th>
                                 <th>Códigos</th>
-                                {% if user.tipo_user == 'Administrador Logístico' %}
+                                {% if user.tipo_user == 'Administrador General' %}
                                 <th>Editar</th>
                                 <th>Quitar</th>
                                 {% endif %}
@@ -78,7 +80,7 @@
                                 {% else %}
                                 <td>--</td>
                                 {% endif %}
-                                {% if user.tipo_user == 'Administrador Logístico' %}
+                                {% if user.tipo_user == 'Administrador General' %}
                                 <td>
                                     <button type="button"
                                         onclick="editarProducto('{{i.id}}','{{i.id_producto}}', '{{i.nombre}}', '{{i.descripcion}}', '{{i.costo}}', '{{i.cantidad}}')"

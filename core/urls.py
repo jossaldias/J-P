@@ -25,16 +25,15 @@ urlpatterns = [
     path('paginas/contacto', views.contacto, name="contacto"),
 
     path('paginas/ordenes', views.ordenesCompra, name="ordenes"),    
-    path('paginas/editarOrden', views.editarOrden, name="editarOrden"),
-    path('paginas/eliminarOrden', views.eliminarOrden, name="eliminarOrden"),
     path('paginas/crearOrden', views.crearOrden, name="crearOrden"),
-
     path("addoc/<int:producto_id>/", views.provider_add, name="addoc"),
     path("eliminaroc/<int:producto_id>/", views.provider_eliminar, name="eliminaroc"),
     path("clearoc/", views.provider_clear, name="clearoc"),
-
     path("crear-orden/",views.ProviderCreateView.as_view(), name="crear-orden"),
 
+
+    path('paginas/editarOrden', views.editarOrden, name="editarOrden"),
+    path('paginas/eliminarOrden', views.eliminarOrden, name="eliminarOrden"),
 
     
     path('paginas/carritoCompras', views.cart_detalle, name="carritoCompras"),
@@ -47,6 +46,7 @@ urlpatterns = [
 
 
     path('paginas/inventario', views.inventarioProducto, name="inventario"),
+    path('paginas/compras', views.compras, name="compras"),
     path('paginas/agregarProducto', views.agregarProducto, name="agregarProducto"),
     path('paginas/editarProducto', views.editarProducto, name="editarProducto"),
     path('paginas/eliminarProducto', views.eliminarProducto, name="eliminarProducto"),

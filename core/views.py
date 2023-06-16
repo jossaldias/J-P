@@ -236,7 +236,7 @@ def misOrdenes(request):
 #ORDENES DE COMPRA
 
 def ordenesCompra(request):
-    orders = Orden.objects.filter(user=request.user)
+    orders = Orden.objects.all()
     print(orders)
   
     return render(request, 'ordencompra/ordenes.html', {'orders': orders})
@@ -251,8 +251,6 @@ def crearOrden (request):
     }
     extra_context = {"form": ProviderAddProductoForm()}
     return render(request, 'ordenCompra/crearOrden.html',context)
-
-
 
 def provider_add(request, producto_id):
 
@@ -269,8 +267,6 @@ def provider_add(request, producto_id):
     )
     return HttpResponseRedirect(reverse("crearOrden"))
 
-
-
 def provider_eliminar(request, producto_id):
 
   provider = Provider(request)
@@ -282,7 +278,6 @@ def provider_clear(request):
   provider = Provider(request)
   provider.clear()
   return redirect("crearOrden")
-
 
 class ProviderCreateView(CreateView):
   model = Orden
@@ -312,9 +307,35 @@ class ProviderCreateView(CreateView):
     context["provider"] = Provider(self.request)
     return context
 
+class OrderCreateView(CreateView):
+  model = Order
+  form_class = OrderCreateForm
+  template_name="order/order_form.html"
 
+  def form_valid(self, form):
+    cart = Cart(self.request)
+    if cart:
+      order = form.save(commit=False)
+      order.user = self.request.user
+      order.is_pagado = True
+      order.save()
+      for item in cart:
+        Item.objects.create(
+          orden=order,
+          producto=item["producto"],
+          costo=item["costo"],
+          cantidad=item["cantidad"],
+        )
+      cart.clear()
+      return render(self.request, 'order/ordenCreada.html', {'order': order})
+    return HttpResponseRedirect(reverse("home"))
 
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context["cart"] = Cart(self.request)
+    return context
 
+########
 
 @login_required
 def editarOrden(request):
@@ -340,6 +361,8 @@ def eliminarOrden(request):
   
     return redirect('ordenes')
 
+
+######
 
 
 
@@ -407,37 +430,19 @@ def accesorios(request):
         'productos': productos
     }
     extra_context = {"form": CartAddProductoForm()}
+
     return render(request, 'paginas/catalogo/accesorios.html', context)
 
-#CREAR ORDER
-class OrderCreateView(CreateView):
-  model = Order
-  form_class = OrderCreateForm
-  template_name="order/order_form.html"
-
-  def form_valid(self, form):
-    cart = Cart(self.request)
-    if cart:
-      order = form.save(commit=False)
-      order.user = self.request.user
-      order.is_pagado = True
-      order.save()
-      for item in cart:
-        Item.objects.create(
-          orden=order,
-          producto=item["producto"],
-          costo=item["costo"],
-          cantidad=item["cantidad"],
-        )
-      cart.clear()
-      return render(self.request, 'order/ordenCreada.html', {'order': order})
-    return HttpResponseRedirect(reverse("home"))
-
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    context["cart"] = Cart(self.request)
-    return context
+# COMPRAS
 
 
+
+
+
+
+def compras(request):
+   ordenes = Order.objects.all()
+  
+   return render(request, 'paginas/productos/compras.html', {'ordenes': ordenes})
 
 
