@@ -33,6 +33,7 @@
                                         <th>Fecha</th>
                                         <th>Descripción</th>
                                         <th>Total</th>
+                                        <th>Estado</th>
                                       </tr>
                                       {% for order in ordenes %}
                                       <tr>
@@ -40,6 +41,7 @@
                                         <td>{{order.created}}</td>
                                         <td>{{order.get_description}}</td>
                                         <td>${{order.get_precio_total}}</td>
+                                        <td>{{order.estado_venta}}</td>
                                       </tr>
                                       {% endfor %}
                                     </tbody>
