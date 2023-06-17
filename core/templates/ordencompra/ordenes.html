@@ -25,7 +25,7 @@
                     Órdenes de Compra
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-responsive table-dark table-hover rounded">
+                    <table class="table table-responsive table-dark table-hover rounded" id="table">
                         <tbody>
                             <br>
                             {% if user.tipo_user == 'Administrador General' or user.tipo_user == 'Administrador Logístico' %}
@@ -41,7 +41,7 @@
                             <th>Descripción</th>
                             <th>Total</th>
                             <th>Estado de Órden de Compra</th>
-                            <th>Actualizar Estado</th>
+                            <th> </th>
                             
                           </tr>
                           {% for order in orders %}
@@ -64,6 +64,10 @@
                           {% endfor %}
                         </tbody>
                       </table>
+
+                      <input type="button" value="Imprimir" class="btn btn-primary printbutton">
+
+
                 </div>
                 <div id="EditarOrdenModal" class="modal">
                     <div class="modal-dialog">
@@ -83,7 +87,8 @@
                             <div class="modal-footer bg-dark text-white">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">
                                     Cerrar
-                                    <i class="bi bi-x-square-fill"></i>                                    </button>
+                                    <i class="bi bi-x-square-fill"></i>                                   
+                                </button>
                                 <button type="submit" class="btn btn-success">
                                     Guardar
                                 </button>

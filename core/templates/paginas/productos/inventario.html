@@ -26,7 +26,7 @@
                     Inventario de productos
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-dark table-hover">
+                    <table class="table table-dark table-hover" id="tableinventario">
                         <br>
                         {% if user.tipo_user == 'Administrador General' or user.tipo_user == 'Administrador Logístico' %}
                         <a class="btn btn-success btn-lg" href="{% url 'agregarProducto' %}"><i
@@ -100,6 +100,8 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    <input type="button" value="Imprimir" class="btn btn-primary printbuttoninv">
+
                 </div>
                     <div id="EliminarProductoModal" class="modal">
                         <div class="modal-dialog">

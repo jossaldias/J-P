@@ -25,7 +25,7 @@
                     Informe de Ventas
                                 </div>
                 <div class="table-responsive">
-                    <table class="table table-responsive table-dark table-hover rounded">
+                    <table class="table table-responsive table-dark table-hover rounded" id="table">
                         <tbody>
 
                           <tr>
@@ -35,7 +35,7 @@
                             <th>Descripción</th>
                             <th>Total Compra</th>
                             <th>Estado de Venta</th>
-                            <th>Estado Estado</th>
+                            <th></th>
                           </tr>
                           {% for order in ordenes %}
                           <tr>
@@ -56,6 +56,8 @@
                           {% endfor %}
                         </tbody>
                       </table>
+                      <input type="button" value="Imprimir" class="btn btn-primary printbutton">
+
                 </div>
                 <div id="EditarEnvioModal" class="modal">
                     <div class="modal-dialog">
