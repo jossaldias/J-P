@@ -16,17 +16,18 @@
     </div>
     <div class="card-body">
       <img src="{% static 'img/webpay.png' %}" alt="">
-      <br>
+      <br> <br> <br>
       <form action="{{ response.url }}" method="POST">
         <input type="hidden" name="token_ws" value="{{ response.token }}"><br>
         <input type="submit" value="Ejecutar Pago con Webpay">
       </form>
-      <br>
+      <br> <br> <br>
     </div>
     <div class="card-footer text-muted">
       <a class="btn btn-danger btn-lg" href="/"><i class="bi bi-x-octagon-fill"></i></i>&nbsp;&nbsp;Cancelar Compra</a>
     </div>
   </div>
+   <br> <br> <br>
 </div>
 
 
