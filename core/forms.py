@@ -546,30 +546,8 @@ class OrdenCompraForm(forms.ModelForm):
                             'estado_orden':'Estado de Órden de Compra'
                 }
 
-class editarOrdenCompraForm(forms.ModelForm):
+class editarOrdenForm(forms.ModelForm):
 
-    PLATAFORMA = [
-                    ('', '----'),
-                    ('PlayStation 5', 'PlayStation 5'),
-                    ('Xbox Series X', 'Xbox Series X'),
-                    ('Xbox 360', 'Xbox 360'),
-                    ('Nintendo Switch', 'Nintendo Switch'),
-                    ('PC Gaming', 'PC Gaming'),
-                    ('PlayStation 4', 'PlayStation 4'),
-                    ('Xbox One', 'Xbox One'),
-                    ('Nintendo 3DS', 'Nintendo 3DS'),
-                    ('Sega Genesis Mini', 'Sega Genesis Mini'),
-                    ('Super Nintendo Entertainment System (SNES) Classic Edition', 'Super Nintendo Entertainment System (SNES) Classic Edition'),
-                    ('Nintendo Entertainment System (NES) Classic Edition', 'Nintendo Entertainment System (NES) Classic Edition')
-        ]
-
-    TIPO_PRODUCTO = [
-                        ('', '----'),
-                        ('Juego Físico','Juego Físico'),
-                        ('Accesorio','Accesorio'),
-                        ('Código Digital','Código Digital'),
-                    ] 
-    
     ESTADO_ORDEN = [
                         ('', '----'),
                         ('Bloqueada','Bloqueada'),
@@ -577,35 +555,39 @@ class editarOrdenCompraForm(forms.ModelForm):
                         ('Pendiente','Pendiente'),
                     ] 
     
-    plataforma = forms.ChoiceField(choices=PLATAFORMA, required=False)
-    tipo_producto = forms.ChoiceField(choices=TIPO_PRODUCTO, required=False)
     estado_orden = forms.ChoiceField(choices=ESTADO_ORDEN, required=False)
 
 
     class Meta:
                 model = Compra
-                fields = ['id_orden', 'sku', 'nombre', 'proveedor', 'plataforma','tipo_producto', 'costo', 'cantidad','estado_orden'] 
+                fields = ['estado_orden'] 
                 labels = {
-                            'id_orden':'Nº Órden de Compra',
-                            'sku':'SKU',
-                            'nombre':'Nombre Producto',
-                            'proveedor':'Proveedor',
-                            'plataforma': 'Plataforma',
-                            'tipo_producto': 'Tipo de Producto',
-                            'costo':'Costo',
-                            'cantidad':'Cantidad',
-                            'estado_orden':'Estado de Órden de Compra'
+                          'estado_orden':'Estado de Órden de Compra'
                 }
                 widgets = {
-                            'id_orden':forms.TextInput(attrs={'type': 'text', 'id': 'orden_editar'}),
-                            'sku':forms.TextInput(attrs={'id': 'sku_editar'}),
-                            'nombre':forms.TextInput(attrs={'id': 'nombre_editar'}),
-                            'proveedor':forms.TextInput(attrs={'id': 'proveedor_editar'}),
-                            'plataforma':forms.TextInput(attrs={'id' :'plataforma_editar'}),
-                            'tipo_producto':forms.TextInput(attrs={'id' :'tipo_editar'}),
-                            'costo':forms.TextInput(attrs={'id' :'costo_editar'}),
-                            'cantidad':forms.TextInput(attrs={'id' :'cantidad_editar'}),
-                            'estado_orden':forms.TextInput(attrs={'id' :'estado_editar'}),
+                         'estado_orden':forms.TextInput(attrs={'id' :'estado_editar'}),
+                            
+                }
+
+class editarEnvioForm(forms.ModelForm):
+
+    ESTADO_VENTA = [
+                    ('En Preparación', 'En Preparación'),
+                    ('En Ruta', 'En Ruta'),
+                    ('Entregado', 'Entregado'),
+    ]
+    
+    estado_venta = forms.ChoiceField(choices=ESTADO_VENTA, required=False)
+
+
+    class Meta:
+                model = Order
+                fields = ['estado_venta'] 
+                labels = {
+                          'estado_venta':'Estado de Venta'
+                }
+                widgets = {
+                         'estado_venta':forms.TextInput(attrs={'id' :'estado_envio'}),
                             
                 }
 

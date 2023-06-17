@@ -11,7 +11,6 @@
 {% block template %}
 
 
-<section class="vh-100">
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -36,6 +35,7 @@
                             <th>Descripción</th>
                             <th>Total Compra</th>
                             <th>Estado de Venta</th>
+                            <th>Estado Estado</th>
                           </tr>
                           {% for order in ordenes %}
                           <tr>
@@ -45,14 +45,47 @@
                             <td>{{order.get_description}}</td>
                             <td>${{order.get_precio_total}}</td>
                             <td>{{order.estado_venta}}</td>
+                            <td>
+                                <button type="button"
+                                    onclick="editarEnvio('{{order.id}}','{{order.estado_envio}}')"
+                                    class="btn btn-primary" data-toggle="modal" href="#EditarEnvioModal">
+                                    <i class="bi bi-pen-fill"></i>
+                                </button>
+                            </td>
                           </tr>
                           {% endfor %}
                         </tbody>
                       </table>
                 </div>
+                <div id="EditarEnvioModal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-info">
+                                <h3 class="modal-title text-dark">Editar Estado</h3>
+                            </div>
+                            <div class="modal-body bg-dark text-white">
+                                <form method="POST" action="{% url 'editarEnvio'%}"
+                                    enctype="multipart/form-data">{% csrf_token %}
+                                    <input type="hidden" id="id_envio_editar" name="id_envio_editar">
+                                    {% for field in form_editar %}
+                                    <p>{{field.label}}<br>
+                                        {{field|add_class:"form-control"}}</p>
+                                    {%endfor%}
+                            </div>
+                            <div class="modal-footer bg-dark text-white">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                    Cerrar
+                                    <i class="bi bi-x-square-fill"></i>                                    </button>
+                                <button type="submit" class="btn btn-success">
+                                    Guardar
+                                </button>
+                            </form>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</section>
 {% endblock %}

@@ -13,8 +13,8 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from .cart import Cart
 from .provider import Provider
-from .models import Producto, User, Item, Order, Compra, Orden, ItemProvider
-from .forms import CustomUserCreationForm, agregarProductoForm, editarProductoForm, CartAddProductoForm, editarPerfilForm, OrderCreateForm, editarUsuarioForm,  ProviderAddProductoForm, OrdenCreateForm, OrdenCompraForm, editarOrdenCompraForm   
+from .models import *
+from .forms import *
 
 
 # Create your views here.
@@ -268,9 +268,14 @@ def misOrdenes(request):
 @login_required
 def ordenesCompra(request):
     orders = Orden.objects.all()
-    print(orders)
+    form_editar = editarOrdenForm()
+
+    context = {
+        'orders': orders,
+        "form_editar": form_editar
+    }
   
-    return render(request, 'ordencompra/ordenes.html', {'orders': orders})
+    return render(request, 'ordencompra/ordenes.html',context)
 
 def crearOrden (request):
     productos = Producto.objects.all()
@@ -349,17 +354,32 @@ def ordenEnviada(request):
 @login_required
 def editarOrden(request):
     if request.method == 'POST':
-        compra = get_object_or_404(Compra, pk=request.POST.get('id_compra_editar'))
-        form_editar = editarOrdenCompraForm(data=request.POST, files=request.FILES, instance=compra)
+        orden = get_object_or_404(Orden, pk=request.POST.get('id_compra_editar'))
+        form_editar = editarOrdenForm(data=request.POST, files=request.FILES, instance=orden)
         if form_editar.is_valid():
             form_editar.save()
         return redirect('ordenes')
     else:
-        form_editar = editarOrdenCompraForm()
+        form_editar = editarOrdenForm()
         context = {
             'form_editar': form_editar
         }
     return render(request, 'paginas/productos/ordenes.html', context)
+
+@login_required
+def editarEnvio(request):
+    if request.method == 'POST':
+        order = get_object_or_404(Order, pk=request.POST.get('id_envio_editar'))
+        form_editar = editarEnvioForm(data=request.POST, files=request.FILES, instance=order)
+        if form_editar.is_valid():
+            form_editar.save()
+        return redirect('compras')
+    else:
+        form_editar = editarEnvioForm()
+        context = {
+            'form_editar': form_editar
+        }
+    return render(request, 'paginas/productos/compras.html', context)
 
 
 @login_required
@@ -447,7 +467,14 @@ def accesorios(request):
 @login_required
 def compras(request):
    ordenes = Order.objects.all()
+   form_editar = editarEnvioForm()
+
+   context = {
+        'ordenes': ordenes,
+        "form_editar": form_editar
+   }
   
-   return render(request, 'paginas/productos/compras.html', {'ordenes': ordenes})
+  
+   return render(request, 'paginas/productos/compras.html', context)
 
 

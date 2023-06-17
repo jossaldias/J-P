@@ -35,7 +35,7 @@ urlpatterns = [
 
 
     path('paginas/editarOrden', views.editarOrden, name="editarOrden"),
-    path('paginas/eliminarOrden', views.eliminarOrden, name="eliminarOrden"),
+    path('paginas/editarEnvio', views.editarEnvio, name="editarEnvio"),
 
     
     path('paginas/carritoCompras', views.cart_detalle, name="carritoCompras"),
