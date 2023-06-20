@@ -11,6 +11,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
+from django.db.models import F
+
 from .cart import Cart
 from .provider import Provider
 from .models import *
@@ -139,6 +141,17 @@ def inventarioProducto(request):
   
     return render(request, 'paginas/productos/inventario.html', context)
 
+
+@login_required
+def codigos(request):
+    codigos = Codigo.objects.all()
+    context = {
+        'codigos': codigos,
+    
+    }
+  
+    return render(request, 'paginas/productos/codigos.html', context)
+
 @login_required
 def agregarProducto(request):
     
@@ -231,12 +244,18 @@ class OrderCreateView(CreateView):
       order.is_pagado = True
       order.save()
       for item in cart:
-        Item.objects.create(
-          orden=order,
-          producto=item["producto"],
-          costo=item["costo"],
-          cantidad=item["cantidad"],
-        )
+            producto = item["producto"]
+            costo = item["costo"]
+            cantidad = item["cantidad"]
+
+            Item.objects.create(
+            orden=order,
+            producto=item["producto"],
+            costo=item["costo"],
+            cantidad=item["cantidad"],
+            )
+            Producto.objects.filter(id=producto.id).update(cantidad=F('cantidad') - cantidad)
+
       cart.clear()
       return render(self.request, 'order/ordenCreada.html', {'order': order})
     return HttpResponseRedirect(reverse("home"))

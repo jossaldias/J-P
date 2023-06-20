@@ -38,6 +38,6 @@ def webpay_plus_commit(request):
     token = request.GET.get("token_ws")
     print("commit for token_ws: {}".format(token))
 
-    return render(request, 'paginas/productos/pedidoListo.html', {'token': token})
+    return render(request, 'paginas/productos/pedidoTransbankListo.html', {'token': token})
 
 

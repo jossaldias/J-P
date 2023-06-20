@@ -48,6 +48,7 @@ urlpatterns = [
 
 
     path('paginas/inventario', views.inventarioProducto, name="inventario"),
+    path('paginas/codigos', views.codigos, name="codigos"),
     path('paginas/compras', views.compras, name="compras"),
     path('paginas/agregarProducto', views.agregarProducto, name="agregarProducto"),
     path('paginas/editarProducto', views.editarProducto, name="editarProducto"),

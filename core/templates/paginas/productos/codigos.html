@@ -1,0 +1,58 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/productos.css' %}">
+{% endblock %}
+
+{% block template %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrapper">
+                <div class="logo">
+                    <img src="{% static 'img/j&pmini.png' %}" alt="">
+                </div>
+                <div class="text-center mt-4 name">
+                    Join And Play
+                </div>
+                <div class="text-left mt-4 name">
+                    Inventario de productos
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover" id="tableinventario">
+                        <br>
+                        {% if user.tipo_user == 'Administrador General' or user.tipo_user == 'Administrador Logístico' %}
+                        <a class="btn btn-success btn-lg" href="{% url 'agregarProducto' %}"><i
+                                class="bi bi-plus-square-fill"></i>&nbsp;&nbsp;Agregar Productos</a>
+                        <br><br>
+                        {% endif %}
+                        <thead>
+                            <tr class="table-dark">
+                                <th># ID</th>
+                                <th>Código</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-dark">
+                            {% for i in codigos %}
+                            <tr class="table-dark">
+                                <td class="table-dark">{{i.id}}</td>
+                                <td class="table-dark">{{i.codigo}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <input type="button" value="Imprimir" class="btn btn-primary printbuttoninv">
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

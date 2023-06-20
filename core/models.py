@@ -167,7 +167,19 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.id_producto
-  
+
+
+class Codigo(models.Model):
+ 
+    codigo = models.CharField(max_length = 255, unique = True, null = True, blank= True)
+
+    class Meta:
+            verbose_name = 'codigo'
+            verbose_name_plural = 'codigos'
+            order_with_respect_to = 'codigo'
+
+    def __str__(self):
+        return self.id_producto
 
 
 class Compra(models.Model):
@@ -333,7 +345,7 @@ class Order(TimeStampedModel):
         verbose_name_plural = "Ordenes"
 
     def __str__(self):
-        return 'Pedido {}'.format(self.id)
+        return 'Compra {}'.format(self.id)
 
     def get_precio_total(self):
         total_costo = sum(item.get_precio_total() for item in self.items.all())
