@@ -1,0 +1,120 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/productos.css' %}">
+{% endblock %}
+
+{% block template %}
+
+
+<div class="container" id="imprimible">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrapper">
+                <div class="logo">
+                    <img src="{% static 'img/j&pmini.png' %}" alt="">
+                </div>
+                <div class="text-center mt-4 name">
+                    Join And Play
+                </div>
+                <div class="text-left mt-4 name">Detalle Órden de Compra Nº {{orders.id}}
+                   
+                </div>
+                <div class="text-left">
+                    Fecha de creación: {{orders.created}}
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-responsive table-dark table-borderless rounded" id="table">
+                        <tbody>
+                            <br>
+                           
+                          <tr>
+                            <th> Datos de Proveedor</th>
+                
+                            <th></th>
+                            <th> Datos Cliente</th>
+                
+                            <th></th>
+                            
+                          </tr>
+                          <tr>
+                            <td>Nombre o razón social</td>
+                            <td>{{orders.nombre}}</td>
+                            <td>Nombre o razón social</td>
+                            <td>Join&Play E.I.R.L.</td>
+                          </tr>
+                          <tr>
+                            <td>Dirección</td>
+                            <td>{{orders.direccion}}, {{orders.comuna}}, </td>
+                            <td>Dirección</td>
+                            <td>Av. Las Condes #1111</td>
+                          </tr>   
+                          <tr>
+                            <td>Teléfono</td>
+                            <td>{{orders.telefono}}</td>
+                            <td>Teléfono</td>
+                            <td>22123456</td>
+                          </tr>
+                          <tr>
+                            <td>E-mail</td>
+                            <td>{{orders.email}}</td>
+                            <td>E-mail</td>
+                            <td>joinandplay@jyp.cl</td>
+                          </tr>
+                          <tr>
+                            <td>Comentarios</td>
+                            <td>{{orders.descripcion}}</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        
+                          <tr>
+                            <th>Descripción</th>                           
+                            <th></th>
+                            <th>Monto Total</th>
+                            <th></th>                            
+                          </tr>
+                          <tr>
+                          <td>{{orders.get_description}}</td>                         
+                          <td></td>
+                          <td>${{orders.get_precio_total}}</td>
+                          <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <button id="btnImprimir" class="btn btn-primary no-print" >
+
+                        Imprimir
+
+                      </button>
+
+                      <button class="btn btn-primary no-print">
+                      <a href="{% url 'ordenes'%}"
+                      >Volver</a>
+                      </button>
+
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

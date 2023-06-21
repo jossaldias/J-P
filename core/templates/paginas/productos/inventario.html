@@ -72,10 +72,10 @@
                                 <td class="table-dark">{{i.cantidad}}</td>
                                 {% if i.tipo_producto == 'Código Digital' %}
                                 <td>
-                                    <button type="button" class="btn btn-warning">
-                                        <a  href="{% url 'codigos' %}">
+                                    <a href="{% url 'codigos' producto_id=i.id %}" class="btn btn-warning" role="button">
                                         <i class="bi bi-view-list"></i>
-                                    </button>
+                                    </a>
+                                    
                                 </td>
                                 {% else %}
                                 <td>--</td>

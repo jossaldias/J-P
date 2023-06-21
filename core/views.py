@@ -143,13 +143,13 @@ def inventarioProducto(request):
 
 
 @login_required
-def codigos(request):
-    codigos = Codigo.objects.all()
+def codigos(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    codigos = producto.codigos.all()
     context = {
         'codigos': codigos,
-    
+        'producto': producto
     }
-  
     return render(request, 'paginas/productos/codigos.html', context)
 
 @login_required
@@ -247,6 +247,13 @@ class OrderCreateView(CreateView):
             producto = item["producto"]
             costo = item["costo"]
             cantidad = item["cantidad"]
+
+            if producto.tipo_producto == "Código Digital":
+
+                codigo = producto.codigos.first()
+                if codigo:
+                    codigo.delete()
+
 
             Item.objects.create(
             orden=order,
@@ -361,6 +368,28 @@ class ProviderCreateView(CreateView):
     context = super().get_context_data(**kwargs)
     context["provider"] = Provider(self.request)
     return context
+
+
+def verOrden(request, id):
+  orders = get_object_or_404(Orden, id=id)
+
+  context = {
+        'orders': orders,
+    }
+  
+  return render(request, 'ordencompra/verOrden.html', context)
+
+
+
+@login_required
+def codigos(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    codigos = producto.codigos.all()
+    context = {
+        'codigos': codigos,
+        'producto': producto
+    }
+    return render(request, 'paginas/productos/codigos.html', context)
 
 
 @login_required

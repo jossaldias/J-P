@@ -22,6 +22,8 @@ function printTableContent() {
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
+    printWindow.close();
+
 }
 
 document.querySelectorAll('.printbutton').forEach(function (element) {
@@ -42,8 +44,35 @@ function printTableContentInv() {
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
+    printWindow.close();
+
 }
 
 document.querySelectorAll('.printbuttoninv').forEach(function (element) {
     element.addEventListener('click', printTableContent);
+});
+
+
+
+function imprimirOrden(elemento) {
+    var ventana = window.open('', 'PRINT', 'height=400,width=600');
+    ventana.document.write('<html><head><title>' + document.title + '</title>');
+    ventana.document.write('</head><body >');
+    ventana.document.write(elemento.innerHTML);
+    ventana.document.write('</body></html>');
+    ventana.document.close();
+
+    var elementosNoImprimir = ventana.document.querySelectorAll('.no-print');
+    elementosNoImprimir.forEach(function (elemento) {
+        elemento.style.display = 'none';
+    });
+    ventana.focus();
+    ventana.print();
+    ventana.close();
+    return true;
+}
+
+document.querySelector("#btnImprimir").addEventListener("click", function () {
+    var div = document.querySelector("#imprimible");
+    imprimirOrden(div);
 });

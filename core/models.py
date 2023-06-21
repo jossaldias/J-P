@@ -170,7 +170,7 @@ class Producto(models.Model):
 
 
 class Codigo(models.Model):
- 
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='codigos', default=1)
     codigo = models.CharField(max_length = 255, unique = True, null = True, blank= True)
 
     class Meta:
@@ -179,8 +179,7 @@ class Codigo(models.Model):
             order_with_respect_to = 'codigo'
 
     def __str__(self):
-        return self.id_producto
-
+        return self.codigo
 
 class Compra(models.Model):
 
