@@ -57,6 +57,7 @@ document.querySelectorAll('.printbuttoninv').forEach(function (element) {
 function imprimirOrden(elemento) {
     var ventana = window.open('', 'PRINT', 'height=400,width=600');
     ventana.document.write('<html><head><title>' + document.title + '</title>');
+    ventana.document.write('<style>@media print { img { max-width: 10%; height: auto; vertical-align: middle; text-align:center} td { width: 100px;}</style > ');
     ventana.document.write('</head><body >');
     ventana.document.write(elemento.innerHTML);
     ventana.document.write('</body></html>');
