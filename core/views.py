@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.db.models import F
+from django.views.decorators.csrf import csrf_exempt
 
 from .cart import Cart
 from .provider import Provider
@@ -231,47 +232,59 @@ def cart_detalle(request):
   return render(request, "paginas/productos/carritoCompras.html", {"cart": cart})
 
 class OrderCreateView(CreateView):
-  model = Order
-  form_class = OrderCreateForm
-  template_name="order/order_form.html"
+    model = Order
+    form_class = OrderCreateForm
+    template_name = "order/order_form.html"
+
+    def form_valid(self, form):
+        cart = Cart(self.request)
+        if cart:
+            order = form.save(commit=False)
+            order.user = self.request.user
+            order.is_pagado = True
+            order.save()
+            
+            codigo_borrado = None  #
+            
+            for item in cart:
+                producto = item["producto"]
+                costo = item["costo"]
+                cantidad = item["cantidad"]
+
+                if producto.tipo_producto == "Código Digital":
+                    codigo = producto.codigos.first()
+                    if codigo:
+                        codigo_borrado = codigo.codigo  
+                        codigo.delete()
+
+                Item.objects.create(
+                    orden=order,
+                    producto=item["producto"],
+                    costo=item["costo"],
+                    cantidad=item["cantidad"],
+                )
+                Producto.objects.filter(id=producto.id).update(cantidad=F('cantidad') - cantidad)
+
+            if codigo_borrado:
+                Item.objects.create(
+                orden=order,
+                producto=item["producto"],
+                costo=item["costo"],
+                cantidad=item["cantidad"],
+                codigo=codigo_borrado,
+                )
+
+            cart.clear()
+            return render(self.request, 'order/ordenCreada.html', {'order': order})
+
+        return HttpResponseRedirect(reverse("home"))
 
   
-  def form_valid(self, form):
-    cart = Cart(self.request)
-    if cart:
-      order = form.save(commit=False)
-      order.user = self.request.user
-      order.is_pagado = True
-      order.save()
-      for item in cart:
-            producto = item["producto"]
-            costo = item["costo"]
-            cantidad = item["cantidad"]
-
-            if producto.tipo_producto == "Código Digital":
-
-                codigo = producto.codigos.first()
-                if codigo:
-                    codigo.delete()
-
-
-            Item.objects.create(
-            orden=order,
-            producto=item["producto"],
-            costo=item["costo"],
-            cantidad=item["cantidad"],
-            )
-            Producto.objects.filter(id=producto.id).update(cantidad=F('cantidad') - cantidad)
-
-      cart.clear()
-      return render(self.request, 'order/ordenCreada.html', {'order': order})
-    return HttpResponseRedirect(reverse("home"))
   
-  
-  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    context["cart"] = Cart(self.request)
-    return context  
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["cart"] = Cart(self.request)
+        return context  
 
 @login_required
 def pedidoListo(request):
@@ -515,10 +528,12 @@ def accesorios(request):
 @login_required
 def compras(request):
    ordenes = Order.objects.all()
+   item = Item.objects.all()
    form_editar = editarEnvioForm()
 
    context = {
         'ordenes': ordenes,
+        'item': item,
         "form_editar": form_editar
    }
   

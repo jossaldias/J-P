@@ -10,6 +10,7 @@ urlpatterns = [
     path("logout/", views.exit, name="exit"),    
     path('registration/register', views.register, name="register"),
 
+
     # PAGINAS
    
     path('paginas/perfil', views.perfil, name="perfil"),

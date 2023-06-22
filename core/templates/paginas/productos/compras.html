@@ -33,16 +33,32 @@
                             <th>Fecha</th>
                             <th>Contacto Comprador</th>
                             <th>Descripción</th>
+                            
+                           
+                            <th>Código</th>
+                           
+                           
                             <th>Total Compra</th>
                             <th>Estado de Venta</th>
                             <th></th>
                           </tr>
+                        
                           {% for order in ordenes %}
                           <tr>
                             <td><a class="account-order-id" href="#">{{order}}</a></td>
                             <td>{{order.created}}</td>
                             <td>{{order.email}}</td>
                             <td>{{order.get_description}}</td>
+                            <td>
+                                {% for item in order.items.all %}
+                                    {% if item.producto.tipo_producto == "Código Digital" and item.codigo %}
+                                    <span class="codigo-oculto">************</span>
+                                    <span class="codigo-visible">{{ item.codigo }}</span>
+                                    {% endif %}
+                                {% empty %}
+                                    <p>No hay código disponible</p>
+                                {% endfor %}
+                            </td>
                             <td>${{order.get_precio_total}}</td>
                             <td>{{order.estado_venta}}</td>
                             <td>
@@ -52,7 +68,7 @@
                                     <i class="bi bi-pen-fill"></i>
                                 </button>
                             </td>
-                          </tr>
+                          </tr>                         
                           {% endfor %}
                         </tbody>
                       </table>

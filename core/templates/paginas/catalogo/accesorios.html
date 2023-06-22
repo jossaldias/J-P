@@ -4,7 +4,7 @@
 {% block template %}
 
 <main>
-    <h1 class="card borders" style="text-align: center;color: darkblue;">CATALOGO DE ACCESORIOS</h1>
+    <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">CATÁLOGO DE ACCESORIOS</h1>
     <section>
         {% for accesorio in productos %}
         <article>
@@ -14,7 +14,7 @@
           
           {%endif%}
           <br>
-          <strong>Descripción del juego</strong><br>
+          <strong>Descripción</strong><br>
           <p>{{accesorio.descripcion}}</p>
             
           <h5> <strong>Precio</strong>$ {{accesorio.costo}}</h5>

@@ -54,3 +54,19 @@ function editarEnvio(id, estado_envio) {
     document.getElementById("envio_editar").value = estado_envio;
 
 }
+
+const codigosOcultos = document.querySelectorAll(".codigo-oculto");
+
+codigosOcultos.forEach((codigo) => {
+    codigo.addEventListener("click", () => {
+        const codigoVisible = codigo.nextElementSibling;
+        codigo.style.display = "none";
+        codigoVisible.style.display = "inline";
+    });
+
+    codigo.nextElementSibling.addEventListener("click", (event) => {
+        event.stopPropagation();
+        codigo.style.display = "inline";
+        codigo.nextElementSibling.style.display = "none";
+    });
+});

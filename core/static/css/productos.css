@@ -142,3 +142,11 @@
 .table-responsive {
     overflow-x: auto !important;
 }
+
+.codigo-visible {
+    display: none;
+  }
+  
+  .codigo-visible.oculto {
+    display: inline;
+  }

@@ -359,6 +359,8 @@ class Item(models.Model):
     producto = models.ForeignKey(Producto, related_name="order_items", on_delete=models.CASCADE)
     costo = models.DecimalField(max_digits=10, decimal_places=2)
     cantidad = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(settings.CART_ITEM_MAX_CANTIDAD),])
+    codigo = models.CharField(max_length=100, blank=True, null=True)
+
 
     def __str__(self):
         return str(self.id)
