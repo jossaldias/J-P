@@ -9,6 +9,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("logout/", views.exit, name="exit"),    
     path('registration/register', views.register, name="register"),
+    path('buscar/', views.buscar, name='buscar'),
 
 
     # PAGINAS
@@ -25,10 +26,12 @@ urlpatterns = [
     path('paginas/accesorios', views.accesorios, name="accesorios"),
     path('paginas/contacto', views.contacto, name="contacto"),
 
+    path('paginas/factura', views.factura, name="factura"), 
     path('paginas/ordenes', views.ordenesCompra, name="ordenes"),    
     path('paginas/crearOrden', login_required(views.crearOrden), name="crearOrden"),
     path("addoc/<int:producto_id>/", views.provider_add, name="addoc"),
     path("eliminaroc/<int:producto_id>/", views.provider_eliminar, name="eliminaroc"),
+    path("verFactura/<int:id>/", views.verFactura, name="verFactura"),
     path("verOrden/<int:id>/", views.verOrden, name="verOrden"),
     path("clearoc/", views.provider_clear, name="clearoc"),
     path("crear-orden/",login_required(views.ProviderCreateView.as_view()), name="crear-orden"),

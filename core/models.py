@@ -465,6 +465,8 @@ class Orden(TimeStampedModel):
                     ('Pendiente', 'Pendiente'),
                     ('Bloqueada', 'Bloqueada'),
                     ('Aceptada', 'Aceptada'),
+                    ('Finalizada', 'Finalizada'),
+                    
     ]
 
     user=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -477,6 +479,8 @@ class Orden(TimeStampedModel):
     comuna = models.CharField("Comuna", max_length=200, choices=COMUNA, default=COMUNA[0][0])
     estado_orden = models.CharField("Estado Órden", max_length=200, choices=ESTADO_ORDEN, default=ESTADO_ORDEN[0][0])
     is_pagado = models.BooleanField(default=False)
+    nfactura = models.CharField(max_length=250, null = True)
+
 
     class Meta:
         ordering = ("-created", )

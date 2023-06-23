@@ -553,6 +553,7 @@ class editarOrdenForm(forms.ModelForm):
                         ('Bloqueada','Bloqueada'),
                         ('Aceptada','Aceptada'),
                         ('Pendiente','Pendiente'),
+                        ('Finalizada', 'Finalizada'),
                     ] 
     
     estado_orden = forms.ChoiceField(choices=ESTADO_ORDEN, required=False)

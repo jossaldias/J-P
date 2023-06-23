@@ -4,7 +4,8 @@
 {% block template %}
 
 <main>
-  <article>
+ 
+  {% comment %} <article>
     <h1>CATEGORÍAS</h1>
   </article>
 
@@ -27,30 +28,32 @@
           Estrategia</a>
       </article>
     </div>
-  </div>
+  </div> {% endcomment %}
 
-  <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">CATÁLOGO DE JUEGOS</h1>
-
-  <section>
-    {% for juego in productos %}
+  {% if productos %}
+  <h3 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">Resultados de búsqueda para "{{ query }}"</h3>
+  <ul>
+  
+  <section>  
+    {% for producto in productos %}
     <article>
-      <h3>{{juego.nombre}}</h3>
-      {% if juego.picture%}
-      <img src="{{juego.picture.url}}" alt="...">
+      <h3>{{producto.nombre}}</h3>
+      {% if producto.picture%}
+      <img src="{{producto.picture.url}}" alt="...">
 
       {%endif%}
       <br>
       <strong>Descripción</strong><br>
-      <p>{{juego.descripcion}}</p>
+      <p>{{producto.descripcion}}</p>
 
-      <h5> <strong>Precio</strong>$ {{juego.costo}}</h5>
-      {% if juego.tipo_producto == 'Juego Físico'%}
-      <p>PLATAFORMA: {{juego.plataforma}}</p>
+      <h5> <strong>Precio</strong>$ {{producto.costo}}</h5>
+      {% if producto.tipo_producto == 'Juego Físico'%}
+      <p>PLATAFORMA: {{producto.plataforma}}</p>
       {% endif %}
-      <p>TIPO PRODUCTO: {{juego.tipo_producto}}</p>
+      <p>TIPO PRODUCTO: {{producto.tipo_producto}}</p>
 
-      {% if juego.tipo_producto == 'Código Digital' %}
-      <form method="post" action="{% url 'add' juego.id %}">
+      {% if producto.tipo_producto == 'Código Digital' %}
+      <form method="post" action="{% url 'add' producto.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
         <a style="background: blue" onmouseover="this.style.background='none';"
@@ -60,7 +63,7 @@
       </form>
      
       {% else %}
-      <form method="post" action="{% url 'add' juego.id %}">
+      <form method="post" action="{% url 'add' producto.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
         <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true"
@@ -68,9 +71,31 @@
             data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
       </form>
       {% endif %}
-    </article>
-    {% endfor %}
+    </article>   
+     {% endfor %}
   </section>
+
+</ul> 
+{% else %}
+<div class="container h-100" style="padding-top:5%; padding-bottom:5%">
+  <div class="row d-flex justify-content-center align-items-center h-500 rounded" style="background: #212529; padding-bottom:20%; margin-bottom:15%" >
+    <div class="row" >
+      <div class="container"><br><br>
+        <div class="d-flex justify-content-center">
+          <h1 style="color:white">No se encontraron resultados para "{{ query }}".</h1>
+          <br />
+        </div><br><br>
+        <div class="d-flex justify-content-center">
+          <img src="{% static 'img/query.jpg' %}" alt="" style="width: 50%; height: auto;">
+          <br/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+ 
 </main>
 
 {% endblock %}

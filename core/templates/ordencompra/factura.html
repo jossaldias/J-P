@@ -1,0 +1,96 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/productos.css' %}">
+{% endblock %}
+
+{% block template %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrapper">
+                <div class="logo">
+                    <img src="{% static 'img/j&pmini.png' %}" alt="">
+                </div>
+                <div class="text-center mt-4 name">
+                    Join And Play
+                </div>
+                <div class="text-left mt-4 name">
+                   Facturas
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-responsive table-dark table-hover rounded" id="table">
+                        <tbody>
+                            <br>
+                           
+                          <tr>
+                            <th>O/C Asociada</th>
+                            <th>Proveedor</th>
+                            <th>Descripción</th>
+                            <th>Total</th>
+                            <th>Ver Factura</th>
+                            
+                            
+                          </tr>
+                          {% for order in orders %}
+                          <tr>
+                            <td><a class="account-order-id" href="#">{{order}}</a></td>
+                            <td>{{order.nombre}}</td>
+                            <td>{{order.get_description}}</td>
+                            <td>${{order.get_precio_total}}</td>
+                            <td>
+                                <button type="button"  class="btn btn-warning">
+                                    <a href="{% url 'verFactura' order.id %}">
+                                        <i class="bi bi-ticket-detailed-fill"></i>
+                                    </a>
+                                </button>
+
+                            </td>
+                          </tr>                          
+                          {% endfor %}
+                        </tbody>
+                      </table>
+
+                      <input type="button" value="Imprimir" class="btn btn-primary printbutton">
+
+
+                </div>
+                <div id="EditarOrdenModal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-info">
+                                <h3 class="modal-title text-dark">Editar Estado</h3>
+                            </div>
+                            <div class="modal-body bg-dark text-white">
+                                <form method="POST" action="{% url 'editarOrden'%}"
+                                    enctype="multipart/form-data">{% csrf_token %}
+                                    <input type="hidden" id="id_compra_editar" name="id_compra_editar">
+                                    {% for field in form_editar %}
+                                    <p>{{field.label}}<br>
+                                        {{field|add_class:"form-control"}}</p>
+                                    {%endfor%}
+                            </div>
+                            <div class="modal-footer bg-dark text-white">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                    Cerrar
+                                    <i class="bi bi-x-square-fill"></i>                                   
+                                </button>
+                                <button type="submit" class="btn btn-success">
+                                    Guardar
+                                </button>
+                            </form>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

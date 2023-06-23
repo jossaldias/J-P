@@ -53,16 +53,20 @@
               &nbsp;&nbsp;&nbsp;
               <div class="card-body row no-gutters align-items-center">
                 <div class="col-sm-6">
-                  <div class="input-group">
-                    <input type="search" class="form-control form-control-borderless" placeholder="Buscar producto">
-                    <div class="input-group-append">
-                      <button class="btn btn-success" type="submit">
-                        <i class="bi bi-search"></i>
-                      </button>
+                  <form class="navbar-form navbar-left" role="search" method="GET" action="{% url 'buscar' %}">
+                    <div class="input-group">
+                      <input type="search" class="form-control form-control-borderless" placeholder="Buscar producto" name="q">
+                      {% if not q %}
+                        <button class="btn btn-success" type="submit">
+                          <i class="bi bi-search"></i>
+                        </button>
+                      {% endif %}
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
+              
+              
               &nbsp; &nbsp;&nbsp;
             <ul>
               {% if request.user.is_authenticated %}
@@ -108,7 +112,7 @@
                   <a class="dropdown-item" href="{% url 'usuarios' %}">Gestión de Usuarios</a>
                   <a class="dropdown-item" href="{% url 'inventario' %}">Inventario de Productos</a>
                   <a class="dropdown-item" href="{% url 'ordenes' %}">Órdenes de Compra</a>
-                  <a class="dropdown-item" href="{% url 'ordenes' %}">Facturas</a>
+                  <a class="dropdown-item" href="{% url 'factura' %}">Facturas</a>
                   {%endif%}
 
                   {% if user.tipo_user == 'Administrador Logístico' %}
@@ -116,7 +120,7 @@
                   <a class="dropdown-item"><strong>Menú Logístico</strong></a>
                   <a class="dropdown-item" href="{% url 'inventario' %}">Inventario de Productos</a>
                   <a class="dropdown-item" href="{% url 'ordenes' %}">Órdenes de Compra</a>
-                  <a class="dropdown-item" href="{% url 'ordenes' %}">Facturas</a>
+                  <a class="dropdown-item" href="{% url 'factura' %}">Facturas</a>
                   <a class="dropdown-item" href="{% url 'compras' %}">Informe de Ventas</a>
                   {%endif%}
                   {% if user.tipo_user == 'Ejecutivo' %}

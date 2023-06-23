@@ -1,6 +1,7 @@
 import os
 import requests
 import time
+import random
 
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -13,6 +14,8 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+
 
 from .cart import Cart
 from .provider import Provider
@@ -29,6 +32,14 @@ def home(request):
 
     return render(request, 'base/home.html', {'home': home})
 
+def buscar(request):
+    query = request.GET.get('q')
+    productos = Producto.objects.filter(Q(nombre__icontains=query) | Q(descripcion__icontains=query))
+    context = {
+        'productos': productos,
+        'query': query
+    }
+    return render(request, 'paginas/catalogo/buscar.html', context)
 
 # PERFILES
 
@@ -303,6 +314,32 @@ def misOrdenes(request):
     print(ordenes)
     return render(request, 'paginas/productos/misOrdenes.html',  {'ordenes': ordenes} )
 
+
+#FACTURAS
+@login_required
+def factura(request):
+    orders = Orden.objects.filter(estado_orden='Finalizada')
+    form_editar = editarOrdenForm()
+
+    context = {
+        'orders': orders,
+        "form_editar": form_editar
+    }
+  
+    return render(request, 'ordencompra/factura.html', context)
+
+def verFactura(request, id):
+    orders = get_object_or_404(Orden, id=id)
+    nfactura = random.randint(1000, 9999)  # Generar número aleatorio de 4 dígitos
+
+    context = {
+        'orders': orders,
+        'nfactura': nfactura,
+    }
+  
+    return render(request, 'ordencompra/verFactura.html', context)
+
+
 #ORDENES DE COMPRA
 @login_required
 def ordenesCompra(request):
@@ -418,14 +455,28 @@ def editarOrden(request):
         orden = get_object_or_404(Orden, pk=request.POST.get('id_compra_editar'))
         form_editar = editarOrdenForm(data=request.POST, files=request.FILES, instance=orden)
         if form_editar.is_valid():
-            form_editar.save()
+            orden = form_editar.save(commit=False)
+            estado_orden = form_editar.cleaned_data['estado_orden']
+            orden.estado_orden = estado_orden
+            numero_aleatorio = random.randint(1000, 9999)  
+            orden.nfactura = numero_aleatorio
+
+            orden.save()
+
+            if estado_orden == 'Finalizada':
+                item_providers = orden.itemproviders.all()
+                for item_provider in item_providers:
+                    producto = item_provider.producto
+                    producto.cantidad += item_provider.cantidad
+                    producto.save()
+
         return redirect('ordenes')
     else:
         form_editar = editarOrdenForm()
         context = {
             'form_editar': form_editar
         }
-    return render(request, 'paginas/productos/ordenes.html', context)
+        return render(request, 'paginas/productos/ordenes.html', context)
 
 @login_required
 def editarEnvio(request):
