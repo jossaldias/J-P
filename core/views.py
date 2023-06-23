@@ -2,6 +2,8 @@ import os
 import requests
 import time
 import random
+import string
+
 
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -166,19 +168,37 @@ def codigos(request, producto_id):
 
 @login_required
 def agregarProducto(request):
-    
     if request.method == 'POST':
-        form = agregarProductoForm(data = request.POST, files = request.FILES)
+        form = agregarProductoForm(data=request.POST, files=request.FILES)
         if form.is_valid():
-            form.save()
-        return redirect ('inventario')
+            producto = form.save(commit=False)
+            tipo_producto = form.cleaned_data['tipo_producto']
+            
+            if tipo_producto == 'Código Digital':
+                cantidad_codigos = form.cleaned_data['cantidad']
+                producto.save()
+
+
+                for _ in range(cantidad_codigos):
+                    codigo = generar_codigo_aleatorio()
+                    Codigo.objects.create(codigo=codigo, producto_id=producto.id)
+                
+                producto.cantidad += cantidad_codigos
+                producto.save()
+
+
+
+            return redirect('inventario')
     else:
         form = agregarProductoForm()
-        context = {
-            'form': form
-        }
+    
+    context = {
+        'form': form
+    }
     print(context)
     return render(request, 'paginas/productos/agregarProducto.html', context)
+
+
 
 @login_required
 def editarProducto(request):
@@ -197,11 +217,17 @@ def editarProducto(request):
 
 @login_required
 def eliminarProducto(request):
-    if request.POST:
-        productos = Producto.objects.get(pk=request.POST.get('id_producto_eliminar'))
-        productos.delete()    
-  
-    return redirect('inventario')
+  if request.method == 'POST':
+        id_producto_eliminar = request.POST.get('id_producto_eliminar')
+        producto = Producto.objects.get(pk=id_producto_eliminar)
+
+        codigos = Codigo.objects.filter(producto_id=id_producto_eliminar)
+
+        codigos.delete()
+
+        producto.delete()
+
+        return redirect('inventario')
 
 
 # CARRO DE COMPRAS
@@ -301,6 +327,8 @@ class OrderCreateView(CreateView):
 def pedidoListo(request):
     
     return render(request, 'paginas/productos/pedidoListo.html')
+
+
 # CONTACTO FORM
 
 def contacto(request):
@@ -470,6 +498,15 @@ def editarOrden(request):
                     producto.cantidad += item_provider.cantidad
                     producto.save()
 
+                    if producto.tipo_producto == 'Código Digital':
+                        for _ in range(item_provider.cantidad):
+                            codigo = generar_codigo_aleatorio()
+                            Codigo.objects.create(
+                                codigo=codigo,
+                                _order=0,  
+                                producto_id=producto.id
+                            )
+
         return redirect('ordenes')
     else:
         form_editar = editarOrdenForm()
@@ -477,6 +514,11 @@ def editarOrden(request):
             'form_editar': form_editar
         }
         return render(request, 'paginas/productos/ordenes.html', context)
+
+def generar_codigo_aleatorio():
+    letras = string.ascii_letters + string.digits
+    codigo = ''.join(random.choice(letras) for _ in range(10))
+    return codigo
 
 @login_required
 def editarEnvio(request):
