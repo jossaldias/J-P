@@ -6,7 +6,7 @@ from tkinter import Widget
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Div, Field, Fieldset, Layout, Submit
+from crispy_forms.layout import Div, Field, Fieldset, Layout, Submit, ButtonHolder, HTML
 from django.core.exceptions import ValidationError
 
 
@@ -726,14 +726,7 @@ class OrderCreateForm(forms.ModelForm):
     super().__init__(*args, **kwargs)
     self.helper = FormHelper()
     self.helper.form_method = "post"
-    self.helper.form_action = '.'
-    self.helper.add_input(
-      Submit(
-        "submit",
-        "Escoger Método de Pago",
-        css_class="btn btn-success btn-lg btn-block",
-      )
-    )
+    self.helper.form_action = "."
     self.helper.layout = Layout(
       Fieldset(
         Div(
@@ -765,7 +758,15 @@ class OrderCreateForm(forms.ModelForm):
           css_class="row",
         ),
         css_class="border-bottom mb-3",
-      )
+      ),
+      ButtonHolder(
+            Submit(
+                "submit",
+                "Escoger Método de Pago",
+                css_class="btn btn-success btn-lg btn-block"
+            ),
+            HTML('<a href="/clear/" class="btn btn-danger btn-lg btn-block">Cancelar compra</a>'),
+            css_class="button-holder")
     )
 
 

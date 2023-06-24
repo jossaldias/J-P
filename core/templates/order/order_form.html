@@ -21,7 +21,7 @@
   {% if cart %}
   <div class="row">
     <div class="col-lg-6 text-white">
-      {% crispy form %}
+      {% crispy form %}<br>
     </div>
     <div class="col-lg-6 mt-5">
        {% include "order/order_summary.html" with items=cart total_price=cart.get_precio_total %}
