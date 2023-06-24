@@ -156,7 +156,7 @@ class Producto(models.Model):
     tipo_producto = models.CharField(max_length=200, choices=TIPO_PRODUCTO, default=TIPO_PRODUCTO[0][0])
     picture = models.ImageField(upload_to = 'media/productos/', null = True, blank = True)
     costo = models.IntegerField(null = False)
-    cantidad = models.IntegerField(null = False)
+    cantidad = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
 
@@ -228,9 +228,7 @@ class Compra(models.Model):
             verbose_name = 'compra'
             verbose_name_plural = 'compras'
             order_with_respect_to = 'id_orden'
-
-  
-
+ 
 
 #ÓRDENES
 
@@ -351,7 +349,23 @@ class Order(TimeStampedModel):
         return total_costo
 
     def get_description(self):
-        return ", ".join(['{} x {}'.format(item.cantidad, item.producto.nombre) for item in self.items.all()])
+        descriptions = []
+        for item in self.items.all():
+            if item.producto.tipo_producto == "Código Digital" and item.codigo:
+                description = ''
+            else:
+                description = '{} x {}'.format(item.cantidad, item.producto.nombre)
+                if description.startswith(', '):
+                    description = description[2:]
+            if description:
+                descriptions.append(description)
+        
+        return ", ".join(descriptions)
+
+
+
+
+
 
 
 class Item(models.Model):

@@ -406,16 +406,17 @@ class agregarProductoForm(forms.ModelForm):
                         ('Accesorio','Accesorio'),
                         ('Código Digital','Código Digital'),
                     ] 
-
+        id_producto = forms.CharField(widget=forms.HiddenInput(), max_length=255, required=False, label='')
         plataforma = forms.ChoiceField(choices=PLATAFORMA, required=False)
         categoria = forms.ChoiceField(choices=CATEGORIA, required=False)
         tipo_producto = forms.ChoiceField(choices=TIPO_PRODUCTO)
+        cantidad = forms.IntegerField(widget=forms.HiddenInput(), initial=0, label='')
+
 
         class Meta:
                 model = Producto
-                fields = ['id_producto', 'nombre', 'categoria', 'plataforma','tipo_producto','descripcion', 'picture', 'costo', 'cantidad'] 
+                fields = ['nombre', 'categoria', 'plataforma','tipo_producto','descripcion', 'picture', 'costo'] 
                 labels = {
-                            'id_producto':'SKU',
                             'nombre':'Nombre Producto',
                             'categoria': 'Categoría', 
                             'plataforma': 'Plataforma',
@@ -423,7 +424,7 @@ class agregarProductoForm(forms.ModelForm):
                             'descripcion':'Descripción del Producto',
                             'picture':'Imágen del Producto',
                             'costo':'Costo',
-                            'cantidad':'Cantidad',
+                            
                 }
 
 

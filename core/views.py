@@ -155,7 +155,6 @@ def inventarioProducto(request):
   
     return render(request, 'paginas/productos/inventario.html', context)
 
-
 @login_required
 def codigos(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
@@ -184,8 +183,14 @@ def agregarProducto(request):
                     Codigo.objects.create(codigo=codigo, producto_id=producto.id)
                 
                 producto.cantidad += cantidad_codigos
+                numero_aleatorio = random.randint(10000, 99999)  
+                producto.id_producto = numero_aleatorio
                 producto.save()
 
+            else:
+                numero_aleatorio = random.randint(20000, 29999)  
+                producto.id_producto = numero_aleatorio
+                producto.save()
 
 
             return redirect('inventario')
@@ -197,8 +202,6 @@ def agregarProducto(request):
     }
     print(context)
     return render(request, 'paginas/productos/agregarProducto.html', context)
-
-
 
 @login_required
 def editarProducto(request):
@@ -234,7 +237,6 @@ def eliminarProducto(request):
 
 def carritoCompras(request):
     return redirect('carritoCompras')
-
 
 def cart_add(request, producto_id):
 
@@ -281,40 +283,41 @@ class OrderCreateView(CreateView):
             order.is_pagado = True
             order.save()
             
-            codigo_borrado = None  #
-            
             for item in cart:
                 producto = item["producto"]
                 costo = item["costo"]
                 cantidad = item["cantidad"]
 
                 if producto.tipo_producto == "Código Digital":
-                    codigo = producto.codigos.first()
-                    if codigo:
-                        codigo_borrado = codigo.codigo  
+                    codigos = producto.codigos.all()[:cantidad]
+                    codigos_borrados = [codigo.codigo for codigo in codigos]
+
+                    for codigo in codigos:
                         codigo.delete()
+
+                    for codigo_borrado in codigos_borrados:
+                        Item.objects.create(
+                            orden=order,
+                            producto=producto,
+                            costo=costo,
+                            cantidad=1,
+                            codigo=codigo_borrado,
+                        )
 
                 Item.objects.create(
                     orden=order,
-                    producto=item["producto"],
-                    costo=item["costo"],
-                    cantidad=item["cantidad"],
+                    producto=producto,
+                    costo=costo,
+                    cantidad=cantidad,
                 )
                 Producto.objects.filter(id=producto.id).update(cantidad=F('cantidad') - cantidad)
-
-            if codigo_borrado:
-                Item.objects.create(
-                orden=order,
-                producto=item["producto"],
-                costo=item["costo"],
-                cantidad=item["cantidad"],
-                codigo=codigo_borrado,
-                )
 
             cart.clear()
             return render(self.request, 'order/ordenCreada.html', {'order': order})
 
         return HttpResponseRedirect(reverse("home"))
+
+
 
   
   
@@ -358,7 +361,7 @@ def factura(request):
 
 def verFactura(request, id):
     orders = get_object_or_404(Orden, id=id)
-    nfactura = random.randint(1000, 9999)  # Generar número aleatorio de 4 dígitos
+    nfactura = random.randint(1000, 9999)
 
     context = {
         'orders': orders,

@@ -40,7 +40,9 @@
                            
                             <th>Total Compra</th>
                             <th>Estado de Venta</th>
+                            {% if user.tipo_user == 'Administrador Logístico' %}
                             <th></th>
+                            {% endif %}
                           </tr>
                         
                           {% for order in ordenes %}
@@ -61,6 +63,7 @@
                             </td>
                             <td>${{order.get_precio_total}}</td>
                             <td>{{order.estado_venta}}</td>
+                            {% if user.tipo_user == 'Administrador Logístico' %}
                             <td>
                                 <button type="button"
                                     onclick="editarEnvio('{{order.id}}','{{order.estado_envio}}')"
@@ -68,6 +71,7 @@
                                     <i class="bi bi-pen-fill"></i>
                                 </button>
                             </td>
+                            {% endif %}
                           </tr>                         
                           {% endfor %}
                         </tbody>

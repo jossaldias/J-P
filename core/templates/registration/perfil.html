@@ -30,8 +30,12 @@
                                         <i class="bi bi-pen-fill"></i>
                                     </button>
                  
-                {% if user.is_superuser %}
-                <p>Administrador</p>
+                {% if user.tipo_user == "Administrador General" %}
+                <p>Administrador General</p>
+                {%elif  user.tipo_user == "Administrador Logístico"%}
+                <p>Administrador Logístico</p>
+                {% elif user.tipo_user == "Ejecutivo" %}
+                <p>Ejecutivo</p>
                 {%else%}
                 <p>Cliente</p>
                 {%endif%}
