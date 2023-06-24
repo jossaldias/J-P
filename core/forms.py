@@ -7,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Div, Field, Fieldset, Layout, Submit
+from django.core.exceptions import ValidationError
+
 
 User = get_user_model()
 
@@ -406,11 +408,19 @@ class agregarProductoForm(forms.ModelForm):
                         ('Accesorio','Accesorio'),
                         ('Código Digital','Código Digital'),
                     ] 
+        
         id_producto = forms.CharField(widget=forms.HiddenInput(), max_length=255, required=False, label='')
+        nombre = forms.CharField(max_length=255, label='Nombre')
         plataforma = forms.ChoiceField(choices=PLATAFORMA, required=False)
         categoria = forms.ChoiceField(choices=CATEGORIA, required=False)
         tipo_producto = forms.ChoiceField(choices=TIPO_PRODUCTO)
         cantidad = forms.IntegerField(widget=forms.HiddenInput(), initial=0, label='')
+
+        def clean_nombre(self):
+            nombre = self.cleaned_data['nombre']
+            if Producto.objects.filter(nombre=nombre).exists():
+                raise ValidationError('El Producto ya existe, revisa el inventario e intenta otra vez')
+            return nombre
 
 
         class Meta:
