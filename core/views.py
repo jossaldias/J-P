@@ -6,7 +6,7 @@ import string
 
 
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import CreateView
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
@@ -17,7 +17,8 @@ from django.contrib.auth import authenticate, login
 from django.db.models import F
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
-
+from .utils import render_to_pdf
+from django.views.generic import View
 
 from .cart import Cart
 from .provider import Provider
@@ -154,6 +155,20 @@ def inventarioProducto(request):
     }
   
     return render(request, 'paginas/productos/inventario.html', context)
+
+
+class verInventario(View):
+
+    def get(self, request, *args, **kwargs):
+        productos = Producto.objects.all()
+        form_editar = editarProductoForm()
+        context = {
+            'productos': productos,
+            'form_editar':form_editar
+        }
+        
+        pdf = render_to_pdf('paginas/productos/verInventario.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 @login_required
 def codigos(request, producto_id):
@@ -356,16 +371,21 @@ def factura(request):
   
     return render(request, 'ordencompra/factura.html', context)
 
-def verFactura(request, id):
-    orders = get_object_or_404(Orden, id=id)
-    nfactura = random.randint(1000, 9999)
+class verFactura(View):
 
-    context = {
-        'orders': orders,
-        'nfactura': nfactura,
-    }
-  
-    return render(request, 'ordencompra/verFactura.html', context)
+    def get(self, request, *args, **kwargs):
+        id = kwargs.get('id')  # Obtén el valor de 'id' de los argumentos de palabras clave (kwargs)
+        orders = get_object_or_404(Orden, id=id)
+        nfactura = random.randint(1000, 9999)
+
+        context = {
+            'orders': orders,
+            'nfactura': nfactura,
+        }
+    
+        pdf = render_to_pdf('ordencompra/verFactura.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')
+
 
 
 #ORDENES DE COMPRA
