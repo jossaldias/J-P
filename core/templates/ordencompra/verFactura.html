@@ -1,93 +1,106 @@
-<div class="container" id="imprimible">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="wrapper">
-        <div class="logo">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="ISO-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+
+<body>
+  <div class="container" id="imprimible">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="logo">
+
+            <img src="media/img/join&play.png" alt="Image" height="60px">
+          </div>
+          <div class="text-center">
+            <h5 style="font-size: 25px; text-align: center;">Factura Nº {{ orders.nfactura }}</h5>
+          </div>
+          <div class="text-left">
+            Fecha de creación: {{orders.modified}}
+          </div>
+
+          <div class="table-responsive">
+            <table class="table" id="table">
+              <tbody>
+                <br>
+
+                <tr>
+                  <th> Datos de Proveedor</th>
+
+                  <th></th>
+                  <th> Datos Cliente</th>
+
+                  <th></th>
+
+                </tr>
+                <tr>
+                  <td>Nombre o razón social</td>
+                  <td>{{orders.nombre}}</td>
+                  <td>Nombre o razón social</td>
+                  <td>Join&Play E.I.R.L.</td>
+                </tr>
+                <tr>
+                  <td>Dirección</td>
+                  <td>{{orders.direccion}}, {{orders.comuna}}, </td>
+                  <td>Dirección</td>
+                  <td>Av. Las Condes #1111</td>
+                </tr>
+                <tr>
+                  <td>Teléfono</td>
+                  <td>{{orders.telefono}}</td>
+                  <td>Teléfono</td>
+                  <td>22123456</td>
+                </tr>
+                <tr>
+                  <td>E-mail</td>
+                  <td>{{orders.email}}</td>
+                  <td>E-mail</td>
+                  <td>joinandplay@jyp.cl</td>
+                </tr>
+                <tr>
+                  <td>Comentarios</td>
+                  <td>{{orders.descripcion}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <th>Descripción</th>
+                  <th></th>
+                  <th>Monto Total</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>{{orders.get_description}}</td>
+                  <td></td>
+                  <td>${{orders.get_precio_total}}</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
         </div>
-        <h1>Join And Play</h1>
-
-        <h5>Factura Nº {{ orders.nfactura }}</h5>
-
       </div>
-      <div class="text-left">
-        Fecha de creación: {{orders.modified}}
-      </div>
-
-      <div class="table-responsive">
-        <table class="table table-responsive table-dark table-borderless rounded" id="table">
-          <tbody>
-            <br>
-
-            <tr>
-              <th> Datos de Proveedor</th>
-
-              <th></th>
-              <th> Datos Cliente</th>
-
-              <th></th>
-
-            </tr>
-            <tr>
-              <td>Nombre o razón social</td>
-              <td>{{orders.nombre}}</td>
-              <td>Nombre o razón social</td>
-              <td>Join&Play E.I.R.L.</td>
-            </tr>
-            <tr>
-              <td>Dirección</td>
-              <td>{{orders.direccion}}, {{orders.comuna}}, </td>
-              <td>Dirección</td>
-              <td>Av. Las Condes #1111</td>
-            </tr>
-            <tr>
-              <td>Teléfono</td>
-              <td>{{orders.telefono}}</td>
-              <td>Teléfono</td>
-              <td>22123456</td>
-            </tr>
-            <tr>
-              <td>E-mail</td>
-              <td>{{orders.email}}</td>
-              <td>E-mail</td>
-              <td>joinandplay@jyp.cl</td>
-            </tr>
-            <tr>
-              <td>Comentarios</td>
-              <td>{{orders.descripcion}}</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-            <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-
-            <tr>
-              <th>Descripción</th>
-              <th></th>
-              <th>Monto Total</th>
-              <th></th>
-            </tr>
-            <tr>
-              <td>{{orders.get_description}}</td>
-              <td></td>
-              <td>${{orders.get_precio_total}}</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-
-      </div>
-
     </div>
   </div>
-</div>
-</div>
+</body>
+
+</html>

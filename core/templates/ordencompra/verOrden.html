@@ -1,27 +1,20 @@
-{% extends "base/base.html" %}
-{% load widget_tweaks %}
+<head>
+  <meta charset="ISO-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
 
-{% load static %}
-
-
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/productos.css' %}">
-{% endblock %}
-
-{% block template %}
-
-
-<div class="container" id="imprimible">
+<body>
+  <div class="container" id="imprimible">
     <div class="row">
-        <div class="col-md-12">
-            <div class="wrapper">
-                <div class="logo">
-                    <img src="{% static 'img/j&pmini.png' %}" alt="">
-                </div>
-                <div class="text-center mt-4 name">
-                    Join And Play
-                </div>
-                <div class="text-left mt-4 name">Detalle Órden de Compra Nº {{orders.id}}
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="logo">
+
+            <img src="media/img/join&play.png" alt="Image" height="60px">
+          </div>
+          <div class="text-center">
+                  <h5 style="font-size: 25px; text-align: center;">Detalle Órden de Compra Nº {{orders.id}}</h5>
                    
                 </div>
                 <div class="text-left">
@@ -71,6 +64,7 @@
                             <td>{{orders.descripcion}}</td>
                             <td></td>
                             <td></td>
+                            <td></td>
                           </tr>
                           <tr>
                             <th></th>
@@ -100,16 +94,7 @@
                         </tbody>
                       </table>
 
-                      <button id="btnImprimir" class="btn btn-primary no-print" >
-
-                        Imprimir
-
-                      </button>
-
-                      <button class="btn btn-primary no-print">
-                      <a href="{% url 'ordenes'%}"
-                      >Volver</a>
-                      </button>
+                  
 
                 </div>
                
@@ -117,4 +102,6 @@
         </div>
     </div>
 </div>
-{% endblock %}
+</body>
+
+</html>

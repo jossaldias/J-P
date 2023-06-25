@@ -32,7 +32,7 @@ urlpatterns = [
     path("addoc/<int:producto_id>/", views.provider_add, name="addoc"),
     path("eliminaroc/<int:producto_id>/", views.provider_eliminar, name="eliminaroc"),
     path("verFactura/<int:id>/", views.verFactura.as_view(), name="verFactura"),
-    path("verOrden/<int:id>/", views.verOrden, name="verOrden"),
+    path("verOrden/<int:id>/", views.verOrden.as_view(), name="verOrden"),
     path("clearoc/", views.provider_clear, name="clearoc"),
     path("crear-orden/",login_required(views.ProviderCreateView.as_view()), name="crear-orden"),
     path('paginas/ordenEnviada', views.ordenEnviada, name="ordenEnviada"),
@@ -56,6 +56,8 @@ urlpatterns = [
     path("paginas/verInventario/", views.verInventario.as_view(), name="verInventario"),
     path('codigos/<int:producto_id>/', views.codigos, name='codigos'),
     path('paginas/compras', views.compras, name="compras"),
+    path("paginas/verCompras/", views.verCompras.as_view(), name="verCompras"),
+
     path('paginas/agregarProducto', views.agregarProducto, name="agregarProducto"),
     path('paginas/editarProducto', views.editarProducto, name="editarProducto"),
     path('paginas/eliminarProducto', views.eliminarProducto, name="eliminarProducto"),

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 3px;
+            text-align: left;
+        }
+
+        tr {
+            border-bottom: 1px solid black;
+            border: 1px solid black;
+            ;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% load tz %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="logo">
+
+                        <img src="media/img/join&play.png" alt="Image" height="60px">
+                    </div>
+                    <h5 style="font-size: 25px; text-align: center;">
+                    Informe de Ventas
+                    </h5>
+                <div>
+                    <table style="text-align: center;" id="table">
+                        <tbody>
+
+                          <tr>
+                            <th>Nº Venta</th>
+                            <th>Fecha</th>
+                            <th>Contacto Comprador</th>
+                            <th>Descripción</th>
+                            
+                           
+                           
+                           
+                            <th>Total Compra</th>
+                            <th>Estado de Venta</th>
+                            {% if user.tipo_user == 'Administrador Logístico' %}
+                            <th></th>
+                            {% endif %}
+                          </tr>
+                        
+                          {% for order in ordenes %}
+                          <tr>
+                            <td>{{order}}</td>
+                            <td>{{order.created}}</td>
+                            <td>{{order.email}}</td>
+                            <td>{{order.get_description}}</td>
+                            
+                            <td>${{order.get_precio_total}}</td>
+                            <td>{{order.estado_venta}}</td>
+                            {% endfor %}
+                          </tr>                         
+                        </tbody>
+                      </table>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,60 +1,91 @@
-{% load tz %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 3px;
+            text-align: left;
+        }
+
+        tr {
+            border-bottom: 1px solid black;
+            border: 1px solid black;
+            ;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% load tz %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="logo">
+
+                        <img src="media/img/join&play.png" alt="Image" height="60px">
+                    </div>
+                    <h5 style="font-size: 25px; text-align: center;">
+                        Inventario de Productos
+                    </h5>
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="wrapper">
-                <div class="logo">
-                </div>
-                <h1>Join And Play</h1>
-                <h5>
-                    Inventario de productos
-                </h5>
+                    <p>Fecha actual: {% now "Y-m-d" %}</p>
+                    <div>
+                        <table style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th># ID</th>
+                                    <th>SKU</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo de Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Plataforma</th>
+                                    <th>Precio $</th>
+                                    <th>Cantidad</th>
 
 
-                <p>Fecha actual: {% now "Y-m-d" %}</p>
-                <div class="table-responsive">
-                    <table class="table table-dark table-hover" id="tableinventario">
-                        <thead>
-                            <tr class="table-dark">
-                                <th># ID</th>
-                                <th>SKU</th>
-                                <th>Nombre</th>
-                                <th>Tipo de Producto</th>
-                                <th>Categoría</th>
-                                <th>Plataforma</th>
-                                <th>Precio $</th>
-                                <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in productos %}
+                                <tr>
+                                    <td>{{i.id}}</td>
+                                    <td>{{i.id_producto}}</td>
+                                    <td>{{i.nombre}}</td>
+                                    <td>{{i.tipo_producto}}</td>
+                                    {% if i.categoria == '' %}
+                                    <td>--</td>
+                                    {% else %}
+                                    <td>{{i.categoria}}</td>
+                                    {% endif %}
+                                    {% if i.categoria == '' %}
+                                    <td>--</td>
+                                    {% else %}
+                                    <td>{{i.plataforma}}</td>
+                                    {% endif %}
+                                    <td>${{i.costo}}</td>
+                                    <td>{{i.cantidad}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
 
-
-                            </tr>
-                        </thead>
-                        <tbody class="text-dark">
-                            {% for i in productos %}
-                            <tr class="table-dark">
-                                <td class="table-dark">{{i.id}}</td>
-                                <td class="table-dark">{{i.id_producto}}</td>
-                                <td class="table-dark">{{i.nombre}}</td>
-                                <td class="table-dark">{{i.tipo_producto}}</td>
-                                {% if i.categoria == '' %}
-                                <td>--</td>
-                                {% else %}
-                                <td class="table-dark">{{i.categoria}}</td>
-                                {% endif %}
-                                {% if i.categoria == '' %}
-                                <td>--</td>
-                                {% else %}
-                                <td class="table-dark">{{i.plataforma}}</td>
-                                {% endif %}
-                                <td class="table-dark">${{i.costo}}</td>
-                                <td class="table-dark">{{i.cantidad}}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+</body>
+
+</html>

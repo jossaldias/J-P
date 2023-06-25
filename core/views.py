@@ -374,7 +374,7 @@ def factura(request):
 class verFactura(View):
 
     def get(self, request, *args, **kwargs):
-        id = kwargs.get('id')  # Obtén el valor de 'id' de los argumentos de palabras clave (kwargs)
+        id = kwargs.get('id')  
         orders = get_object_or_404(Orden, id=id)
         nfactura = random.randint(1000, 9999)
 
@@ -468,14 +468,20 @@ class ProviderCreateView(CreateView):
     return context
 
 
-def verOrden(request, id):
-  orders = get_object_or_404(Orden, id=id)
 
-  context = {
-        'orders': orders,
-    }
-  
-  return render(request, 'ordencompra/verOrden.html', context)
+class verOrden(View):
+    def get(self, request, *args, **kwargs):
+        id = kwargs.get('id')
+        orders = get_object_or_404(Orden, id=id)
+
+        context = {
+            'orders': orders
+        }
+
+        pdf = render_to_pdf('ordencompra/verOrden.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+
 
 
 
@@ -652,5 +658,21 @@ def compras(request):
   
   
    return render(request, 'paginas/productos/compras.html', context)
+
+class verCompras(View):
+
+    def get(self, request, *args, **kwargs):
+        ordenes = Order.objects.all()
+        item = Item.objects.all()
+        form_editar = editarEnvioForm()
+
+        context = {
+                'ordenes': ordenes,
+                'item': item,
+                "form_editar": form_editar
+        }
+        
+        pdf = render_to_pdf('paginas/productos/verCompras.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 
