@@ -53,6 +53,8 @@ urlpatterns = [
 
 
     path('paginas/inventario', views.inventarioProducto, name="inventario"),
+    path('paginas/dashboard', views.dashboard, name="dashboard"),
+
     path("paginas/verInventario/", views.verInventario.as_view(), name="verInventario"),
     path('codigos/<int:producto_id>/', views.codigos, name='codigos'),
     path('paginas/compras', views.compras, name="compras"),
