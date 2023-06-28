@@ -41,3 +41,16 @@ function decrementarCantidadC(button) {
         cantidadField.value = cantidad - 1;
     }
 }
+
+function incrementarCantidadOC(button) {
+    var cantidadField = button.parentNode.previousElementSibling;
+    cantidadField.value = parseInt(cantidadField.value) + 1;
+}
+
+function decrementarCantidadOC(button) {
+    var cantidadField = button.parentNode.nextElementSibling;
+    var cantidad = parseInt(cantidadField.value);
+    if (cantidad > 0) {
+        cantidadField.value = cantidad - 1;
+    }
+}

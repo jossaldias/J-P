@@ -70,17 +70,19 @@
                
                 <td>{{producto.nombre}}</td>
                 <td>
-                  <form action="{% url 'addoc' producto.id %}" method="post">
+                   <form action="{% url 'addoc' producto.id %}" method="post">
                     {% csrf_token %}
-                    <div class="form-row">
+                    <div class="form-row align-items-center">
                       <div class="col">
-                        {% render_field itemprovider.update_cantidad_form.cantidad class+="form-control" %}
-                      </div>
-                      <br />
-                      <div class="col">
-                        <button class="btn btn-outline-info" type="submit">
-                          Actualizar<i class="bi bi-cart-check-fill"></i>
-                        </button>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <button type="submit" class="btn btn-primary" onclick="decrementarCantidadOC(this)">-</button>
+                          </div>
+                          {% render_field itemprovider.update_cantidad_form.cantidad class+="custom-width" %}
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary" onclick="incrementarCantidadOC(this)">+</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     {{ itemprovider.update_cantidad_form.override }}
@@ -140,6 +142,16 @@
     </div>
   </div>
 
+<style>
+  .custom-width {
+    width: 100px;
+    height: 38px;
+    padding: 7px 12px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+  }
+</style>
+<script src="{% static 'js/botones.js' %}"></script>
 
 
   {% endblock %}
