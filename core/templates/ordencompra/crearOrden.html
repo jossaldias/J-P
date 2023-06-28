@@ -1,146 +1,147 @@
-{% extends "base/base.html" %} {% load widget_tweaks %} 
-{% load static %} 
+{% extends "base/base.html" %} {% load widget_tweaks %}
+{% load static %}
 
 {%block css %}
 <link rel="stylesheet" href="{% static 'css/carro.css' %}" />
-{% endblock %} 
+{% endblock %}
 
 {% block template %}
 
 
 
-  <div class="container h-100" style="padding-top:5%; padding-bottom:5%">
-    <div class="row d-flex justify-content-center align-items-center h-500 rounded" style="background: #212529" >
-      <h1>Agregar Ítems</h1><hr>
-      <table class="table table-dark table-hover">
-        <thead>
-            <tr class="table-dark">
-                <th>#</th>
-                <th>SKU</th>
-                <th>Nombre</th>
-                <th></th>    
+
+<div class="container h-100" style="padding-top:5%; padding-bottom:5%">
+  <div class="row d-flex justify-content-center align-items-center h-500 rounded" style="background: #212529">
+    <h1>Detalle Órden de Compra</h1>
+
+    <hr>
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Producto</th>
+              <th scope="col" class="text-center">Cantidad</th>
+              <th scope="col" class="text-right">Precio Unitario</th>
+              <th scope="col" class="text-right">Subtotal</th>
+              <th></th>
             </tr>
-        </thead>
-        <tbody class="text-dark">
-            {% for i in productos %}
-            <tr class="table-dark">
-                <td class="table-dark">{{i.id}}</td>
-                <td class="table-dark">{{i.id_producto}}</td>
-                <td class="table-dark">{{i.nombre}}</td>        
-                <td>
+          </thead>
+          <tbody>
+            {% for itemprovider in provider %} {% with producto=itemprovider.producto %}
+            <tr>
 
-                  <form type="btn" method="post" action="{% url 'addoc' i.id %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
-                    <button type="submit" class="btn btn-primary">
-                      <i class="bi bi-bag-fill" data-tippy-inertia="true"
-                         data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true"
-                         data-tippy-theme="sharpborder"></i>&nbsp;Añadir
-                    </button>
-                  </form>
-                </td>
-
-
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>  
-     
-
-      
-      <h1>Detalle Órden de Compra</h1>
-      
-      <hr>
-      <div class="col-12">
-        <div class="table-responsive">
-          <table class="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">Producto</th>
-                <th scope="col" class="text-center">Cantidad</th>
-                <th scope="col" class="text-right">Precio Unitario</th>
-                <th scope="col" class="text-right">Subtotal</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for itemprovider in provider %} {% with producto=itemprovider.producto %}
-              <tr>
-               
-                <td>{{producto.nombre}}</td>
-                <td>
-                   <form action="{% url 'addoc' producto.id %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-row align-items-center">
-                      <div class="col">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <button type="submit" class="btn btn-primary" onclick="decrementarCantidadOC(this)">-</button>
-                          </div>
-                          {% render_field itemprovider.update_cantidad_form.cantidad class+="custom-width" %}
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary" onclick="incrementarCantidadOC(this)">+</button>
-                          </div>
+              <td>{{producto.nombre}}</td>
+              <td>
+                <form action="{% url 'addoc' producto.id %}" method="post">
+                  {% csrf_token %}
+                  <div class="form-row align-items-center">
+                    <div class="col">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <button type="submit" class="btn btn-primary" onclick="decrementarCantidadOC(this)">-</button>
+                        </div>
+                        {% render_field itemprovider.update_cantidad_form.cantidad class+="custom-width" %}
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary" onclick="incrementarCantidadOC(this)">+</button>
                         </div>
                       </div>
                     </div>
-                    {{ itemprovider.update_cantidad_form.override }}
-                  </form>
-                </td>
-                <td class="text-right">${{itemprovider.costo}}</td>
-                <td class="text-right">$ {{itemprovider.precio_total}}</td>
-                <td class="text-right">
-                  <form action="{% url 'eliminaroc' producto.id %}" method="post">
-                    {% csrf_token %}
-                    <span class="icon-input-btn">
-                      <button class="btn btn-danger" type="submit">
-                        <i class="bi bi-trash3-fill"></i> Eliminar
-                      </button>
-                    </span>
-                  </form>
-                </td>
-              </tr>
-              {% endwith %} {% endfor %}
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><strong>Total</strong></td>
-                <td class="text-right">
-                  <strong>$ {{provider.get_precio_total}}</strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                  </div>
+                  {{ itemprovider.update_cantidad_form.override }}
+                </form>
+              </td>
+              <td class="text-right">${{itemprovider.costo}}</td>
+              <td class="text-right">$ {{itemprovider.precio_total}}</td>
+              <td class="text-right">
+                <form action="{% url 'eliminaroc' producto.id %}" method="post">
+                  {% csrf_token %}
+                  <span class="icon-input-btn">
+                    <button class="btn btn-danger" type="submit">
+                      <i class="bi bi-trash3-fill"></i> Eliminar
+                    </button>
+                  </span>
+                </form>
+              </td>
+            </tr>
+            {% endwith %} {% endfor %}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>Total</strong></td>
+              <td class="text-right">
+                <strong>$ {{provider.get_precio_total}}</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
       <div class="col mb-2">
-        
         <div class="row">
           <div class="col-sm-3 col-md-3">
-            <a href="{% url 'ordenes'%}" class="btn btn-block btn-primary"
-              >Volver</a>
+            <a href="{% url 'ordenes'%}" class="btn btn-block btn-primary">Volver</a>
           </div>
           <div class="col-sm-3 col-md-3 text-right">
-            <a href="{% url 'crear-orden' %}" class="btn btn-block btn-success"
-              >Generar Órden de Compra</a>
+            <a href="{% url 'crear-orden' %}" class="btn btn-block btn-success">Generar Órden de Compra</a>
           </div>
           <div class="col-sm-3 col-md-3 text-right">
             <form action="{% url 'clearoc' %}" method="post">
               {% csrf_token %}
               <button class="btn btn-block btn-danger" type="submit">
-                <i class="bi bi-cart-x-fill"></i> Vaciar 
+                <i class="bi bi-cart-x-fill"></i> Vaciar
               </button>
             </form>
           </div>
         </div>
       </div>
-    
+    </div>
+
+    <div class="container h-100" style="padding-top:5%; padding-bottom:5%">
+      <div class="row d-flex justify-content-center align-items-center h-500 rounded" style="background: #212529">
+        <h1>Agregar Ítems</h1>
+        <hr>
+        <table class="table table-dark table-hover">
+          <thead>
+            <tr class="table-dark">
+              <th>#</th>
+              <th>SKU</th>
+              <th>Nombre</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="text-dark">
+            {% for i in productos %}
+            <tr class="table-dark">
+              <td class="table-dark">{{i.id}}</td>
+              <td class="table-dark">{{i.id_producto}}</td>
+              <td class="table-dark">{{i.nombre}}</td>
+              <td>
+
+                <form type="btn" method="post" action="{% url 'addoc' i.id %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away"
+                      data-tippy-delay="50" data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+</div>
+
+
+
+
+
 
 <style>
   .custom-width {
@@ -154,5 +155,4 @@
 <script src="{% static 'js/botones.js' %}"></script>
 
 
-  {% endblock %}
-
+{% endblock %}
