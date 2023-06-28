@@ -69,4 +69,7 @@ urlpatterns = [
     path('paginas/arcadeSimulacion', views.arcadeSimulacion, name="arcadeSimulacion"),
     path('paginas/deportesMusica', views.deportesMusica, name="deportesMusica"),
     path('paginas/shooterEstrategia', views.shooterEstrategia, name="shooterEstrategia"),
+    path('verDetalleProducto/<int:producto_id>/', views.verDetalleProducto, name='verDetalleProducto'),
 ]
+
+

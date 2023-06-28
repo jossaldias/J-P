@@ -128,3 +128,22 @@ footer p {
   box-shadow: none;
 }
 
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 10px;
+  position: relative;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: justify;
+  background-color:red;
+  padding: 10px;
+}
+
+.card-content{
+
+  height:200px
+}

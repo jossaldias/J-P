@@ -154,5 +154,19 @@
 
 
   td {
-    width: 100px; /* Tamaño de ancho deseado para las celdas */
+    width: 100px; 
+}
+
+.card-container {
+    display: grid  !important;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    grid-gap: 10px !important;
+  }
+
+.card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: justify !important;
+    background-color:red !important;
+    padding: 10px  !important;
   }

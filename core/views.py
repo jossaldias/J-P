@@ -670,6 +670,17 @@ def accesorios(request):
 
     return render(request, 'paginas/catalogo/accesorios.html', context)
 
+
+
+def verDetalleProducto(request, producto_id):
+    productos = get_object_or_404(Producto, id=producto_id)
+    productos = [productos]
+    context = {
+        
+        'productos': productos
+    }
+    return render(request, 'paginas/catalogo/verDetalleProducto.html', context)
+
 # COMPRAS
 
 @login_required

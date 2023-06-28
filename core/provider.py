@@ -48,7 +48,7 @@ class Provider:
       self.provider[producto_id]["cantidad"] = cantidad
     else:
       self.provider[producto_id]["cantidad"] += cantidad
-    self.provider[producto_id]["cantidad"] = min(10, self.provider[producto_id]["cantidad"])
+    self.provider[producto_id]["cantidad"] = min(5000, self.provider[producto_id]["cantidad"])
     self.save()
 
   def remove(self, producto):
