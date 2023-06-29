@@ -4,19 +4,21 @@
 {% block template %}
 
 <style>
-  .card-content{
+  .card-content {
 
-    height:150px
+    height: 150px
   }
 </style>
 <main>
   <div class="container-fluid mt-3 mb-5">
     <div class="row">
       <div class="col-md-12">
-        <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">PRODUCTOS DESTACADOS</h1>
+        <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">PRODUCTOS
+          DESTACADOS</h1>
 
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
+          style="border-color: #FFFFFF; border: 3px;">
+          <div class="carousel-inner" style="border-color: #FFFFFF; border: 3px;">
             <div class="carousel-item active">
               <a href="{% url 'juegos' %}">
                 <img src="https:\/\/www.freetogame.com\/g\/452\/thumbnail.jpg" class="d-block w-100 imgcarousel" alt="">
@@ -67,38 +69,42 @@
     </div>
   </div>
 
-  <section >
+  <section>
     <article>
-      <h3 style="height:40px" >Kit Gamer para PC</h3>
-      <img src="static/img/PC_kit_gamer1.jpg"  style="height:250px" alt="Accesroiro 1">
+      <h3 style="height:40px">Kit Gamer para PC</h3>
+      <img src="static/img/PC_kit_gamer1.jpg" style="height:250px" alt="Accesroiro 1">
       <div class="card-content">
-      <p>Kit Gamer Basico RGB</p>
-      <p>Incluye: Teclado Retroluminado - Mouse Gamer - Audifonos con Microfono
-    </div>
-      <a href="{% url 'accesorios' %}">Ver todos los Accesorios</a>
+        <p>Kit Gamer Basico RGB</p>
+        <p>Incluye: Teclado Retroluminado - Mouse Gamer - Audifonos con Microfono
+      </div>
+      <a style="background: green" onmouseover="this.style.background='none';"
+        onmouseout="this.style.background='green';" href="{% url 'accesorios' %}">Ver todos los Accesorios</a>
     </article>
 
     <article>
       <h3 style="height:40px">KIRBY´S RETURN TO DREAM LAND DELUXE</h3>
       <img src="static/img/juego_1.jpg" style="height:250px" alt="Accesorio 2">
       <div class="card-content">
-      <p>Kit Gamer 2 RGB</p>
-      <p>La poderosa bola rosada llamada Kirby está de regreso en una aventura de plataformas para 1 a 4 jugadores* en el planeta Pop. ¡Ayuda a Maglor a reconstruir su nave con las nuevas habilidades de copia Meca y Arena!</p>
-    </div>
-      <a href="{% url 'juegos' %}">Ver todos los Juegos</a>
+        <p>Kit Gamer 2 RGB</p>
+        <p>La poderosa bola rosada llamada Kirby está de regreso en una aventura de plataformas para 1 a 4 jugadores* en
+          el planeta Pop. ¡Ayuda a Maglor a reconstruir su nave con las nuevas habilidades de copia Meca y Arena!</p>
+      </div>
+      <a style="background: green" onmouseover="this.style.background='none';"
+        onmouseout="this.style.background='green';" href="{% url 'juegos' %}">Ver todos los Juegos</a>
     </article>
 
     <article>
       <h3 style="height:40px">Kit accesorios Nintendo Switch</h3>
-      <img src="static/img/NS_kit_accesorios.jpg"  style="height:250px" alt="Accesorio 3">
+      <img src="static/img/NS_kit_accesorios.jpg" style="height:250px" alt="Accesorio 3">
       <div class="card-content">
-      <p>Kit completo para Nintendo Switch</p>
-      <p>Incluye Funda: Cargador para 4 Joincon - Carcasa de Silicona -
-        Vidrio - 4 Protectores de Silicona</p>
-      <p>2 Volantes - 2 Adaptadores de mano</p>
-      <p>NOTA: El Precio no incluye la Consola Nintendo Switch ni los Joincons</p>
-    </div>
-      <a href="{% url 'accesorios' %}">Ver todos los Accesorios</a>
+        <p>Kit completo para Nintendo Switch</p>
+        <p>Incluye Funda: Cargador para 4 Joincon - Carcasa de Silicona -
+          Vidrio - 4 Protectores de Silicona</p>
+        <p>2 Volantes - 2 Adaptadores de mano</p>
+        <p>NOTA: El Precio no incluye la Consola Nintendo Switch ni los Joincons</p>
+      </div>
+      <a style="background: green" onmouseover="this.style.background='none';"
+        onmouseout="this.style.background='green';" href="{% url 'accesorios' %}">Ver todos los Accesorios</a>
     </article>
   </section>
 </main>

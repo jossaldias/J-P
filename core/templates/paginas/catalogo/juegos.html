@@ -15,19 +15,21 @@
     display: flex;
     flex-direction: column;
     justify-content: justify;
-    background-color:red;
+    background-color: red;
     padding: 10px;
   }
 
-  .card-content{
+  .card-content {
 
-    height:150px
+    height: 150px
   }
 </style>
 
 <main>
+  <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">CATÁLOGO DE JUEGOS</h1>
+
   <article>
-    <h1>CATEGORÍAS</h1>
+    <h3>CATEGORÍAS</h3>
   </article>
 
   <div class="container-fluid mt-12">
@@ -51,15 +53,15 @@
     </div>
   </div>
 
-  <h1 class="card borders" style="text-align: center; background-color:darkblue; color:#FFFFFF;">CATÁLOGO DE JUEGOS</h1>
 
   <section class="card-container">
     {% for juego in productos %}
     <article class="card">
-      
+
       <h3 style="height:30px">{{juego.nombre}}</h3>
       {% if juego.picture%}
-      <a title="VerDetalle"  href="{% url 'verDetalleProducto'  producto_id=juego.id %}"><img src="{{juego.picture.url}}" style="height:300px"alt="..."></a>
+      <a title="VerDetalle" href="{% url 'verDetalleProducto'  producto_id=juego.id %}"><img src="{{juego.picture.url}}"
+          style="height:300px" alt="..."></a>
       <p> Click para ver más [+]</p>
       {%endif%}
       <br>
@@ -68,32 +70,33 @@
         <p>{{ juego.descripcion|truncatechars:100 }}</p>
 
 
-      <h5  class="text-white"> <strong>Precio</strong>$ {{juego.costo}}</h5>
-      {% if juego.tipo_producto == 'Juego Físico'%}
-      <p>PLATAFORMA: {{juego.plataforma}}</p>
-      {% endif %}
-      <p>TIPO PRODUCTO: {{juego.tipo_producto}}</p>
+        <h5 class="text-white"> <strong>Precio</strong>$ {{juego.costo}}</h5>
+        {% if juego.tipo_producto == 'Juego Físico'%}
+        <p>PLATAFORMA: {{juego.plataforma}}</p>
+        {% endif %}
+        <p>TIPO PRODUCTO: {{juego.tipo_producto}}</p>
       </div>
       {% if juego.tipo_producto == 'Código Digital' %}
-      <form  method="post" action="{% url 'add' juego.id %}">
+      <form method="post" action="{% url 'add' juego.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
-        <a style="background: blue" onmouseover="this.style.background='none';"
+        <a style="background: blue" onmouseover="this.style.background='darkblue';"
           onmouseout="this.style.background='blue';" href="#" onClick="javascript:this.parentNode.submit()"><i
             class="bi bi-key-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50"
             data-tippy-arrow="true" data-tippy-theme="light-border"></i>&nbsp;Añadir al Carrito (Código Digital)</a>
       </form>
-     
+
       {% else %}
-      <form  method="post" action="{% url 'add' juego.id %}">
+      <form method="post" action="{% url 'add' juego.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
-        <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true"
-            data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true"
-            data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
+        <a style="background: green" onmouseover="this.style.background='darkgreen';"
+          onmouseout="this.style.background='green';" href="#" onClick="javascript:this.parentNode.submit()"><i
+            class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50"
+            data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
       </form>
       {% endif %}
-   
+
     </article>
     {% endfor %}
   </section>

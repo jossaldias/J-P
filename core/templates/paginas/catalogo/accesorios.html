@@ -45,7 +45,10 @@
           <form method="post" action="{% url 'add' accesorio.id %}">
             {% csrf_token %}
             <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
-            <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
+            <a style="background: green" onmouseover="this.style.background='darkgreen';"
+              onmouseout="this.style.background='green';" href="#" onClick="javascript:this.parentNode.submit()"><i
+                class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50"
+                data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
           </form>
     
         </article>

@@ -75,22 +75,23 @@
       <p>TIPO PRODUCTO: {{juego.tipo_producto}}</p>
       </div>
       {% if juego.tipo_producto == 'Código Digital' %}
-      <form  method="post" action="{% url 'add' juego.id %}">
+      <form method="post" action="{% url 'add' juego.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
-        <a style="background: blue" onmouseover="this.style.background='none';"
+        <a style="background: blue" onmouseover="this.style.background='darkblue';"
           onmouseout="this.style.background='blue';" href="#" onClick="javascript:this.parentNode.submit()"><i
             class="bi bi-key-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50"
             data-tippy-arrow="true" data-tippy-theme="light-border"></i>&nbsp;Añadir al Carrito (Código Digital)</a>
       </form>
-     
+
       {% else %}
-      <form  method="post" action="{% url 'add' juego.id %}">
+      <form method="post" action="{% url 'add' juego.id %}">
         {% csrf_token %}
         <input type="hidden" name="cantidad" class="form-control" required="" id="id_cantidad" value="1">
-        <a href="#" onClick="javascript:this.parentNode.submit()"><i class="bi bi-bag-fill" data-tippy-inertia="true"
-            data-tippy-animation="shift-away" data-tippy-delay="50" data-tippy-arrow="true"
-            data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
+        <a style="background: green" onmouseover="this.style.background='darkgreen';"
+          onmouseout="this.style.background='green';" href="#" onClick="javascript:this.parentNode.submit()"><i
+            class="bi bi-bag-fill" data-tippy-inertia="true" data-tippy-animation="shift-away" data-tippy-delay="50"
+            data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>&nbsp;Añadir al Carrito</a>
       </form>
       {% endif %}
    

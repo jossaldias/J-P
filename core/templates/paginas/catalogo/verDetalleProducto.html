@@ -5,7 +5,8 @@
 
 
 <div class="d-flex justify-content-center align-items-center">
-  <div class="card mb-3" style="max-width: 1800px; margin-top:20px; background-color: rgba(255, 255, 255, 0.941);">
+  <div class="card mb-3"
+    style="max-width: 1800px; margin-top:20px; background-color: rgba(255, 255, 255, 0);border: #ced4da00;">
     <div class="row g-0">
       {% for juego in productos %}
       <div class="col-md-4">
@@ -17,7 +18,7 @@
           <h5>{{juego.plataforma}}</h5>
           <p style="color: rgba(0, 0, 0, 0.649);">SKU #{{juego.id_producto}}</p>
           <strong>Descripción</strong><br>
-          <p>{{juego.descripcion}}</p>
+          <p style="text-align: justify;">{{juego.descripcion}}</p>
           <h5><strong>Precio</strong>$ {{juego.costo}}</h5>
           <p>TIPO PRODUCTO: {{juego.tipo_producto}}</p>
 
