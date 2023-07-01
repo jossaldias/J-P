@@ -9,6 +9,7 @@ from core.models import Order
 
 
 # Create your views here.
+#FUNCIÓN QUE INICIA TRANSACCIÓN DE PRUEBA CON TRANSBANK
 @login_required
 def webpay_plus_create(request):
     order = Order.objects.filter(user=request.user).first()
@@ -33,6 +34,7 @@ def webpay_plus_create(request):
 
     return render(request, 'webpay-plus/create.html', {'request': create_request, 'response': response})
 
+#FUNCIÓN QUE DEVUELVE TOKEN DE TRANSACCIÓN DE PRUEBA 
 @login_required
 def webpay_plus_commit(request):
     token = request.GET.get("token_ws")

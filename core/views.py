@@ -37,6 +37,7 @@ def home(request):
 
     return render(request, 'base/home.html', {'home': home})
 
+#BUSCAR
 def buscar(request):
     query = request.GET.get('q')
     productos = Producto.objects.filter(Q(nombre__icontains=query) | Q(descripcion__icontains=query))
@@ -48,6 +49,7 @@ def buscar(request):
 
 # PERFILES
 
+#REGISTRARSE
 def register(request):
     data = {
         'form': CustomUserCreationForm()
@@ -66,6 +68,7 @@ def register(request):
 
     return render(request, 'registration/register.html', data)
 
+#VER PERFIL PROPIO
 @login_required
 def perfil(request):
     form = editarPerfilForm()
@@ -75,6 +78,7 @@ def perfil(request):
     }
     return render(request, 'registration/perfil.html', context)
 
+#EDITAR PERFIL PROPIO
 @login_required
 def editarPerfil(request):
     if request.method == 'POST':
@@ -90,6 +94,7 @@ def editarPerfil(request):
         }
     return render(request, 'paginas/perfil.html', context)
 
+#EDITAR USUARIO DESDE ADMINISTRADOR GENERAL
 @login_required
 def editarUsuario(request):
     if request.method == 'POST':
@@ -106,10 +111,12 @@ def editarUsuario(request):
         }
     return render(request, 'paginas/usuarios.html', context)
 
+#FUNCIÓN PARA SALIR DE LA SESIÓN DEL USUARIO
 def exit(request):
     logout(request)
     return redirect('home')
 
+#FUNCIÓN PARA EL ADMINISTRADOR GENERAL PARA LA GESTIÓN DE USUARIOS
 @login_required
 def usuarios(request):
     users = User.objects.all()
@@ -121,6 +128,8 @@ def usuarios(request):
   
     return render(request, 'registration/usuarios.html', context)
 
+
+#FUNCIÓN PARA EL ADMINISTRADOR GENERAL PARA  AGREGAR UN USUARIO
 @login_required
 def agregarUsuario(request):
     
@@ -136,6 +145,7 @@ def agregarUsuario(request):
         }
     return render(request, 'registration/agregarUsuario.html', context)
 
+#FUNCIÓN PARA EL ADMINISTRADOR GENERAL PARA ELIMINAR UN USUARIO
 @login_required
 def eliminarUsuario(request):
     if request.POST:
@@ -147,6 +157,7 @@ def eliminarUsuario(request):
 
 # MANTENEDOR PRODUCTOS
 
+#FUNCION PARA VER STOCK DE PRODUCTOS
 @login_required
 def inventarioProducto(request):
     productos = Producto.objects.all()
@@ -158,7 +169,7 @@ def inventarioProducto(request):
   
     return render(request, 'paginas/productos/inventario.html', context)
 
-
+#FUNCIÓN PARA OBTENER ESTADÍSTICAS DE STOCK PRODUCTOS Y PRODUCTOS MÁS VENDIDOS
 def dashboard(request):
     products = Producto.objects.all() 
     product_count = products.count()
@@ -185,6 +196,7 @@ def dashboard(request):
     return render(request, 'paginas/productos/dashboard.html', context)
 
 
+#FUNCIÓN PARA HACER PDF CON STOCK
 class verInventario(View):
 
     def get(self, request, *args, **kwargs):
@@ -198,6 +210,8 @@ class verInventario(View):
         pdf = render_to_pdf('paginas/productos/verInventario.html', context)
         return HttpResponse(pdf, content_type='application/pdf')
 
+
+#FUNCIÓN PARA VER CÓDIGOS DE ACUERDO A ID DE PRODUCTO 
 @login_required
 def codigos(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
@@ -208,6 +222,8 @@ def codigos(request, producto_id):
     }
     return render(request, 'paginas/productos/codigos.html', context)
 
+
+#FUNCIÓN PARA AGREGAR PRODUCTO NUEVO A LA BASE DE DATOS
 @login_required
 def agregarProducto(request):
     if request.method == 'POST':
@@ -246,6 +262,7 @@ def agregarProducto(request):
     print(context)
     return render(request, 'paginas/productos/agregarProducto.html', context)
 
+#FUNCIÓN PARA EDITAR PRODUCTO
 @login_required
 def editarProducto(request):
     if request.method == 'POST':
@@ -261,6 +278,7 @@ def editarProducto(request):
         }
     return render(request, 'paginas/productos/inventario.html', context)
 
+#FUNCIÓN PARA ELIMINAR PRODUCTO
 @login_required
 def eliminarProducto(request):
   if request.method == 'POST':
@@ -278,9 +296,11 @@ def eliminarProducto(request):
 
 # CARRO DE COMPRAS
 
+#FUNCIÓN PARA VER CARRITO DE COMPRAS
 def carritoCompras(request):
     return redirect('carritoCompras')
 
+#FUNCIÓN PARA AGREGAR UN PRODUCTO MÁS AL CARRITO CON BOTÓN +
 def cart_add(request, producto_id):
 
   cart = Cart(request)
@@ -297,6 +317,7 @@ def cart_add(request, producto_id):
 
   return redirect("carritoCompras")
 
+#FUNCIÓN PARA DISMIUIR UN PRODUCTO MÁS AL CARRITO CON BOTÓN -
 def cart_eliminar(request, producto_id):
 
   cart = Cart(request)
@@ -304,20 +325,24 @@ def cart_eliminar(request, producto_id):
   cart.remove(producto)
   return redirect("carritoCompras")
 
+#FUNCIÓN PARA LIMPIAR EL CARRITO 
 def cart_clear(request):
   cart = Cart(request)
   cart.clear()
   return redirect("carritoCompras")
 
+#FUNCIÓN QUE MUESTRA EL DETALLE DE LA COMPRA 
 def cart_detalle(request):
   cart = Cart(request)
   return render(request, "paginas/productos/carritoCompras.html", {"cart": cart})
 
+#FUNCIÓN QUE CREA LA COMPRA PARA EL CLIENTE 
 class OrderCreateView(CreateView):
     model = Order
     form_class = OrderCreateForm
     template_name = "order/order_form.html"
 
+    #FUNCIÓN PARA AGREGAR DATOS DEL CLIENTE A LA COMPRA
     def form_valid(self, form):
         cart = Cart(self.request)
         if cart:
@@ -365,20 +390,20 @@ class OrderCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context["cart"] = Cart(self.request)
         return context  
-
+    
+#FUNCIÓN QUE DEVUELVE AL USUARIO A LA PÁGINA INDICANDO PEDIDO LISTO
 @login_required
 def pedidoListo(request):
     
     return render(request, 'paginas/productos/pedidoListo.html')
 
 
-# CONTACTO FORM
-
+#CONTACTO FORM
 def contacto(request):
     return render(request, 'paginas/informacion/contacto.html')
 
 
-#MIS COMPRAS
+#FUNCIÓN PARA VER MIS COMPRAS Y REALIZAR SEGUIMIENTO
 @login_required
 def misOrdenes(request):
     ordenes = Order.objects.filter(user=request.user)
@@ -386,7 +411,7 @@ def misOrdenes(request):
     return render(request, 'paginas/productos/misOrdenes.html',  {'ordenes': ordenes} )
 
 
-#FACTURAS
+#FUNCIÓN PARA VER FACTURAS EN BASE A LAS ÓRDENES DE COMPRA
 @login_required
 def factura(request):
     orders = Orden.objects.filter(estado_orden='Finalizada')
@@ -399,6 +424,7 @@ def factura(request):
   
     return render(request, 'ordencompra/factura.html', context)
 
+#FUNCIÓN PARA IMPRIMIR Y CONVERTIR EN PDF LA FACTURA
 class verFactura(View):
 
     def get(self, request, *args, **kwargs):
@@ -417,6 +443,8 @@ class verFactura(View):
 
 
 #ORDENES DE COMPRA
+
+#FUNCIÓN PARA VER ÓRDENES DE COMPRA
 @login_required
 def ordenesCompra(request):
     orders = Orden.objects.all()
@@ -429,6 +457,7 @@ def ordenesCompra(request):
   
     return render(request, 'ordencompra/ordenes.html',context)
 
+#FUNCIÓN PARA CREAR ÓRDEN DE COMPRA
 def crearOrden (request):
     productos = Producto.objects.all()
     provider = Provider(request)
@@ -440,6 +469,7 @@ def crearOrden (request):
     extra_context = {"form": ProviderAddProductoForm()}
     return render(request, 'ordenCompra/crearOrden.html',context)
 
+#FUNCIÓN PARA AGREGAR UN PRODUCTO A ÓRDEN DE COMPRA CON BOTÓN +
 def provider_add(request, producto_id):
 
   provider = Provider(request)
@@ -454,7 +484,8 @@ def provider_add(request, producto_id):
       override_cantidad=provider_add["override"]
     )
     return HttpResponseRedirect(reverse("crearOrden"))
-
+  
+#FUNCIÓN PARA ELIMINAR UN PRODUCTO A ÓRDEN DE COMPRA CON BOTÓN -
 def provider_eliminar(request, producto_id):
 
   provider = Provider(request)
@@ -462,16 +493,20 @@ def provider_eliminar(request, producto_id):
   provider.remove(producto)
   return redirect("crearOrden")
 
+#FUNCIÓN PARA LIMPIAR PRODUCTOS DE ÓRDEN DE COMPRA 
 def provider_clear(request):
   provider = Provider(request)
   provider.clear()
   return redirect("crearOrden")
 
+
+#FUNCIÓN PARA AGREGAR DATOS DE PROVEEDOR EN ÓRDEN DE COMPRA
 class ProviderCreateView(CreateView):
   model = Orden
   form_class = OrdenCreateForm
   template_name="ordencompra/provider_form.html"
 
+  #FUNCIÓN PARA VALIDAR DATOS DE PROVEEDOR  
   def form_valid(self, form):
     provider = Provider(self.request)
     if provider:
@@ -496,7 +531,7 @@ class ProviderCreateView(CreateView):
     return context
 
 
-
+#FUNCIÓN PARA IMPRIMIR Y CONVERTIR EN PDF ÓRDENES DE COMPRA
 class verOrden(View):
     def get(self, request, *args, **kwargs):
         id = kwargs.get('id')
@@ -509,10 +544,7 @@ class verOrden(View):
         pdf = render_to_pdf('ordencompra/verOrden.html', context)
         return HttpResponse(pdf, content_type='application/pdf')
 
-
-
-
-
+#FUNCIÓN PARA VER CÓDIGOS DE ACUERDO AL ID DEL PRODUCTO
 @login_required
 def codigos(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
@@ -523,14 +555,14 @@ def codigos(request, producto_id):
     }
     return render(request, 'paginas/productos/codigos.html', context)
 
-
+#FUNCIÓN QUE DEVUELVE A PÁGINA DE ÓRDEN DE COMPRA CREADA Y ENVIADA
 @login_required
 def ordenEnviada(request):
     
     return render(request, 'ordencompra/ordenEnviada.html')
 
 ########
-
+#FUNCÓN PARA EDITAR ESTADO DE ÓRDEN DE COMPRA 
 @login_required
 def editarOrden(request):
     if request.method == 'POST':
@@ -574,6 +606,9 @@ def generar_codigo_aleatorio():
     codigo = ''.join(random.choice(letras) for _ in range(10))
     return codigo
 
+
+
+#FUNCIÓN PARA EDITAR ESTADO DE ENVÍO DE COMPRA DE CLIENTE
 @login_required
 def editarEnvio(request):
     if request.method == 'POST':
@@ -590,23 +625,9 @@ def editarEnvio(request):
     return render(request, 'paginas/productos/compras.html', context)
 
 
-@login_required
-def eliminarOrden(request):
-    if request.POST:
-        compras = Compra.objects.get(pk=request.POST.get('id_compra_eliminar'))
-        compras.delete()    
-  
-    return redirect('ordenes')
-
-
-######
-
-
-
 # PRODUCTOS
-
-def juegos(request):
-    
+#FUNCIÓN QUE DEVUELVE TODOS LOS PRODUCTOS QUE SEAN JUEGO FÍSICO O CÓDIGO DIGITAL
+def juegos(request):    
     productos = Producto.objects.filter(
                                         Q(tipo_producto='Juego Físico')|
                                         Q(tipo_producto='Código Digital')
@@ -617,6 +638,7 @@ def juegos(request):
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/catalogo/juegos.html', context)
 
+#FUNCIÓN QUE DEVUELVE TODOS LOS PRODUCTOS SEGÚN CATEGORÍA
 def accionAventura(request):
     productos = Producto.objects.filter(
                                         Q(categoria='Acción')|
@@ -627,6 +649,7 @@ def accionAventura(request):
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/categorias/accionAventura.html', context)
 
+#FUNCIÓN QUE DEVUELVE TODOS LOS PRODUCTOS SEGÚN CATEGORÍA
 def arcadeSimulacion(request):
     productos = Producto.objects.filter(
                                         Q(categoria='Arcade')|
@@ -637,6 +660,7 @@ def arcadeSimulacion(request):
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/categorias/arcadeSimulacion.html', context)
 
+#FUNCIÓN QUE DEVUELVE TODOS LOS PRODUCTOS SEGÚN CATEGORÍA
 def deportesMusica(request):
     productos = Producto.objects.filter(
                                         Q(categoria='Deportes')|
@@ -648,6 +672,7 @@ def deportesMusica(request):
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/categorias/deportesMusica.html', context)
 
+#FUNCIÓN QUE DEVUELVE TODOS LOS PRODUCTOS SEGÚN CATEGORÍA
 def shooterEstrategia(request):
     productos = Producto.objects.filter(
                                         Q(categoria='Shooter')|
@@ -661,6 +686,9 @@ def shooterEstrategia(request):
     extra_context = {"form": CartAddProductoForm()}
     return render(request, 'paginas/categorias/shooterEstrategia.html', context)
 
+
+
+#FUNCIÓN QUE DEVUELVE TODOS LOS PRODUCTOS QUE SEAN ACCESORIOS
 def accesorios(request):
     productos = Producto.objects.filter(tipo_producto='Accesorio')
     context = {
@@ -671,7 +699,7 @@ def accesorios(request):
     return render(request, 'paginas/catalogo/accesorios.html', context)
 
 
-
+#FUNCIÓN QUE DEVUELVE TODOS LOS DATOS DEL PRODUCTO EN DETALLE
 def verDetalleProducto(request, producto_id):
     productos = get_object_or_404(Producto, id=producto_id)
     productos = [productos]
@@ -681,8 +709,9 @@ def verDetalleProducto(request, producto_id):
     }
     return render(request, 'paginas/catalogo/verDetalleProducto.html', context)
 
-# COMPRAS
 
+# COMPRAS
+#FUNCIÓN PARA VER INFORME DE VENTAS
 @login_required
 def compras(request):
    ordenes = Order.objects.all()
@@ -698,8 +727,8 @@ def compras(request):
   
    return render(request, 'paginas/productos/compras.html', context)
 
+#FUNCIÓN PARA IMPRIMIR Y CONVERTIR EN PDF INFORME DE VENTAS
 class verCompras(View):
-
     def get(self, request, *args, **kwargs):
         ordenes = Order.objects.all()
         item = Item.objects.all()
