@@ -371,6 +371,8 @@ class OrderCreateView(CreateView):
                             cantidad=1,
                             codigo=codigo_borrado,
                         )
+                    order.estado_venta = "Entregado"
+                    order.save()
 
                 Item.objects.create(
                     orden=order,
